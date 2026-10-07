@@ -11,6 +11,17 @@ public class Categoria {
         this.tipoCategoria = tipoCategoria;
         this.minijuegos = minijuegos;
     }
+    public int obtenerCantidadMinijuegos(){
+        return minijuegos.size();
+    }
+    public Minijuego seleccionarMinijuego(int indice){
+        if(indice >= 0 && indice < minijuegos.size()){
+            return minijuegos.get(indice);
+        }
+        else{
+            return null;
+        }
+    }
 
     public String getTipoCategoria(){
         return tipoCategoria;
@@ -25,6 +36,7 @@ public class Categoria {
     }
 
     public void setMinijuegos(List<Minijuego> minijuegos){
+
         this.minijuegos = minijuegos;
     }
 }
