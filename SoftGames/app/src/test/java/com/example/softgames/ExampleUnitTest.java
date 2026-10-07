@@ -14,4 +14,14 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
+
+    @Test
+    public void verificarConexionEnrutadorEstadisticasArchivo() {
+        ArchivoGuardado archivo = new ArchivoGuardado(1, "Partida");
+        Estadisticas estadisticas = new Estadisticas(archivo);
+        Enrutador enrutador = new Enrutador(estadisticas);
+
+        assertSame(estadisticas, enrutador.getEstadisticas());
+        assertSame(archivo, enrutador.getEstadisticas().getArchivoGuardado());
+    }
 }
