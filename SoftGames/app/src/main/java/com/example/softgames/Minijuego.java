@@ -23,6 +23,7 @@ public abstract class Minijuego {
     public void enviarRespuesta(int pregunta){
         crearEvento(respuesta == pregunta);
     }
+
     public void crearEvento(Boolean esCorrecto){
         EventoMinijuego evento = new EventoMinijuego(esCorrecto, maxTime, frameTimer);
         evento.setDificultad(dificultad);

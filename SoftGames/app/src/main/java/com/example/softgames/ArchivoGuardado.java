@@ -27,7 +27,7 @@ public class ArchivoGuardado {
     // Serializa los datos del juego a formato JSON y los guarda en el dispositivo
     public boolean serializar(Context context) {
         try {
-            // 1. Convertimos nuestros atributos a un objeto JSON
+            // Convertimos nuestros atributos a un objeto JSON
             JSONObject json = new JSONObject();
             json.put("numero", this.numero);
             json.put("nombre", this.nombre);
@@ -50,18 +50,18 @@ public class ArchivoGuardado {
 
             return true;
         } catch (Exception e) {
-            // Logcat mostrará este error si algo falla (Depuración)
+            // Logcat mostrara este error si algo falla
             Log.e("ArchivoGuardado", "Error al serializar los datos", e);
             return false;
         }
     }
 
-    // Lee el archivo desde la memoria del teléfono y restaura los datos.
+    // Lee el archivo desde la memoria del teléfono y restaura los datos
     public boolean deserializar(Context context, String nombreArchivo) {
         try {
             File file = new File(context.getFilesDir(), nombreArchivo);
 
-            // Si el archivo no existe (ej. primera vez que juega), retornamos falso
+            // Si el archivo no existe, retornamos falso
             if (!file.exists()) return false;
 
             // Leemos el contenido del archivo
