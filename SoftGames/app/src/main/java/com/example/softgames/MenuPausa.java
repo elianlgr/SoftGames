@@ -33,7 +33,7 @@ public class MenuPausa extends Dialog {
             if (acciones != null && acciones.size() > 0) {
                 acciones.get(0).onClick(v);
             }
-            dismiss(); // Cierra el menú de pausa
+            dismiss();
         });
 
         ajustes.setOnClickListener(v -> {
@@ -47,7 +47,8 @@ public class MenuPausa extends Dialog {
             if (acciones != null && acciones.size() > 1) {
                 acciones.get(1).onClick(v);
             }
-            dismiss(); // Cierra el menú
+            // Cierra el menu
+            dismiss();
         });
     }
 }

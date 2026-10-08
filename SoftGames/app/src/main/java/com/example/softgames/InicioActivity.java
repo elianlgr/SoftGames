@@ -17,21 +17,17 @@ public class InicioActivity extends AppCompatActivity {
 
         adminArchivos = new AdministradorArchivos(this);
 
-        // 1. REVISAR SI YA EXISTE UNA SESIÓN ACTIVA (Permanencia)
         SharedPreferences prefs = getSharedPreferences("SesionJuego", MODE_PRIVATE);
         int slotActivo = prefs.getInt("slotActivo", -1);
 
         if (slotActivo != -1) {
-            // Si ya hay sesión, carga el archivo directo y salta esta pantalla
             adminArchivos.iniciarSesion(slotActivo);
             iniciarJuego();
-            return; // Detiene la ejecución aquí
+            return;
         }
 
-        // 2. SI NO HAY SESIÓN, MUESTRA LOS BOTONES
         setContentView(R.layout.activity_inicio);
 
-        // Configuramos tus 5 botones originales
         configurarBoton(findViewById(R.id.btnSlot0), 0);
         configurarBoton(findViewById(R.id.btnSlot1), 1);
         configurarBoton(findViewById(R.id.btnSlot2), 2);
@@ -46,13 +42,11 @@ public class InicioActivity extends AppCompatActivity {
 
     private void configurarBoton(Button boton, int indice) {
         boton.setOnClickListener(v -> {
-            // Intentamos iniciar sesion (deserializar)
             if (adminArchivos.iniciarSesion(indice)) {
                 Toast.makeText(this, "Bienvenido de nuevo, " + adminArchivos.getArchivoActual().nombre, Toast.LENGTH_SHORT).show();
                 guardarSesionPersistente(indice); // <-- GUARDA LA DECISIÓN PERMANENTEMENTE
                 iniciarJuego();
             } else {
-                // Caso de uso: Crear archivo de guardado
                 mostrarDialogoCreacion(indice);
             }
         });

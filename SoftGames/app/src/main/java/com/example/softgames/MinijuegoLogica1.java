@@ -38,13 +38,13 @@ public class MinijuegoLogica1 extends Minijuego{
     int indiceFormula;
     boolean respuestaB;
     public MinijuegoLogica1(EnrutadorMinijuego enrutador, int dificultad){
-        super(600, enrutador);
+        super(1000, enrutador);
         this.dificultad = dificultad;
         generarFormula();
     }
 
     public MinijuegoLogica1(){
-        super(600,null);
+        super(1000,null);
         dificultad = 1;
         generarFormula();
     }

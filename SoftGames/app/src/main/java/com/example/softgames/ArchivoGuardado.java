@@ -24,10 +24,8 @@ public class ArchivoGuardado {
         this.puntuaciones = new HashMap<>();
     }
 
-    // Serializa los datos del juego a formato JSON y los guarda en el dispositivo
     public boolean serializar(Context context) {
         try {
-            // Convertimos nuestros atributos a un objeto JSON
             JSONObject json = new JSONObject();
             json.put("numero", this.numero);
             json.put("nombre", this.nombre);

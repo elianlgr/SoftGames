@@ -35,15 +35,16 @@ public abstract class Minijuego extends AppCompatActivity {
         if (temporizadorReal != null) {
             temporizadorReal.cancel();
         }
-        frameTimer = maxTime; // Reiniciar el tiempo al máximo
+        // Reiniciar el tiempo al máximo
+        frameTimer = maxTime;
         iniciarTemporizadorReal();
     }
 
     protected void iniciarTemporizadorReal() {
         tvTemporizador = findViewById(R.id.tvTemporizador);
-        if (tvTemporizador == null) return; // Por si el layout no lo tiene
+        // Por si el layout no lo tiene
+        if (tvTemporizador == null) return;
 
-        // maxTime estaba en 'frames' (600 = 10 segundos asumiendo 60fps). Usaremos millis.
         long tiempoRestanteMillis = frameTimer > 0 ? frameTimer * 16L : maxTime * 16L;
 
         temporizadorReal = new android.os.CountDownTimer(tiempoRestanteMillis, 1000) {
@@ -70,8 +71,6 @@ public abstract class Minijuego extends AppCompatActivity {
     }
 
     protected void tiempoAgotado() {
-        // Por defecto, envía respuesta incorrecta y termina, 
-        // pero los minijuegos (como Logica1) pueden sobreescribirlo para pasar a la siguiente pregunta.
         crearEvento(false);
     }
 
@@ -79,7 +78,7 @@ public abstract class Minijuego extends AppCompatActivity {
         ArrayList<View.OnClickListener> acciones = new ArrayList<>();
         acciones.add(v -> {
             pausa = false;
-            iniciarTemporizadorReal(); // Reanudar
+            iniciarTemporizadorReal();
         });
         acciones.add(v -> {
             if (temporizadorReal != null) temporizadorReal.cancel();
