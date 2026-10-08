@@ -2,17 +2,18 @@ package com.example.softgames;
 
 import static com.example.softgames.Utils.numeroAleatorio;
 
+import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class MinijuegoLogica1 extends Minijuego{
     String[] formulas = {
             "? & V",
-            "(V & ?) | F",
+            "V & ? | F",
             "V & -?",
             "-(F | ?)",
-            "V & ? & V",
-            "V & (F | ?)",
+            "V | ? | V",
+            "V | -? | V",
             "-(-V | ?)",
             "(? & V) & ?",
             "(V & F) | (? & V)",
@@ -36,19 +37,6 @@ public class MinijuegoLogica1 extends Minijuego{
     };
     int indiceFormula;
     boolean respuestaB;
-<<<<<<< HEAD
-    public MinijuegoLogica1(EnrutadorMinijuego enrutador){
-        super(600, enrutador);
-
-    }
-    public void init(){
-        generarFormula();
-        super.init();
-    }
-    public MinijuegoLogica1(){
-        super(600,null);
-        dificultad = 3;
-=======
     public MinijuegoLogica1(EnrutadorMinijuego enrutador, int dificultad){
         super(1000, enrutador);
         this.dificultad = dificultad;
@@ -88,7 +76,6 @@ public class MinijuegoLogica1 extends Minijuego{
 
         
         // Iniciar el temporizador base
->>>>>>> 053ab2c35cd57db5bb5d06a908a9c6a9eef33b42
         init();
     }
     
@@ -141,34 +128,13 @@ public class MinijuegoLogica1 extends Minijuego{
         else if(dificultad == 2){
             rango = numeroAleatorio(5,9);
         }
-        else if(dificultad == 3){
-            rango = numeroAleatorio(9,13);
-        }
         else{
-            rango = numeroAleatorio(0,13);
+            rango = numeroAleatorio(9,13);
         }
         indiceFormula = rango;
     }
     @Override
     public void dibujarMinijuego() {
-        setContentView(R.layout.logic_minigame1_layout);
 
-        Button trueBtn = findViewById(R.id.trueButton);
-        Button falseBtn = findViewById(R.id.falseButton);
-
-        trueBtn.setOnClickListener(v -> enviarRespuesta(true));
-        falseBtn.setOnClickListener(v -> enviarRespuesta(false));
-
-        TextView formulaTexto = findViewById(R.id.textoFormula);
-        String texto = formulas[indiceFormula] + " = " + respuestaB;
-        formulaTexto.setText(texto);
-        /*trueBtn.setOnClickListener(v -> {
-            String bool = "" + ((respuestas[indiceFormula]) == respuestaB);
-            formulaTexto.setText(bool);
-        });
-        falseBtn.setOnClickListener(v -> {
-            String bool = "" + ((!respuestas[indiceFormula]) == respuestaB);
-            formulaTexto.setText(bool);
-        });*/
     }
 }
