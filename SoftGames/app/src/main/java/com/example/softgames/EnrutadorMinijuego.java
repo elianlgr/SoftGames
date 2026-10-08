@@ -9,4 +9,7 @@ public class EnrutadorMinijuego implements IEnrutador<EventoMinijuego>{
     public void manejar(EventoMinijuego evento) {
         am.recibirDatos(evento.esCorrecto(), evento.obtenerPuntos());
     }
+    public void salir(){
+        am.detener();
+    }
 }
