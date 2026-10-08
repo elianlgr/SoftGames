@@ -11,19 +11,39 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SoftGames">
+
+        <!-- 1. Pantalla principal del login -->
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <!-- 2. Pantalla principal de seleccion de partidas -->
+        <activity
+            android:name=".InicioActivity"
+            android:exported="false">
+        </activity>
+
+        <!-- 3. Pantalla de ajustes -->
+        <activity
+            android:name=".AjustesActivity"
+            android:exported="false">
+        </activity>
+
+        <!-- 4. Pantalla de juego -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false">
 
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="softgames" />
         </activity>
+
     </application>
 
 </manifest>

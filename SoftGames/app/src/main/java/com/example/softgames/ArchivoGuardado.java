@@ -56,7 +56,7 @@ public class ArchivoGuardado {
         }
     }
 
-    // Lee el archivo desde la memoria del teléfono y restaura los datos
+    // Lee el archivo desde la memoria del telefono y restaura los datos
     public boolean deserializar(Context context, String nombreArchivo) {
         try {
             File file = new File(context.getFilesDir(), nombreArchivo);
