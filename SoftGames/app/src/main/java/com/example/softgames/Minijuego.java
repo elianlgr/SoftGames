@@ -25,7 +25,12 @@ public abstract class Minijuego extends AppCompatActivity {
     public void init(){
         pausa = false;
         inicializado = true;
-
+    }
+    public void setNombre(String nombre){
+        this.nombre = nombre;
+    }
+    public void setDificultad(int dificultad){
+        this.dificultad = dificultad;
     }
     public void inicializarMenu(){
         ArrayList<View.OnClickListener> acciones = new ArrayList<>();
@@ -53,14 +58,18 @@ public abstract class Minijuego extends AppCompatActivity {
         evento.setNombre(nombre);
         enrutador.manejar(evento);
     }
+    protected void onCreate(Bundle savedInstanceState) {
+        if(inicializado){
+            super.onCreate(savedInstanceState);
+            dibujarMinijuego();
+        }
+    }
     public void dibujar(){
         if(pausa){
             dibujarMenuPausa();
         }
-        else{
-            dibujarMinijuego();
-        }
     }
+
     public abstract void dibujarMinijuego();
     public void dibujarMenuPausa(){
 
