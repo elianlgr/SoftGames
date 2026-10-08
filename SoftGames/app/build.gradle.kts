@@ -5,13 +5,13 @@ plugins {
 android {
     namespace = "com.example.softgames"
     compileSdk {
-        version = release(37)
+        version = release(34)
     }
 
     defaultConfig {
         applicationId = "com.example.softgames"
-        minSdk = 37
-        targetSdk = 37
+        minSdk = 30
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
