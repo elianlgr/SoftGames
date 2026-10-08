@@ -17,6 +17,8 @@ public abstract class Minijuego extends AppCompatActivity {
     protected int frameTimer;
     protected int respuesta;
     protected MenuPausa menuPausa;
+    protected android.os.CountDownTimer temporizadorReal;
+    protected android.widget.TextView tvTemporizador;
     public Minijuego(int timeFrames, EnrutadorMinijuego enrutador) {
         maxTime = timeFrames;
         frameTimer = timeFrames;
@@ -25,6 +27,36 @@ public abstract class Minijuego extends AppCompatActivity {
     public void init(){
         pausa = false;
         inicializado = true;
+        iniciarTemporizadorReal();
+    }
+    protected void iniciarTemporizadorReal() {
+        tvTemporizador = findViewById(R.id.tvTemporizador);
+        // Por si el layout no lo tiene
+        if (tvTemporizador == null) return;
+
+        long tiempoRestanteMillis = frameTimer > 0 ? frameTimer * 16L : maxTime * 16L;
+
+        temporizadorReal = new android.os.CountDownTimer(tiempoRestanteMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                frameTimer = (int) (millisUntilFinished / 16);
+                int segundos = (int) (millisUntilFinished / 1000);
+                if (tvTemporizador != null) {
+                    tvTemporizador.setText(segundos + "s");
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                frameTimer = 0;
+                if (tvTemporizador != null) {
+                    tvTemporizador.setText("0s");
+                }
+                android.widget.Toast.makeText(Minijuego.this, "¡Se acabó el tiempo!", android.widget.Toast.LENGTH_SHORT).show();
+                tiempoAgotado();
+            }
+        };
+        temporizadorReal.start();
     }
     public void setNombre(String nombre){
         this.nombre = nombre;
@@ -40,15 +72,7 @@ public abstract class Minijuego extends AppCompatActivity {
         });
         menuPausa = new MenuPausa(acciones);
     }
-    public void update(){
-        if(inicializado && !pausa) {
-            if (frameTimer > 0) {
-                frameTimer--;
-            } else {
-                enrutador.salir();
-            }
-        }
-    }
+    public void update(){}
     public void enviarRespuesta(int pregunta){
         crearEvento(respuesta == pregunta);
     }
@@ -63,6 +87,9 @@ public abstract class Minijuego extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             dibujarMinijuego();
         }
+    }
+    protected void tiempoAgotado() {
+        crearEvento(null);
     }
     public void dibujar(){
         if(pausa){
