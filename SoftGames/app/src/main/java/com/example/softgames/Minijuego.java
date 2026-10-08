@@ -24,10 +24,14 @@ public abstract class Minijuego extends AppCompatActivity {
         frameTimer = timeFrames;
         this.enrutador = enrutador;
     }
+    protected android.os.CountDownTimer temporizadorReal;
+    protected android.widget.TextView tvTemporizador;
+
     public void init(){
         pausa = false;
         inicializado = true;
         iniciarTemporizadorReal();
+<<<<<<< HEAD
     }
     protected void iniciarTemporizadorReal() {
         tvTemporizador = findViewById(R.id.tvTemporizador);
@@ -63,16 +67,105 @@ public abstract class Minijuego extends AppCompatActivity {
     }
     public void setDificultad(int dificultad){
         this.dificultad = dificultad;
+=======
+>>>>>>> 053ab2c35cd57db5bb5d06a908a9c6a9eef33b42
     }
+
+    public void reiniciarMinijuego() {
+        if (temporizadorReal != null) {
+            temporizadorReal.cancel();
+        }
+        // Reiniciar el tiempo al máximo
+        frameTimer = maxTime;
+        iniciarTemporizadorReal();
+    }
+
+    protected void iniciarTemporizadorReal() {
+        tvTemporizador = findViewById(R.id.tvTemporizador);
+        // Por si el layout no lo tiene
+        if (tvTemporizador == null) return;
+
+        long tiempoRestanteMillis = frameTimer > 0 ? frameTimer * 16L : maxTime * 16L;
+
+        temporizadorReal = new android.os.CountDownTimer(tiempoRestanteMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                frameTimer = (int) (millisUntilFinished / 16);
+                int segundos = (int) (millisUntilFinished / 1000);
+                if (tvTemporizador != null) {
+                    tvTemporizador.setText(segundos + "s");
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                frameTimer = 0;
+                if (tvTemporizador != null) {
+                    tvTemporizador.setText("0s");
+                }
+                android.widget.Toast.makeText(Minijuego.this, "¡Se acabó el tiempo!", android.widget.Toast.LENGTH_SHORT).show();
+                tiempoAgotado();
+            }
+        };
+        temporizadorReal.start();
+    }
+
+    protected void tiempoAgotado() {
+        crearEvento(false);
+    }
+
     public void inicializarMenu(){
         ArrayList<View.OnClickListener> acciones = new ArrayList<>();
-        acciones.add(v -> pausa = false);
         acciones.add(v -> {
+            pausa = false;
+            iniciarTemporizadorReal();
+        });
+        acciones.add(v -> {
+            if (temporizadorReal != null) temporizadorReal.cancel();
             crearEvento(null);
         });
-        menuPausa = new MenuPausa(acciones);
+        acciones.add(v -> {
+            android.content.Intent intent = new android.content.Intent(this, AjustesActivity.class);
+            startActivity(intent);
+        });
+        menuPausa = new MenuPausa(this, acciones);
     }
+<<<<<<< HEAD
     public void update(){}
+=======
+
+    @Override
+    public void onBackPressed() {
+        if (!pausa) {
+            pausa = true;
+            if (temporizadorReal != null) temporizadorReal.cancel(); // Pausar
+            if (menuPausa == null) {
+                inicializarMenu();
+            }
+            menuPausa.show();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_minijuego, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+        if (item.getItemId() == R.id.action_pausa) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    
+    public void update(){
+        // Ya no es necesario el update manual si usamos CountDownTimer, 
+        // pero lo dejamos vacío para no romper nada
+    }
+>>>>>>> 053ab2c35cd57db5bb5d06a908a9c6a9eef33b42
     public void enviarRespuesta(int pregunta){
         crearEvento(respuesta == pregunta);
     }
@@ -80,7 +173,12 @@ public abstract class Minijuego extends AppCompatActivity {
         EventoMinijuego evento = new EventoMinijuego(esCorrecto, maxTime, frameTimer);
         evento.setDificultad(dificultad);
         evento.setNombre(nombre);
-        enrutador.manejar(evento);
+        if (enrutador != null) {
+            enrutador.manejar(evento);
+        } else {
+            // Solo para pruebas directas: cerrar la actividad cuando se responda
+            finish();
+        }
     }
     protected void onCreate(Bundle savedInstanceState) {
         if(inicializado){
