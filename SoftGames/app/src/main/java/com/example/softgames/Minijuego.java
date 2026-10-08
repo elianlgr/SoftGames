@@ -40,14 +40,13 @@ public abstract class Minijuego extends AppCompatActivity {
             if (frameTimer > 0) {
                 frameTimer--;
             } else {
-                crearEvento(null);
+                enrutador.salir();
             }
         }
     }
     public void enviarRespuesta(int pregunta){
         crearEvento(respuesta == pregunta);
     }
-
     public void crearEvento(Boolean esCorrecto){
         EventoMinijuego evento = new EventoMinijuego(esCorrecto, maxTime, frameTimer);
         evento.setDificultad(dificultad);
@@ -62,8 +61,6 @@ public abstract class Minijuego extends AppCompatActivity {
             dibujarMinijuego();
         }
     }
-    @Override
-    protected abstract void onCreate(Bundle savedInstanceState);
     public abstract void dibujarMinijuego();
     public void dibujarMenuPausa(){
 
