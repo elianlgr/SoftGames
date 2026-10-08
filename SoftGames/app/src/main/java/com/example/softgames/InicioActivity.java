@@ -48,20 +48,42 @@ public class InicioActivity extends AppCompatActivity {
         boton.setOnClickListener(v -> {
             // Intentamos iniciar sesion (deserializar)
             if (adminArchivos.iniciarSesion(indice)) {
-                Toast.makeText(this, "Bienvenido de nuevo", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Bienvenido de nuevo, " + adminArchivos.getArchivoActual().nombre, Toast.LENGTH_SHORT).show();
                 guardarSesionPersistente(indice); // <-- GUARDA LA DECISIÓN PERMANENTEMENTE
                 iniciarJuego();
             } else {
-                String nombreNuevo = "Jugador_" + indice;
-                if (adminArchivos.crearArchivo(nombreNuevo, indice)) {
-                    Toast.makeText(this, "Archivo creado: " + nombreNuevo, Toast.LENGTH_SHORT).show();
-                    guardarSesionPersistente(indice); // <-- GUARDA LA DECISIÓN PERMANENTEMENTE
-                    iniciarJuego();
-                } else {
-                    Toast.makeText(this, "Error al crear archivo", Toast.LENGTH_SHORT).show();
-                }
+                // Caso de uso: Crear archivo de guardado
+                mostrarDialogoCreacion(indice);
             }
         });
+    }
+
+    private void mostrarDialogoCreacion(int indice) {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("Crear archivo de guardado");
+        
+        final android.widget.EditText input = new android.widget.EditText(this);
+        input.setHint("Escribe el nombre del archivo");
+        builder.setView(input);
+
+        builder.setPositiveButton("Continuar", (dialog, which) -> {
+            String nombreNuevo = input.getText().toString().trim();
+            if (nombreNuevo.isEmpty()) {
+                Toast.makeText(this, "El nombre no puede estar vacío", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            
+            if (adminArchivos.crearArchivo(nombreNuevo, indice)) {
+                Toast.makeText(this, "Archivo creado: " + nombreNuevo, Toast.LENGTH_SHORT).show();
+                guardarSesionPersistente(indice);
+                iniciarJuego();
+            } else {
+                Toast.makeText(this, "Error: El nombre de archivo ya existe o hubo un fallo", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.cancel());
+        builder.show();
     }
 
     // Método que registra la ranura en la memoria del teléfono

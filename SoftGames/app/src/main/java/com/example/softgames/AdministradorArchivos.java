@@ -13,7 +13,14 @@ public class AdministradorArchivos {
     public AdministradorArchivos(Context context) {
         this.context = context;
         this.archivos = new ArchivoGuardado[5];
-        // para poblar el arreglo de 'archivos' al arrancar la app.
+        
+        // Cargar todos los archivos existentes en el arreglo para validar nombres duplicados
+        for (int i = 0; i < 5; i++) {
+            ArchivoGuardado temp = new ArchivoGuardado(i, "");
+            if (temp.deserializar(context, "guardado_" + i + ".json")) {
+                this.archivos[i] = temp;
+            }
+        }
     }
 
     // Caso de Uso: Crear archivo de guardado
@@ -42,15 +49,14 @@ public class AdministradorArchivos {
 
     // Caso de uso: Seleccionar archivo (Iniciar sesion)
     public boolean iniciarSesion(int indice) {
-        if (indice >= 0 && indice < 5 && archivos[indice] != null) {
-            ArchivoGuardado archivoSeleccionado = archivos[indice];
-
-            // Generamos el nombre del archivo basándonos en tu logica ("guardado_X.json")
-            String nombreArchivoJson = "guardado_" + archivoSeleccionado.numero + ".json";
+        if (indice >= 0 && indice < 5) {
+            String nombreArchivoJson = "guardado_" + indice + ".json";
+            ArchivoGuardado archivoTemp = new ArchivoGuardado(indice, "");
 
             // Se le pasa el context al metodo deserializar de tu clase
-            if (archivoSeleccionado.deserializar(this.context, nombreArchivoJson)) {
-                this.archivoActual = archivoSeleccionado;
+            if (archivoTemp.deserializar(this.context, nombreArchivoJson)) {
+                this.archivos[indice] = archivoTemp;
+                this.archivoActual = archivoTemp;
                 return true;
             }
         }

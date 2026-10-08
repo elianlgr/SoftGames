@@ -18,7 +18,7 @@ public class EventoMinijuego implements IEvento{
         this.dificultad = dificultad;
     }
     public double obtenerPuntos(){
-        if(respuestaCorrecta == true){
+        if(Boolean.TRUE.equals(respuestaCorrecta)){
             return 1.0 + convertirTiempo();
         }
         else{

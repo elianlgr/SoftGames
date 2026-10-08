@@ -44,6 +44,8 @@
                 android:value="softgames" />
         </activity>
 
+        <activity android:name=".MinijuegoLogica1" android:exported="false" />
+
     </application>
 
 </manifest>
