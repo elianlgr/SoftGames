@@ -2,7 +2,6 @@ package com.example.softgames;
 
 import static com.example.softgames.Utils.numeroAleatorio;
 
-import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -37,65 +36,37 @@ public class MinijuegoLogica1 extends Minijuego{
     };
     int indiceFormula;
     boolean respuestaB;
-    public MinijuegoLogica1(EnrutadorMinijuego enrutador, int dificultad){
+    public MinijuegoLogica1(IEnrutador enrutador, int dificultad){
         super(1000, enrutador);
         this.dificultad = dificultad;
-        generarFormula();
     }
 
     public MinijuegoLogica1(){
         super(1000,null);
         dificultad = 1;
-        generarFormula();
+        init();
     }
-    private int preguntasRespondidas = 0;
-    private int totalPreguntas = 5;
-    private int respuestasCorrectas = 0;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        
-        // Leer configuración del Intent (viene de las pantallas de selección)
+    public void init(){
         if (getIntent() != null) {
             this.dificultad = getIntent().getIntExtra("dificultad", 1);
             this.totalPreguntas = getIntent().getIntExtra("totalPreguntas", 5);
         }
-        // Generar la primera fórmula con la dificultad elegida
         generarFormula();
-
-        setContentView(R.layout.logic_minigame1_layout);
-        Button trueBtn = findViewById(R.id.trueButton);
-        Button falseBtn = findViewById(R.id.falseButton);
-        trueBtn.setOnClickListener(v -> enviarRespuesta(true));
-        falseBtn.setOnClickListener(v -> enviarRespuesta(false));
-        TextView formulaTexto = findViewById(R.id.textoFormula);
-        String texto = formulas[indiceFormula] + " = " + respuestaB;
-        formulaTexto.setText(texto);
-
-
-        
-        // Iniciar el temporizador base
-        init();
+        super.init();
     }
-    
-
-
+    private int preguntasRespondidas = 0;
+    private int totalPreguntas = 5;
+    private int respuestasCorrectas = 0;
     public void enviarRespuesta(boolean respuestaFinal){
         boolean esCorrecto = (respuestaFinal == respuestas[indiceFormula]) == respuestaB;
         if (esCorrecto) {
             android.widget.Toast.makeText(this, "¡Respuesta correcta!", android.widget.Toast.LENGTH_SHORT).show();
         } else {
-            android.widget.Toast.makeText(this, "Respuesta incorrecta. Puntos: 0", android.widget.Toast.LENGTH_SHORT).show();
+            android.widget.Toast.makeText(this, "Respuesta incorrecta", android.widget.Toast.LENGTH_SHORT).show();
         }
-        avanzarSiguientePregunta(esCorrecto);
+        crearEvento(esCorrecto);
     }
-
-    @Override
-    protected void tiempoAgotado() {
-        avanzarSiguientePregunta(false);
-    }
-
     private void avanzarSiguientePregunta(boolean fueCorrecta) {
         if (fueCorrecta) {
             respuestasCorrectas++;
@@ -122,19 +93,29 @@ public class MinijuegoLogica1 extends Minijuego{
         int fix = numeroAleatorio(0,2);
         respuestaB = fix % 2 != 0;
         int rango;
-        if(dificultad == 1){
+        if(dificultad == 0){
             rango = numeroAleatorio(0,5);
         }
-        else if(dificultad == 2){
+        else if(dificultad == 1){
             rango = numeroAleatorio(5,9);
         }
-        else{
+        else if(dificultad == 2){
             rango = numeroAleatorio(9,13);
+        }
+        else{
+            rango = numeroAleatorio(0,13);
         }
         indiceFormula = rango;
     }
     @Override
     public void dibujarMinijuego() {
-
+        setContentView(R.layout.logic_minigame1_layout);
+        Button trueBtn = findViewById(R.id.trueButton);
+        Button falseBtn = findViewById(R.id.falseButton);
+        trueBtn.setOnClickListener(v -> enviarRespuesta(true));
+        falseBtn.setOnClickListener(v -> enviarRespuesta(false));
+        TextView formulaTexto = findViewById(R.id.textoFormula);
+        String texto = formulas[indiceFormula] + " = " + respuestaB;
+        formulaTexto.setText(texto);
     }
 }

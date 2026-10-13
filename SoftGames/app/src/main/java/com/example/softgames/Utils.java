@@ -6,4 +6,7 @@ public class Utils {
         double random = Math.random();
         return minimo + (int)(random*diff);
     }
+    public static boolean esNumerico(Object obj){
+        return obj instanceof Number;
+    }
 }

@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public abstract class Minijuego extends AppCompatActivity {
-    protected EnrutadorMinijuego enrutador;
+    protected IEnrutador enrutador;
     protected boolean inicializado = false;
     protected boolean pausa;
     protected int dificultad;
@@ -17,25 +17,31 @@ public abstract class Minijuego extends AppCompatActivity {
     protected int frameTimer;
     protected int respuesta;
     protected MenuPausa menuPausa;
-    public Minijuego(int timeFrames, EnrutadorMinijuego enrutador) {
+    protected android.os.CountDownTimer temporizadorReal;
+    protected android.widget.TextView tvTemporizador;
+    public Minijuego(int timeFrames, IEnrutador enrutador) {
         maxTime = timeFrames;
         frameTimer = timeFrames;
         this.enrutador = enrutador;
     }
-    protected android.os.CountDownTimer temporizadorReal;
-    protected android.widget.TextView tvTemporizador;
+
+
 
     public void init(){
         pausa = false;
-        inicializado = true;
         iniciarTemporizadorReal();
+        inicializado = true;
     }
-
+    public void setDificultad(int dificultad){
+        this.dificultad = dificultad;
+    }
+    public int getDificultad(){
+        return dificultad;
+    }
     public void reiniciarMinijuego() {
         if (temporizadorReal != null) {
             temporizadorReal.cancel();
         }
-        // Reiniciar el tiempo al máximo
         frameTimer = maxTime;
         iniciarTemporizadorReal();
     }
@@ -71,7 +77,7 @@ public abstract class Minijuego extends AppCompatActivity {
     }
 
     protected void tiempoAgotado() {
-        crearEvento(false);
+        crearEvento(null);
     }
 
     public void inicializarMenu(){
@@ -91,6 +97,7 @@ public abstract class Minijuego extends AppCompatActivity {
         menuPausa = new MenuPausa(this, acciones);
     }
 
+    /*
     @Override
     public void onBackPressed() {
         if (!pausa) {
@@ -102,7 +109,7 @@ public abstract class Minijuego extends AppCompatActivity {
             menuPausa.show();
         }
     }
-
+    */
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
         getMenuInflater().inflate(R.menu.menu_minijuego, menu);
@@ -137,15 +144,7 @@ public abstract class Minijuego extends AppCompatActivity {
         }
     }
     public void dibujar(){
-        if(pausa){
-            dibujarMenuPausa();
-        }
-        else{
-            dibujarMinijuego();
-        }
+        dibujarMinijuego();
     }
     public abstract void dibujarMinijuego();
-    public void dibujarMenuPausa(){
-
-    }
 }

@@ -1,5 +1,6 @@
 package com.example.softgames;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Categoria {
@@ -7,9 +8,9 @@ public class Categoria {
     public String tipoCategoria;
     public List<Minijuego> minijuegos;
 
-    public Categoria(String tipoCategoria, List<Minijuego> minijuegos){
+    public Categoria(String tipoCategoria){
         this.tipoCategoria = tipoCategoria;
-        this.minijuegos = minijuegos;
+        minijuegos = new ArrayList<>();
     }
     public int obtenerCantidadMinijuegos(){
         return minijuegos.size();
@@ -36,7 +37,17 @@ public class Categoria {
     }
 
     public void setMinijuegos(List<Minijuego> minijuegos){
-
         this.minijuegos = minijuegos;
+    }
+    public void setDificultadMinijuegos(int dificultad){
+        for (int i = 0; i < minijuegos.size(); i++) {
+            minijuegos.get(i).setDificultad(dificultad);
+        }
+    }
+    public void agregarMinijuego(Minijuego nuevo){
+        minijuegos.add(nuevo);
+    }
+    public int getDificultad(){
+        return minijuegos.get(0).getDificultad();
     }
 }

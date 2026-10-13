@@ -1,9 +1,12 @@
 package com.example.softgames;
 
-public abstract class ModoJuego {
+public abstract class ModoJuego{
+    IEnrutador enrutador;
     AdministradorMinijuego administrador;
-    public ModoJuego() {
+    public ModoJuego(IEnrutador enrutador) {
+
         crearAdministrador();
+        this.enrutador = enrutador;
     }
     public abstract void crearAdministrador();
     public void elegirCategoria(int opcion){
@@ -13,5 +16,8 @@ public abstract class ModoJuego {
     }
     public void update(){
         administrador.update();
+    }
+    public void finalizar(){
+
     }
 }

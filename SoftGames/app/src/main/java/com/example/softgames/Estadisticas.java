@@ -7,7 +7,7 @@ import java.util.Map;
 public class Estadisticas {
 
     private ArchivoGuardado archivoGuardado;
-
+    public Estadisticas(){}
     public Estadisticas(ArchivoGuardado archivoGuardado) {
         this.archivoGuardado = archivoGuardado;
     }
