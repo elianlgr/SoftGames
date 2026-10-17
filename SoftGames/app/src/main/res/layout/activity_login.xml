@@ -41,8 +41,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ingresa tu usuario o correo electrónico y contraseña"
-            android:textSize="13sp"
-            android:textColor="#4A5868"
+            android:textSize="11.5sp"
+            android:textColor="#415A77"
             android:gravity="center"
             android:layout_marginBottom="28dp" />
 
@@ -52,9 +52,9 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:hint="correo electrónico o usuario"
-            android:textColorHint="#786954"
-            android:textColor="#142232"
-            android:textSize="14sp"
+            android:textColorHint="#885C5040"
+            android:textColor="#0D1B2A"
+            android:textSize="13.5sp"
             android:inputType="textEmailAddress"
             android:background="@drawable/bg_input_rounded"
             android:layout_marginBottom="14dp" />
@@ -65,9 +65,9 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:hint="Contraseña"
-            android:textColorHint="#786954"
-            android:textColor="#142232"
-            android:textSize="14sp"
+            android:textColorHint="#885C5040"
+            android:textColor="#0D1B2A"
+            android:textSize="13.5sp"
             android:inputType="textPassword"
             android:background="@drawable/bg_input_rounded"
             android:layout_marginBottom="24dp" />

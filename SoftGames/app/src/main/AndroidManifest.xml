@@ -23,6 +23,12 @@
             </intent-filter>
         </activity>
 
+        <!-- 1.5 Pantalla de registro (Crear cuenta) -->
+        <activity
+            android:name=".RegistroActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
         <!-- 2. Pantalla principal de seleccion de partidas -->
         <activity
             android:name=".InicioActivity"
@@ -49,12 +55,32 @@
             android:exported="false" />
 
         <activity
+            android:name=".MinijuegoBloques"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <activity
+            android:name=".MinijuegoLogicaAlgoritmos"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <activity
             android:name=".ConfigurarPartidaActivity"
             android:theme="@style/Theme.SoftGames.NoActionBar"
             android:exported="false" />
 
         <activity
             android:name=".SeleccionarCategoriaActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <activity
+            android:name=".ResumenPartidaActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <activity
+            android:name=".EstadisticasActivity"
             android:theme="@style/Theme.SoftGames.NoActionBar"
             android:exported="false" />
 

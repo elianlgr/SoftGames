@@ -39,8 +39,9 @@ public class SeleccionarCategoriaActivity extends AppCompatActivity {
         View card = findViewById(viewId);
         if (card != null) {
             card.setOnClickListener(v -> {
-                // Solo Lógica está implementada funcionalmente
-                if ("Lógica".equalsIgnoreCase(nombreCategoria)) {
+                if ("Lógica".equalsIgnoreCase(nombreCategoria)
+                        || "Programación".equalsIgnoreCase(nombreCategoria)
+                        || "Análisis y diseño de algoritmos".equalsIgnoreCase(nombreCategoria)) {
                     Intent intent = new Intent(SeleccionarCategoriaActivity.this, ConfigurarPartidaActivity.class);
                     intent.putExtra("categoria", nombreCategoria);
                     startActivity(intent);

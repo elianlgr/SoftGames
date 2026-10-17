@@ -68,6 +68,10 @@ public class ConfigurarPartidaActivity extends AppCompatActivity {
             chipMinijuego1.setText("Diagramas 1");
             chipMinijuego2.setText("Requerimientos 1");
             chipMinijuego3.setText("Procesos 1");
+        } else if ("Análisis y diseño de algoritmos".equalsIgnoreCase(categoria)) {
+            chipMinijuego1.setText("Algoritmos 1");
+            chipMinijuego2.setText("Diagramas 1");
+            chipMinijuego3.setText("Secuencias 1");
         } else {
             chipMinijuego1.setText("Lógica 1");
             chipMinijuego2.setText("Lógica 2");
@@ -140,9 +144,26 @@ public class ConfigurarPartidaActivity extends AppCompatActivity {
             return;
         }
 
-        // Si es Lógica 1, lanzamos el minijuego ya implementado
-        if ("Lógica 1".equals(minijuegoSeleccionado)) {
+        if ("Variables 1".equals(minijuegoSeleccionado)) {
+            Intent intent = new Intent(this, MinijuegoBloques.class);
+            intent.putExtra("categoria", categoria);
+            intent.putExtra("minijuego", minijuegoSeleccionado);
+            intent.putExtra("dificultad", dificultadSeleccionada);
+            intent.putExtra("totalPreguntas", cantidad);
+            startActivity(intent);
+            finish();
+        } else if ("Lógica 1".equals(minijuegoSeleccionado) || "Algoritmos 1".equals(minijuegoSeleccionado)) {
+            Intent intent = new Intent(this, MinijuegoLogicaAlgoritmos.class);
+            intent.putExtra("categoria", categoria);
+            intent.putExtra("minijuego", minijuegoSeleccionado);
+            intent.putExtra("dificultad", dificultadSeleccionada);
+            intent.putExtra("totalPreguntas", cantidad);
+            startActivity(intent);
+            finish();
+        } else if ("Lógica 2".equals(minijuegoSeleccionado)) {
             Intent intent = new Intent(this, MinijuegoLogica1.class);
+            intent.putExtra("categoria", categoria);
+            intent.putExtra("minijuego", minijuegoSeleccionado);
             intent.putExtra("dificultad", dificultadSeleccionada);
             intent.putExtra("totalPreguntas", cantidad);
             startActivity(intent);

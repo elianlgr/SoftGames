@@ -53,6 +53,14 @@ public class MainActivity extends AppCompatActivity {
         if (cardRondaAleatoria != null) {
             cardRondaAleatoria.setOnClickListener(v -> mostrarMensaje("Ronda Aleatoria en construcción"));
         }
+
+        View btnVerEstadisticasMain = findViewById(R.id.btnVerEstadisticasMain);
+        if (btnVerEstadisticasMain != null) {
+            btnVerEstadisticasMain.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, EstadisticasActivity.class);
+                startActivity(intent);
+            });
+        }
     }
 
     private void mostrarMensaje(String mensaje) {

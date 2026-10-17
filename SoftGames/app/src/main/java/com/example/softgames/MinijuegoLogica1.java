@@ -51,6 +51,10 @@ public class MinijuegoLogica1 extends Minijuego{
     private int preguntasRespondidas = 0;
     private int totalPreguntas = 5;
     private int respuestasCorrectas = 0;
+    private double puntosTotales = 0.0;
+    private int sumaSegundosRestantes = 0;
+    private String categoria = "Lógica";
+    private String subtema = "Lógica 2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,12 @@ public class MinijuegoLogica1 extends Minijuego{
         
         // Leer configuración del Intent (viene de las pantallas de selección)
         if (getIntent() != null) {
+            if (getIntent().hasExtra("categoria")) {
+                this.categoria = getIntent().getStringExtra("categoria");
+            }
+            if (getIntent().hasExtra("minijuego")) {
+                this.subtema = getIntent().getStringExtra("minijuego");
+            }
             this.dificultad = getIntent().getIntExtra("dificultad", 1);
             this.totalPreguntas = getIntent().getIntExtra("totalPreguntas", 5);
         }
@@ -73,18 +83,21 @@ public class MinijuegoLogica1 extends Minijuego{
         String texto = formulas[indiceFormula] + " = " + respuestaB;
         formulaTexto.setText(texto);
 
-
-        
         // Iniciar el temporizador base
         init();
     }
-    
-
 
     public void enviarRespuesta(boolean respuestaFinal){
         boolean esCorrecto = (respuestaFinal == respuestas[indiceFormula]) == respuestaB;
+        EventoMinijuego eventoPregunta = new EventoMinijuego(esCorrecto, maxTime, frameTimer);
+        double puntosPregunta = eventoPregunta.obtenerPuntos();
+        int segsRestantes = Math.max(0, (int) ((frameTimer * 16L) / 1000L));
+        sumaSegundosRestantes += segsRestantes;
+
         if (esCorrecto) {
-            android.widget.Toast.makeText(this, "¡Respuesta correcta!", android.widget.Toast.LENGTH_SHORT).show();
+            puntosTotales += puntosPregunta;
+            String ptsStr = String.format(java.util.Locale.US, "%.1f", puntosPregunta);
+            android.widget.Toast.makeText(this, "¡Respuesta correcta! +" + ptsStr + " pts", android.widget.Toast.LENGTH_SHORT).show();
         } else {
             android.widget.Toast.makeText(this, "Respuesta incorrecta. Puntos: 0", android.widget.Toast.LENGTH_SHORT).show();
         }
@@ -112,10 +125,22 @@ public class MinijuegoLogica1 extends Minijuego{
             // Reiniciar el reloj
             reiniciarMinijuego();
         } else {
-            android.widget.Toast.makeText(this, "¡Juego Terminado! Acertaste " + respuestasCorrectas + " de " + totalPreguntas, android.widget.Toast.LENGTH_LONG).show();
-            // Como esto es un resumen de las 5, podemos enviar si ganó o perdió
-            boolean pasoElNivel = respuestasCorrectas >= 3;
-            crearEvento(pasoElNivel);
+            if (temporizadorReal != null) {
+                temporizadorReal.cancel();
+            }
+            double promedio = totalPreguntas > 0 ? (puntosTotales / totalPreguntas) : 0.0;
+            int tiempoPromedio = totalPreguntas > 0 ? Math.round((float) sumaSegundosRestantes / totalPreguntas) : 0;
+
+            android.content.Intent resumenIntent = new android.content.Intent(this, ResumenPartidaActivity.class);
+            resumenIntent.putExtra("categoria", categoria);
+            resumenIntent.putExtra("minijuego", subtema);
+            resumenIntent.putExtra("dificultad", dificultad);
+            resumenIntent.putExtra("respuestasCorrectas", respuestasCorrectas);
+            resumenIntent.putExtra("totalPreguntas", totalPreguntas);
+            resumenIntent.putExtra("puntajeObtenido", promedio);
+            resumenIntent.putExtra("tiempoPromedioSegundos", tiempoPromedio);
+            startActivity(resumenIntent);
+            finish();
         }
     }
     protected void generarFormula(){

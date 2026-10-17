@@ -229,4 +229,16 @@
         </LinearLayout>
     </ScrollView>
 
+    <!-- Botón para consultar Estadísticas desde el Menú Principal (Paso 4 del Caso de Uso) -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnVerEstadisticasMain"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="VER ESTADÍSTICAS"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:background="@drawable/bg_btn_crear_cuenta"
+        android:layout_marginTop="10dp" />
+
 </LinearLayout>
