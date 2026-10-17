@@ -15,13 +15,27 @@ import java.util.Map;
 public class ArchivoGuardado {
     public int numero;
     public String nombre;
+    public String usuario;
     public Map<String, Double> puntuaciones;
 
-    // Constructor
-    public ArchivoGuardado(int numero, String nombre) {
+    // Constructor con usuario
+    public ArchivoGuardado(int numero, String nombre, String usuario) {
         this.numero = numero;
         this.nombre = nombre;
+        this.usuario = (usuario != null && !usuario.trim().isEmpty()) ? usuario.trim() : "default";
         this.puntuaciones = new HashMap<>();
+    }
+
+    // Constructor compatible
+    public ArchivoGuardado(int numero, String nombre) {
+        this(numero, nombre, "default");
+    }
+
+    public static String obtenerNombreArchivo(String usuario, int numero) {
+        String userSanitized = (usuario != null && !usuario.trim().isEmpty())
+                ? usuario.trim().toLowerCase().replaceAll("[^a-zA-Z0-9_]", "_")
+                : "default";
+        return "guardado_" + userSanitized + "_" + numero + ".json";
     }
 
     public boolean serializar(Context context) {
@@ -29,6 +43,7 @@ public class ArchivoGuardado {
             JSONObject json = new JSONObject();
             json.put("numero", this.numero);
             json.put("nombre", this.nombre);
+            json.put("usuario", this.usuario);
 
             // Convertimos el Map de puntuaciones a JSON
             JSONObject scoresJson = new JSONObject();
@@ -37,8 +52,8 @@ public class ArchivoGuardado {
             }
             json.put("puntuaciones", scoresJson);
 
-            // Definimos el nombre del archivo y la ruta interna de Android
-            String filename = "guardado_" + this.numero + ".json";
+            // Definimos el nombre del archivo específico por usuario
+            String filename = obtenerNombreArchivo(this.usuario, this.numero);
             File file = new File(context.getFilesDir(), filename);
 
             // Escribimos el archivo en la memoria del teléfono
@@ -75,6 +90,9 @@ public class ArchivoGuardado {
             // Asignamos los valores recuperados a nuestros atributos
             this.numero = json.getInt("numero");
             this.nombre = json.getString("nombre");
+            if (json.has("usuario")) {
+                this.usuario = json.getString("usuario");
+            }
 
             JSONObject scoresJson = json.getJSONObject("puntuaciones");
             this.puntuaciones.clear();

@@ -3,53 +3,230 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="32dp"
-    android:background="@drawable/fondo_uno">
+    android:background="#F4EEDC"
+    android:paddingHorizontal="24dp"
+    android:paddingTop="42dp"
+    android:paddingBottom="28dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Selecciona un Modo de Juego"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="40dp"
-        android:background="#CCFFFFFF"
-        android:paddingHorizontal="24dp"
-        android:paddingVertical="12dp"
-        android:gravity="center"/>
-
-    <Button
-        android:id="@+id/btnModoQuiz"
+    <!-- Fila Superior: Botón Volver y Botón Ajustes -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Modo Quiz"
-        android:padding="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btnFreePlay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Free Play"
-        android:padding="16dp"
-        android:layout_marginBottom="16dp"/>
+        <!-- Botón Volver -->
+        <TextView
+            android:id="@+id/btnVolverMain"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:text="←"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#142232"
+            android:gravity="center"
+            android:background="@drawable/bg_btn_volver"
+            android:layout_alignParentStart="true"
+            android:clickable="true"
+            android:focusable="true" />
 
-    <Button
-        android:id="@+id/btnMaraton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Maratón"
-        android:padding="16dp"
-        android:layout_marginBottom="16dp"/>
+        <!-- Botón Ajustes (Engrane) -->
+        <ImageView
+            android:id="@+id/btnAjustesMain"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/ic_gear"
+            android:padding="10dp"
+            android:background="@drawable/bg_btn_volver"
+            android:contentDescription="Ajustes"
+            android:layout_alignParentEnd="true"
+            android:clickable="true"
+            android:focusable="true" />
 
-    <Button
-        android:id="@+id/btnRondaAleatoria"
+    </RelativeLayout>
+
+    <!-- Contenedor Centrado Verticalmente: Título + 4 Opciones -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ronda Aleatoria"
-        android:padding="16dp"
-        android:layout_marginBottom="32dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:paddingVertical="12dp">
+
+            <!-- Título Central -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Selecciona un\nModo de Juego"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="#142232"
+                android:gravity="center"
+                android:layout_marginBottom="32dp" />
+
+            <!-- 1. MODO QUIZ -->
+            <LinearLayout
+                android:id="@+id/cardModoQuiz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp"
+                android:layout_marginBottom="18dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="76dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="22dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_mode_quiz"
+                        android:contentDescription="Modo Quiz"
+                        android:layout_marginEnd="16dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Modo Quiz"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#142232"
+                        android:gravity="center" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 2. FREE PLAY -->
+            <LinearLayout
+                android:id="@+id/cardFreePlay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp"
+                android:layout_marginBottom="18dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="76dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="22dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_mode_freeplay"
+                        android:contentDescription="Free Play"
+                        android:layout_marginEnd="16dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Free Play"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#142232"
+                        android:gravity="center" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 3. MARATÓN -->
+            <LinearLayout
+                android:id="@+id/cardMaraton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp"
+                android:layout_marginBottom="18dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="76dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="22dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_mode_maraton"
+                        android:contentDescription="Maratón"
+                        android:layout_marginEnd="16dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Maratón"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#142232"
+                        android:gravity="center" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 4. RONDA ALEATORIA -->
+            <LinearLayout
+                android:id="@+id/cardRondaAleatoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="76dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="22dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_mode_aleatorio"
+                        android:contentDescription="Ronda Aleatoria"
+                        android:layout_marginEnd="16dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Ronda Aleatoria"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#142232"
+                        android:gravity="center" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

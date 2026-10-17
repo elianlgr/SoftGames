@@ -15,6 +15,7 @@
         <!-- 1. Pantalla principal del login -->
         <activity
             android:name=".LoginActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,26 +26,37 @@
         <!-- 2. Pantalla principal de seleccion de partidas -->
         <activity
             android:name=".InicioActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
             android:exported="false">
         </activity>
 
         <!-- 3. Pantalla de ajustes -->
         <activity
             android:name=".AjustesActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
             android:exported="false">
         </activity>
 
         <!-- 4. Pantalla de juego -->
         <activity
             android:name=".MainActivity"
-            android:exported="false">
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
 
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="softgames" />
-        </activity>
+        <activity
+            android:name=".MinijuegoLogica1"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
 
-        <activity android:name=".MinijuegoLogica1" android:exported="false" />
+        <activity
+            android:name=".ConfigurarPartidaActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <activity
+            android:name=".SeleccionarCategoriaActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
 
     </application>
 

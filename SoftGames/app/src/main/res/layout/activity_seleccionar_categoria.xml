@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F4EEDC"
+    android:paddingHorizontal="24dp"
+    android:paddingTop="44dp"
+    android:paddingBottom="24dp">
+
+    <!-- Encabezado con Botón de Retroceso y Título -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="24dp">
+
+        <TextView
+            android:id="@+id/btnVolverCategoria"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:text="←"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#142232"
+            android:gravity="center"
+            android:background="@drawable/bg_btn_volver"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Selecciona una\nCategoría"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#142232"
+            android:gravity="center"
+            android:layout_marginEnd="44dp" />
+
+    </LinearLayout>
+
+    <!-- Lista de Categorías con Desplazamiento Vertical (Más espaciosa para mostrar ~4 opciones a la vez) -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
+
+            <!-- 1. Programación -->
+            <LinearLayout
+                android:id="@+id/cardProgramacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp"
+                android:layout_marginBottom="18dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="74dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="22dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_cat_code"
+                        android:contentDescription="Programación"
+                        android:layout_marginEnd="16dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Programación"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="#142232"
+                        android:gravity="center" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 2. Introducción a la ingeniería -->
+            <LinearLayout
+                android:id="@+id/cardIngenieria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp"
+                android:layout_marginBottom="18dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="74dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="22dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_cat_gears"
+                        android:contentDescription="Introducción a la ingeniería de software"
+                        android:layout_marginEnd="16dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Introducción a la ingeniería de software"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#142232"
+                        android:gravity="center" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 3. Lógica (Funcional) -->
+            <LinearLayout
+                android:id="@+id/cardLogica"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp"
+                android:layout_marginBottom="18dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="74dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="22dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_cat_puzzle"
+                        android:contentDescription="Lógica"
+                        android:layout_marginEnd="16dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Lógica"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="#142232"
+                        android:gravity="center" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 4. Matemáticas discretas -->
+            <LinearLayout
+                android:id="@+id/cardMatematicas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp"
+                android:layout_marginBottom="18dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="74dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="22dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_cat_math"
+                        android:contentDescription="Matemáticas discretas"
+                        android:layout_marginEnd="16dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Matemáticas discretas"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="#142232"
+                        android:gravity="center" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 5. Ingeniería de requerimientos -->
+            <LinearLayout
+                android:id="@+id/cardRequerimientos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp"
+                android:layout_marginBottom="18dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="74dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="22dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_cat_req"
+                        android:contentDescription="Ingeniería de requerimientos"
+                        android:layout_marginEnd="16dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Ingeniería de requerimientos"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#142232"
+                        android:gravity="center" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 6. Análisis y diseño orientado a objetos -->
+            <LinearLayout
+                android:id="@+id/cardAnalisisDiseno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp"
+                android:layout_marginBottom="18dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="74dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="22dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_cat_diagram"
+                        android:contentDescription="Análisis y diseño orientado a objetos"
+                        android:layout_marginEnd="16dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Análisis y diseño orientado a objetos"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#142232"
+                        android:gravity="center" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 7. Programación orientada a objetos -->
+            <LinearLayout
+                android:id="@+id/cardPOO"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp"
+                android:layout_marginBottom="18dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="74dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="22dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_cat_cube"
+                        android:contentDescription="Programación orientada a objetos"
+                        android:layout_marginEnd="16dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Programación orientada a objetos"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#142232"
+                        android:gravity="center" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 8. Análisis y diseño de algoritmos -->
+            <LinearLayout
+                android:id="@+id/cardAlgoritmos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp"
+                android:layout_marginBottom="18dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="74dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="22dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_cat_flowchart"
+                        android:contentDescription="Análisis y diseño de algoritmos"
+                        android:layout_marginEnd="16dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Análisis y diseño de algoritmos"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#142232"
+                        android:gravity="center" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Botón CANCELAR Fijo Abajo -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCancelarCategoria"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:text="CANCELAR"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:background="@drawable/bg_btn_continuar"
+        android:layout_marginTop="12dp" />
+
+</LinearLayout>

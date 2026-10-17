@@ -3,27 +3,202 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="24dp"
-    android:background="@drawable/fondo_uno">
+    android:background="#F4EEDC"
+    android:paddingHorizontal="24dp"
+    android:paddingTop="42dp"
+    android:paddingBottom="28dp">
 
-    <Button
-        android:id="@+id/btnUno"
+    <!-- Fila Superior: Botón Volver (Izquierda) y Botón Ajustes (Derecha) -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/resume" />
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btnAjustes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="AJUSTES"
-        android:layout_marginTop="16dp" />
+        <!-- Botón Volver (Reanuda la partida) -->
+        <TextView
+            android:id="@+id/btnVolverPausa"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:text="←"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#142232"
+            android:gravity="center"
+            android:background="@drawable/bg_btn_volver"
+            android:layout_alignParentStart="true"
+            android:clickable="true"
+            android:focusable="true" />
 
-    <Button
-        android:id="@+id/btnDos"
+        <!-- Botón Ajustes (Engrane) -->
+        <ImageView
+            android:id="@+id/btnAjustesPausa"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/ic_gear"
+            android:padding="10dp"
+            android:background="@drawable/bg_btn_volver"
+            android:contentDescription="Ajustes"
+            android:layout_alignParentEnd="true"
+            android:clickable="true"
+            android:focusable="true" />
+
+    </RelativeLayout>
+
+    <!-- Contenedor Centrado Verticalmente: Título + 4 Tarjetas -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/exit"
-        android:layout_marginTop="16dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:paddingVertical="12dp">
+
+            <!-- Logo de SoftGames -->
+            <ImageView
+                android:id="@+id/ivLogoPausa"
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/logo_softgames"
+                android:contentDescription="Logo SoftGames"
+                android:scaleType="fitCenter"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Título Central -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Partida\nPausada"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#142232"
+                android:gravity="center"
+                android:layout_marginBottom="28dp" />
+
+            <!-- 1. REANUDAR -->
+            <LinearLayout
+                android:id="@+id/cardReanudar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp"
+                android:layout_marginBottom="18dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="76dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="22dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_play"
+                        android:contentDescription="Reanudar"
+                        android:layout_marginEnd="16dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Reanudar"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#142232"
+                        android:gravity="center" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 2. AJUSTES -->
+            <LinearLayout
+                android:id="@+id/cardAjustes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp"
+                android:layout_marginBottom="18dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="76dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="22dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_gear"
+                        android:contentDescription="Ajustes"
+                        android:layout_marginEnd="16dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Ajustes"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#142232"
+                        android:gravity="center" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 3. SALIR -->
+            <LinearLayout
+                android:id="@+id/cardSalir"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="76dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="22dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_exit"
+                        android:contentDescription="Salir"
+                        android:layout_marginEnd="16dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Salir"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#142232"
+                        android:gravity="center" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

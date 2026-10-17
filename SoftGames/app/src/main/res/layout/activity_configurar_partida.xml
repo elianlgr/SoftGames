@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4EEDC"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="40dp"
+        android:paddingBottom="32dp">
+
+        <!-- Fila de Navegación y Título -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="28dp">
+
+            <TextView
+                android:id="@+id/btnVolverConfig"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="←"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#142232"
+                android:gravity="center"
+                android:background="@drawable/bg_btn_volver"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Configurar Partida"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="#142232"
+                android:gravity="center"
+                android:layout_marginEnd="40dp" />
+
+        </LinearLayout>
+
+        <!-- SECCIÓN 1: Minijuego (Con Deslizamiento Horizontal) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card_configurar"
+            android:padding="18dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Minijuego"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#142232"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="14dp" />
+
+            <!-- Desplazamiento horizontal para minijuegos -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:overScrollMode="never">
+
+                <LinearLayout
+                    android:id="@+id/containerMinijuegos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <!-- Minijuego 1 -->
+                    <TextView
+                        android:id="@+id/chipMinijuego1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="42dp"
+                        android:text="Lógica 1"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
+                        android:gravity="center"
+                        android:background="@drawable/bg_chip_selected"
+                        android:paddingHorizontal="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                    <!-- Minijuego 2 -->
+                    <TextView
+                        android:id="@+id/chipMinijuego2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="42dp"
+                        android:text="Lógica 2"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#142232"
+                        android:gravity="center"
+                        android:background="@drawable/bg_chip_unselected"
+                        android:paddingHorizontal="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                    <!-- Minijuego 3 -->
+                    <TextView
+                        android:id="@+id/chipMinijuego3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="42dp"
+                        android:text="Lógica 3"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#142232"
+                        android:gravity="center"
+                        android:background="@drawable/bg_chip_unselected"
+                        android:paddingHorizontal="20dp"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+        <!-- SECCIÓN 2: Dificultad -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card_configurar"
+            android:padding="18dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dificultad"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#142232"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="14dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <!-- Fácil -->
+                <TextView
+                    android:id="@+id/chipFacil"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:text="Fácil"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center"
+                    android:background="@drawable/bg_chip_selected"
+                    android:layout_marginEnd="8dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <!-- Medio -->
+                <TextView
+                    android:id="@+id/chipMedio"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:text="Medio"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#142232"
+                    android:gravity="center"
+                    android:background="@drawable/bg_chip_unselected"
+                    android:layout_marginEnd="8dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <!-- Difícil -->
+                <TextView
+                    android:id="@+id/chipDificil"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:text="Difícil"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#142232"
+                    android:gravity="center"
+                    android:background="@drawable/bg_chip_unselected"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- SECCIÓN 3: Preguntas -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card_configurar"
+            android:padding="18dp"
+            android:layout_marginBottom="32dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Preguntas"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#142232"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="14dp" />
+
+            <EditText
+                android:id="@+id/etCantidadPreguntas"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:text="5"
+                android:textColor="#142232"
+                android:textSize="16sp"
+                android:inputType="number"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_input_preguntas"
+                android:paddingHorizontal="16dp" />
+
+        </LinearLayout>
+
+        <!-- Botón EMPEZAR -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnEmpezarPartida"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="EMPEZAR"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_btn_continuar" />
+
+    </LinearLayout>
+</ScrollView>

@@ -129,7 +129,7 @@ public class MinijuegoLogica1 extends Minijuego{
             rango = numeroAleatorio(5,9);
         }
         else{
-            rango = numeroAleatorio(9,13);
+            rango = numeroAleatorio(9, formulas.length);
         }
         indiceFormula = rango;
     }

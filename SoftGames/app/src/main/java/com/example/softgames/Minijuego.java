@@ -29,6 +29,10 @@ public abstract class Minijuego extends AppCompatActivity {
         pausa = false;
         inicializado = true;
         iniciarTemporizadorReal();
+        View btnPausa = findViewById(R.id.btnPausa);
+        if (btnPausa != null) {
+            btnPausa.setOnClickListener(v -> pausarJuego());
+        }
     }
 
     public void reiniciarMinijuego() {
@@ -37,6 +41,7 @@ public abstract class Minijuego extends AppCompatActivity {
         }
         // Reiniciar el tiempo al máximo
         frameTimer = maxTime;
+        pausa = false;
         iniciarTemporizadorReal();
     }
 
@@ -91,8 +96,7 @@ public abstract class Minijuego extends AppCompatActivity {
         menuPausa = new MenuPausa(this, acciones);
     }
 
-    @Override
-    public void onBackPressed() {
+    public void pausarJuego() {
         if (!pausa) {
             pausa = true;
             if (temporizadorReal != null) temporizadorReal.cancel(); // Pausar
@@ -100,6 +104,19 @@ public abstract class Minijuego extends AppCompatActivity {
                 inicializarMenu();
             }
             menuPausa.show();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        pausarJuego();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (temporizadorReal != null) {
+            temporizadorReal.cancel();
         }
     }
 

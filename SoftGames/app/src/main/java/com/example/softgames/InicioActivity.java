@@ -1,7 +1,7 @@
 package com.example.softgames;
 
 import android.content.Intent;
-import android.content.SharedPreferences; // Necesario para la memoria permanente
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 public class InicioActivity extends AppCompatActivity {
 
     private AdministradorArchivos adminArchivos;
+    private Button btnSlot0;
+    private Button btnSlot1;
+    private Button btnSlot2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,42 +20,70 @@ public class InicioActivity extends AppCompatActivity {
 
         adminArchivos = new AdministradorArchivos(this);
 
-        SharedPreferences prefs = getSharedPreferences("SesionJuego", MODE_PRIVATE);
-        int slotActivo = prefs.getInt("slotActivo", -1);
-
-        if (slotActivo != -1) {
-            adminArchivos.iniciarSesion(slotActivo);
-            iniciarJuego();
-            return;
-        }
-
         setContentView(R.layout.activity_inicio);
 
-        configurarBoton(findViewById(R.id.btnSlot0), 0);
-        configurarBoton(findViewById(R.id.btnSlot1), 1);
-        configurarBoton(findViewById(R.id.btnSlot2), 2);
+        btnSlot0 = findViewById(R.id.btnSlot0);
+        btnSlot1 = findViewById(R.id.btnSlot1);
+        btnSlot2 = findViewById(R.id.btnSlot2);
+
+        configurarBoton(btnSlot0, 0);
+        configurarBoton(btnSlot1, 1);
+        configurarBoton(btnSlot2, 2);
+
+        actualizarTextosBotones();
 
         Button btnAjustesInicio = findViewById(R.id.btnAjustesInicio);
         btnAjustesInicio.setOnClickListener(v -> {
-            // Nota que ahora dice InicioActivity.this
             Intent intent = new Intent(InicioActivity.this, AjustesActivity.class);
             startActivity(intent);
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (adminArchivos != null) {
+            adminArchivos.cargarArchivos();
+            actualizarTextosBotones();
+        }
+    }
+
+    private void actualizarTextosBotones() {
+        actualizarTextoBoton(btnSlot0, 0);
+        actualizarTextoBoton(btnSlot1, 1);
+        actualizarTextoBoton(btnSlot2, 2);
+    }
+
+    private void actualizarTextoBoton(Button boton, int indice) {
+        if (boton == null) return;
+        ArchivoGuardado archivo = adminArchivos.getArchivo(indice);
+        if (archivo != null && archivo.nombre != null && !archivo.nombre.trim().isEmpty()) {
+            boton.setText(archivo.nombre.toUpperCase());
+            boton.setBackgroundResource(R.drawable.bg_btn_continuar);
+        } else {
+            boton.setText("PARTIDA " + (indice + 1));
+            if (indice == 0) {
+                boton.setBackgroundResource(R.drawable.bg_btn_continuar);
+            } else {
+                boton.setBackgroundResource(R.drawable.bg_btn_crear_cuenta);
+            }
+        }
+        boton.setTextColor(0xFFFFFFFF);
     }
 
     private void configurarBoton(Button boton, int indice) {
         boton.setOnClickListener(v -> {
             if (adminArchivos.iniciarSesion(indice)) {
                 Toast.makeText(this, "Bienvenido de nuevo, " + adminArchivos.getArchivoActual().nombre, Toast.LENGTH_SHORT).show();
-                guardarSesionPersistente(indice); // <-- GUARDA LA DECISIÓN PERMANENTEMENTE
+                guardarSesionPersistente(indice);
                 iniciarJuego();
             } else {
-                mostrarDialogoCreacion(indice);
+                mostrarDialogoCreacion(boton, indice);
             }
         });
     }
 
-    private void mostrarDialogoCreacion(int indice) {
+    private void mostrarDialogoCreacion(Button boton, int indice) {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
         builder.setTitle("Crear archivo de guardado");
         
@@ -69,6 +100,7 @@ public class InicioActivity extends AppCompatActivity {
             
             if (adminArchivos.crearArchivo(nombreNuevo, indice)) {
                 Toast.makeText(this, "Archivo creado: " + nombreNuevo, Toast.LENGTH_SHORT).show();
+                actualizarTextoBoton(boton, indice);
                 guardarSesionPersistente(indice);
                 iniciarJuego();
             } else {
@@ -91,6 +123,5 @@ public class InicioActivity extends AppCompatActivity {
     private void iniciarJuego() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-        finish();
     }
 }

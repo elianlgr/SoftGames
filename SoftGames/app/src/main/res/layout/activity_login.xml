@@ -1,61 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="32dp"
-    android:background="@drawable/fondo_uno">
+    android:background="#F4EEDC"
+    android:fillViewport="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Iniciar Sesión"
-        android:textColor="#000000"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="40dp"
-        android:background="#CCFFFFFF"
-        android:paddingHorizontal="24dp"
-        android:paddingVertical="12dp"/>
-
-    <EditText
-        android:id="@+id/etUsuario"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Usuario o Correo Electrónico"
-        android:inputType="textEmailAddress"
-        android:background="#FFFFFF"
-        android:padding="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="32dp"
+        android:paddingTop="40dp"
+        android:paddingBottom="32dp">
 
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Contraseña"
-        android:inputType="textPassword"
-        android:background="#FFFFFF"
-        android:padding="16dp"
-        android:layout_marginBottom="24dp"/>
+        <!-- Logo del perrito de SoftGames (incluye el nombre en el dibujo) -->
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/logo_softgames"
+            android:contentDescription="Logo SoftGames"
+            android:scaleType="fitCenter"
+            android:layout_marginBottom="24dp" />
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="INICIAR SESIÓN"
-        android:padding="16dp"
-        android:layout_marginBottom="16dp"/>
+        <!-- Encabezado Inicia Sesión -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inicia Sesion"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#142232"
+            android:gravity="center"
+            android:layout_marginBottom="4dp" />
 
-    <TextView
-        android:id="@+id/tvCrearCuenta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="¿No tienes cuenta? Crear cuenta"
-        android:textColor="#0000FF"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:clickable="true"
-        android:focusable="true"/>
+        <!-- Subtítulo / Instrucción -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ingresa tu usuario o correo electrónico y contraseña"
+            android:textSize="13sp"
+            android:textColor="#4A5868"
+            android:gravity="center"
+            android:layout_marginBottom="28dp" />
 
-</LinearLayout>
+        <!-- Campo Usuario o Correo -->
+        <EditText
+            android:id="@+id/etUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:hint="correo electrónico o usuario"
+            android:textColorHint="#786954"
+            android:textColor="#142232"
+            android:textSize="14sp"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/bg_input_rounded"
+            android:layout_marginBottom="14dp" />
+
+        <!-- Campo Contraseña -->
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:hint="Contraseña"
+            android:textColorHint="#786954"
+            android:textColor="#142232"
+            android:textSize="14sp"
+            android:inputType="textPassword"
+            android:background="@drawable/bg_input_rounded"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Botón Continuar (Azul Marino Oscuro) -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Continuar"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:background="@drawable/bg_btn_continuar"
+            android:layout_marginBottom="22dp" />
+
+        <!-- Divisor con "o" -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="22dp">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="#C6B7A0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="o"
+                android:textSize="14sp"
+                android:textColor="#6E5F4C"
+                android:paddingHorizontal="14dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="#C6B7A0" />
+        </LinearLayout>
+
+        <!-- Botón Crear Cuenta (Verde Salvia) -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCrearCuenta"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Crear Cuenta"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:background="@drawable/bg_btn_crear_cuenta"
+            android:layout_marginBottom="16dp" />
+
+    </LinearLayout>
+</ScrollView>
