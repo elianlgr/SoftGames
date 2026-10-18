@@ -319,116 +319,187 @@ public class MinijuegoLogicaAlgoritmos extends Minijuego {
 
     private void inicializarBancoVenn() {
         bancoVenn.clear();
+        bancoVenn.addAll(obtenerBancoPorDificultad(dificultad));
+    }
 
-        if (dificultad == 1) {
-            bancoVenn.add(new PreguntaVenn(
+    public static List<PreguntaVenn> obtenerBancoPorDificultad(int dificultadNivel) {
+        List<PreguntaVenn> lista = new ArrayList<>();
+
+        if (dificultadNivel == 1) {
+            lista.add(new PreguntaVenn(
                     "CONJUNTOS • INTERSECCIÓN (A ∩ B)",
                     "Elementos que pertenecen al conjunto A y al conjunto B simultáneamente (A ∧ B):",
                     VennDiagramView.A_INTERSECT_B,
                     VennDiagramView.A_UNION_B,
                     VennDiagramView.ONLY_A
             ));
-            bancoVenn.add(new PreguntaVenn(
+            lista.add(new PreguntaVenn(
                     "CONJUNTOS • UNIÓN (A ∪ B)",
                     "Elementos que pertenecen al conjunto A, al conjunto B, o a ambos (A ∨ B):",
                     VennDiagramView.A_UNION_B,
                     VennDiagramView.A_INTERSECT_B,
                     VennDiagramView.COMPLEMENT_UNION_AB
             ));
-            bancoVenn.add(new PreguntaVenn(
+            lista.add(new PreguntaVenn(
                     "CONJUNTOS • DIFERENCIA (A - B)",
                     "Estudiantes que cursan la materia A pero NO cursan la materia B (A ∧ ¬B):",
                     VennDiagramView.ONLY_A,
                     VennDiagramView.ONLY_B,
                     VennDiagramView.A_INTERSECT_B
             ));
-            bancoVenn.add(new PreguntaVenn(
+            lista.add(new PreguntaVenn(
                     "CONJUNTOS • DIFERENCIA (B - A)",
                     "Elementos que pertenecen exclusivamente al conjunto B y no a A (B ∧ ¬A):",
                     VennDiagramView.ONLY_B,
                     VennDiagramView.ONLY_A,
                     VennDiagramView.A_UNION_B
             ));
-            bancoVenn.add(new PreguntaVenn(
+            lista.add(new PreguntaVenn(
                     "CONJUNTOS • IDENTIDAD (A)",
                     "Todos los elementos que pertenecen al conjunto A (sin importar si están en B):",
                     VennDiagramView.SET_A,
                     VennDiagramView.ONLY_A,
                     VennDiagramView.A_INTERSECT_B
             ));
-        } else if (dificultad == 2) {
-            bancoVenn.add(new PreguntaVenn(
+            lista.add(new PreguntaVenn(
+                    "CONJUNTOS • CONJUNCIÓN LÓGICA",
+                    "Programadores que dominan tanto Java (A) como Python (B) al mismo tiempo:",
+                    VennDiagramView.A_INTERSECT_B,
+                    VennDiagramView.SYM_DIFF_AB,
+                    VennDiagramView.ONLY_B
+            ));
+            lista.add(new PreguntaVenn(
+                    "CONJUNTOS • DISYUNCIÓN INCLUSIVA",
+                    "Proyectos que usan base de datos relacional (A) o documental (B), o ambas:",
+                    VennDiagramView.A_UNION_B,
+                    VennDiagramView.ONLY_A,
+                    VennDiagramView.A_INTERSECT_B
+            ));
+            lista.add(new PreguntaVenn(
+                    "CONJUNTOS • EXCLUSIÓN DE B",
+                    "Dispositivos conectados a la red Wi-Fi (A) que NO tienen Bluetooth activo (B):",
+                    VennDiagramView.ONLY_A,
+                    VennDiagramView.A_UNION_B,
+                    VennDiagramView.ONLY_B
+            ));
+        } else if (dificultadNivel == 2) {
+            lista.add(new PreguntaVenn(
                     "DIFERENCIA SIMÉTRICA (A Δ B)",
                     "Elementos que pertenecen a A o a B, pero NO a ambos a la vez (XOR lógico):",
                     VennDiagramView.SYM_DIFF_AB,
                     VennDiagramView.A_INTERSECT_B,
                     VennDiagramView.A_UNION_B
             ));
-            bancoVenn.add(new PreguntaVenn(
+            lista.add(new PreguntaVenn(
                     "LEY DE DE MORGAN • ¬(A ∪ B)",
                     "Elementos del universo que NO pertenecen ni al conjunto A ni al conjunto B:",
                     VennDiagramView.COMPLEMENT_UNION_AB,
                     VennDiagramView.A_UNION_B,
                     VennDiagramView.SYM_DIFF_AB
             ));
-            bancoVenn.add(new PreguntaVenn(
+            lista.add(new PreguntaVenn(
                     "COMPLEMENTO LÓGICO (¬A)",
                     "Todos los elementos del universo U que NO pertenecen al conjunto A:",
                     VennDiagramView.COMPLEMENT_A,
                     VennDiagramView.ONLY_B,
                     VennDiagramView.SET_A
             ));
-            bancoVenn.add(new PreguntaVenn(
+            lista.add(new PreguntaVenn(
                     "PROPOSICIÓN COMPUESTA • A ∧ ¬B",
                     "Selecciona el diagrama que cumple que la proposición A es verdadera y B es falsa:",
                     VennDiagramView.ONLY_A,
                     VennDiagramView.SYM_DIFF_AB,
                     VennDiagramView.COMPLEMENT_A
             ));
-            bancoVenn.add(new PreguntaVenn(
+            lista.add(new PreguntaVenn(
                     "DISYUNCIÓN EXCLUSIVA",
                     "Usuarios que usan Android o iOS, pero no ambos dispositivos al mismo tiempo:",
                     VennDiagramView.SYM_DIFF_AB,
                     VennDiagramView.COMPLEMENT_UNION_AB,
                     VennDiagramView.A_INTERSECT_B
             ));
+            lista.add(new PreguntaVenn(
+                    "PROPOSICIÓN COMPUESTA • ¬A ∧ B",
+                    "Elementos donde la condición A es falsa pero la condición B es verdadera:",
+                    VennDiagramView.ONLY_B,
+                    VennDiagramView.ONLY_A,
+                    VennDiagramView.COMPLEMENT_UNION_AB
+            ));
+            lista.add(new PreguntaVenn(
+                    "UNIÓN DE DIFERENCIAS • (A - B) ∪ (B - A)",
+                    "Diagrama que representa la unión de (A - B) con (B - A):",
+                    VennDiagramView.SYM_DIFF_AB,
+                    VennDiagramView.A_UNION_B,
+                    VennDiagramView.A_INTERSECT_B
+            ));
+            lista.add(new PreguntaVenn(
+                    "EXTERIOR DE CONJUNTOS",
+                    "Estudiantes del plantel (U) que no están inscritos ni en el club A ni en el club B:",
+                    VennDiagramView.COMPLEMENT_UNION_AB,
+                    VennDiagramView.COMPLEMENT_A,
+                    VennDiagramView.ONLY_A
+            ));
         } else {
-            bancoVenn.add(new PreguntaVenn(
+            lista.add(new PreguntaVenn(
                     "TRES CONJUNTOS • (A ∩ B ∩ C)",
                     "Elementos que cumplen simultáneamente las condiciones de los conjuntos A, B y C:",
                     VennDiagramView.A_INTERSECT_B_INTERSECT_C,
                     VennDiagramView.A_INTERSECT_B_MINUS_C,
                     VennDiagramView.A_UNION_B_UNION_C
             ));
-            bancoVenn.add(new PreguntaVenn(
+            lista.add(new PreguntaVenn(
                     "TRES CONJUNTOS • (A ∩ B) - C",
                     "Elementos que pertenecen tanto a A como a B, pero quedan excluidos de C:",
                     VennDiagramView.A_INTERSECT_B_MINUS_C,
                     VennDiagramView.A_INTERSECT_B_INTERSECT_C,
                     VennDiagramView.ONLY_C_3SET
             ));
-            bancoVenn.add(new PreguntaVenn(
+            lista.add(new PreguntaVenn(
                     "TRES CONJUNTOS • C - (A ∪ B)",
                     "Elementos que pertenecen únicamente al conjunto C y no pertenecen ni a A ni a B:",
                     VennDiagramView.ONLY_C_3SET,
                     VennDiagramView.A_INTERSECT_B_INTERSECT_C,
                     VennDiagramView.A_UNION_B_UNION_C
             ));
-            bancoVenn.add(new PreguntaVenn(
+            lista.add(new PreguntaVenn(
                     "TRES CONJUNTOS • (A ∪ B ∪ C)",
                     "Elementos que pertenecen a por lo menos uno de los tres conjuntos A, B o C:",
                     VennDiagramView.A_UNION_B_UNION_C,
                     VennDiagramView.A_INTERSECT_B_INTERSECT_C,
                     VennDiagramView.ONLY_C_3SET
             ));
-            bancoVenn.add(new PreguntaVenn(
+            lista.add(new PreguntaVenn(
                     "EQUIVALENCIA DE DE MORGAN • ¬A ∧ ¬B",
                     "Diagrama equivalente a la expresión lógica (¬A ∧ ¬B) dentro del universo U:",
                     VennDiagramView.COMPLEMENT_UNION_AB,
                     VennDiagramView.SYM_DIFF_AB,
                     VennDiagramView.COMPLEMENT_A
             ));
+            lista.add(new PreguntaVenn(
+                    "PROPOSICIÓN TRIPLE • A ∧ B ∧ ¬C",
+                    "Elementos donde A y B son verdaderas, pero la condición C es falsa:",
+                    VennDiagramView.A_INTERSECT_B_MINUS_C,
+                    VennDiagramView.ONLY_C_3SET,
+                    VennDiagramView.A_INTERSECT_B_INTERSECT_C
+            ));
+            lista.add(new PreguntaVenn(
+                    "PROPOSICIÓN TRIPLE • ¬A ∧ ¬B ∧ C",
+                    "Elementos que cumplen únicamente la condición C y ninguna de las otras dos:",
+                    VennDiagramView.ONLY_C_3SET,
+                    VennDiagramView.A_INTERSECT_B_MINUS_C,
+                    VennDiagramView.A_UNION_B_UNION_C
+            ));
+            lista.add(new PreguntaVenn(
+                    "INTERSECCIÓN TOTAL • A ∧ B ∧ C",
+                    "Sistemas que cumplen seguridad (A), rendimiento (B) y usabilidad (C) a la vez:",
+                    VennDiagramView.A_INTERSECT_B_INTERSECT_C,
+                    VennDiagramView.A_UNION_B_UNION_C,
+                    VennDiagramView.ONLY_C_3SET
+            ));
         }
+
+        Collections.shuffle(lista);
+        return lista;
     }
 
     @Override

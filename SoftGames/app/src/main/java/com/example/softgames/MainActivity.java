@@ -47,7 +47,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (cardMaraton != null) {
-            cardMaraton.setOnClickListener(v -> mostrarMensaje("Maratón en construcción"));
+            cardMaraton.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, ConfigurarMaratonActivity.class);
+                startActivity(intent);
+            });
         }
 
         if (cardRondaAleatoria != null) {

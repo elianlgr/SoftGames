@@ -3,125 +3,258 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F4EEDC"
-    android:paddingHorizontal="24dp"
-    android:paddingTop="42dp"
-    android:paddingBottom="36dp">
+    android:background="#F4F1DE"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="38dp"
+    android:paddingBottom="22dp">
 
-    <!-- Fila Superior: Temporizador (Izquierda) y Botón Pausa (Derecha) -->
+    <!-- 1. Barra Superior: Temporizador, Progreso y Pausa -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp">
 
-        <!-- Cápsula del Temporizador -->
         <LinearLayout
             android:id="@+id/layoutTemporizador"
             android:layout_width="wrap_content"
-            android:layout_height="44dp"
+            android:layout_height="42dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:background="@drawable/bg_timer_pill"
-            android:paddingStart="14dp"
-            android:paddingEnd="18dp"
-            android:layout_alignParentStart="true">
+            android:paddingStart="12dp"
+            android:paddingEnd="16dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true">
 
             <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_stopwatch"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="6dp"
                 android:contentDescription="Temporizador" />
 
             <TextView
                 android:id="@+id/tvTemporizador"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="14s"
-                android:textSize="20sp"
+                android:text="16s"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="#142232" />
+                android:textColor="#0D1B2A" />
         </LinearLayout>
 
-        <!-- Botón Pausa Circular -->
+        <TextView
+            android:id="@+id/tvProgresoLogica2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lógica • 1 / 5"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#415A77"
+            android:layout_centerInParent="true" />
+
         <ImageView
             android:id="@+id/btnPausa"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
             android:src="@drawable/ic_pause"
-            android:padding="11dp"
+            android:padding="10dp"
             android:background="@drawable/bg_btn_volver"
             android:contentDescription="Pausa"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:clickable="true"
             android:focusable="true" />
 
     </RelativeLayout>
 
-    <!-- Área Central de Juego: Título y Fórmula centrados -->
+    <!-- 2. Enunciado e Indicador de Operadores -->
+    <TextView
+        android:id="@+id/textViewTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Selecciona la opción que hace que la proposición lógica sea correcta:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#0D1B2A"
+        android:gravity="center"
+        android:lineSpacingExtra="2dp"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="∧ = AND (Y)   •   ∨ = OR (O)   •   ¬ = NOT (NO)"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="#0D1B2A"
+        android:gravity="center"
+        android:background="@drawable/bg_pill_archivo_activo"
+        android:paddingVertical="7dp"
+        android:paddingHorizontal="12dp"
+        android:layout_marginBottom="14dp" />
+
+    <!-- 3. Tarjeta Central de Evaluación Booleana (#D4C4A8 + #FAF5EC) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:background="@drawable/bg_card_configurar"
+        android:padding="12dp"
+        android:layout_marginBottom="14dp">
 
-        <!-- Título / Instrucción -->
-        <TextView
-            android:id="@+id/textViewTitulo"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Selecciona la opción\nque resuelve la formula"
-            android:textSize="23sp"
-            android:textStyle="bold"
-            android:textColor="#142232"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             android:gravity="center"
-            android:lineSpacingExtra="4dp"
-            android:layout_marginBottom="72dp" />
+            android:background="@drawable/bg_categoria_pill"
+            android:paddingHorizontal="18dp"
+            android:paddingVertical="16dp">
 
-        <!-- Fórmula Central -->
-        <TextView
-            android:id="@+id/textoFormula"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="\? &amp; V = true"
-            android:textSize="38sp"
-            android:textStyle="bold"
-            android:textColor="#142232"
-            android:gravity="center" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EXPRESIÓN BOOLEANA"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#415A77"
+                android:letterSpacing="0.06"
+                android:layout_marginBottom="12dp" />
 
+            <!-- Fórmula con casilla interactiva [ ? ] -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textoFormula"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="( V  ∧  [ ? ] )  ∨  F"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:textColor="#0D1B2A"
+                    android:gravity="center"
+                    android:lineSpacingExtra="6dp" />
+
+                <TextView
+                    android:id="@+id/tvSeleccionActualFormula"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Incompleta: selecciona una opción abajo"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="#415A77"
+                    android:background="@drawable/bg_drop_zone_empty"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp"
+                    android:layout_marginTop="14dp" />
+
+            </LinearLayout>
+
+            <!-- Línea divisoria -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E6DEC8"
+                android:layout_marginVertical="12dp" />
+
+            <!-- Resultado esperado -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Resultado esperado:"
+                    android:textSize="14sp"
+                    android:textColor="#0D1B2A"
+                    android:layout_marginEnd="10dp" />
+
+                <TextView
+                    android:id="@+id/tvResultadoEsperadoFormula"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VERDADERO (V)"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/bg_badge_verde"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="5dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
 
-    <!-- Fila Inferior: Botones TRUE y FALSE -->
+    <!-- 4. Panel de Selección de Respuesta (Seleccionar opción y luego Comprobar) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="24dp">
+        android:orientation="vertical"
+        android:background="@drawable/bg_card_configurar"
+        android:padding="12dp"
+        android:layout_marginBottom="14dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/trueButton"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_weight="1"
-            android:text="TRUE"
-            android:textSize="18sp"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Selecciona el valor para reemplazar [ ? ]:"
+            android:textSize="13sp"
             android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/bg_btn_crear_cuenta"
-            android:layout_marginEnd="12dp" />
+            android:textColor="#0D1B2A"
+            android:gravity="center"
+            android:layout_marginBottom="10dp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/falseButton"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_weight="1"
-            android:text="FALSE"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/bg_btn_continuar"
-            android:layout_marginStart="12dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/trueButton"
+                android:layout_width="0dp"
+                android:layout_height="76dp"
+                android:layout_weight="1"
+                android:text="VERDADERO\n(V)"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/bg_btn_crear_cuenta"
+                android:layout_marginEnd="8dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/falseButton"
+                android:layout_width="0dp"
+                android:layout_height="76dp"
+                android:layout_weight="1"
+                android:text="FALSO\n(F)"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/bg_bloque_codigo"
+                android:layout_marginStart="8dp" />
+
+        </LinearLayout>
     </LinearLayout>
+
+    <!-- 5. Botón Principal COMPROBAR RESPUESTA -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnComprobarFormula"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="COMPROBAR RESPUESTA"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:background="@drawable/bg_btn_continuar" />
 
 </LinearLayout>

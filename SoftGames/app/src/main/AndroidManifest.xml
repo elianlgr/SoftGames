@@ -84,6 +84,21 @@
             android:theme="@style/Theme.SoftGames.NoActionBar"
             android:exported="false" />
 
+        <activity
+            android:name=".ConfigurarMaratonActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <activity
+            android:name=".ModoMaratonActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <activity
+            android:name=".FinMaratonActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
     </application>
 
 </manifest>
