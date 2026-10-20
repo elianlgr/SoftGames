@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootMinijuegoLogicaAlgoritmos"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F4F1DE"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="36dp"
+    android:paddingBottom="22dp">
+
+    <!-- Fila Superior: Temporizador (Izquierda), Progreso (Centro) y Botón Pausa (Derecha) -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp">
+
+        <!-- Cápsula del Temporizador -->
+        <LinearLayout
+            android:id="@+id/layoutTemporizador"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_timer_pill"
+            android:paddingStart="12dp"
+            android:paddingEnd="16dp"
+            android:layout_alignParentStart="true">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_stopwatch"
+                android:layout_marginEnd="6dp"
+                android:contentDescription="Temporizador" />
+
+            <TextView
+                android:id="@+id/tvTemporizador"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="18s"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#0D1B2A" />
+        </LinearLayout>
+
+        <!-- Indicador de Progreso -->
+        <TextView
+            android:id="@+id/tvProgresoLogicaAlg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Lógica • 1 / 5"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#415A77" />
+
+        <!-- Botón Pausa Circular -->
+        <ImageView
+            android:id="@+id/btnPausa"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/ic_pause"
+            android:padding="10dp"
+            android:background="@drawable/bg_btn_volver"
+            android:contentDescription="Pausa"
+            android:layout_alignParentEnd="true"
+            android:clickable="true"
+            android:focusable="true" />
+    </RelativeLayout>
+
+    <!-- Título de Instrucción -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Arrastra el diagrama de Venn que cumple con el enunciado:"
+        android:textSize="15.5sp"
+        android:textStyle="bold"
+        android:textColor="#0D1B2A"
+        android:gravity="center"
+        android:layout_marginBottom="10dp" />
+
+    <!-- TARJETA DEL ENUNCIADO LÓGICO -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_card_configurar"
+        android:padding="10dp"
+        android:layout_marginBottom="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_categoria_pill"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp">
+
+            <TextView
+                android:id="@+id/tvSubtituloVenn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LÓGICA DE CONJUNTOS"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="#778D7A"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tvEnunciadoVenn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Elementos que pertenecen al conjunto A y al conjunto B simultáneamente (A ∩ B)"
+                android:textSize="14.5sp"
+                android:textStyle="bold"
+                android:textColor="#0D1B2A"
+                android:gravity="center"
+                android:lineSpacingExtra="2dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ÁREA DE RESPUESTA CENTRAL (DROP ZONE DONDE SE ENGANCHA EL DIAGRAMA DE VENN) -->
+    <LinearLayout
+        android:id="@+id/zonaDropVenn"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/bg_drop_zone_empty"
+        android:padding="12dp"
+        android:layout_marginBottom="12dp">
+
+        <TextView
+            android:id="@+id/tvEstadoDropVenn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⬇ Arrastra aquí la opción correcta (a, b o c) ⬇"
+            android:textSize="13.5sp"
+            android:textStyle="bold"
+            android:textColor="#415A77"
+            android:gravity="center" />
+
+        <com.example.softgames.VennDiagramView
+            android:id="@+id/vennRespuestaEnganchada"
+            android:layout_width="175dp"
+            android:layout_height="115dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- MENÚ INFERIOR DE 3 BLOQUES ARRASTRABLES: OPCIÓN a), b) y c) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_card_configurar"
+        android:padding="12dp"
+        android:layout_marginBottom="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mantén presionado y arrastra el bloque con el diagrama correcto:"
+            android:textSize="11.5sp"
+            android:textStyle="bold"
+            android:textColor="#1B263B"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <!-- Bloque a) -->
+            <LinearLayout
+                android:id="@+id/cardOpcionA"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:background="@drawable/bg_bloque_codigo"
+                android:padding="8dp"
+                android:layout_marginEnd="6dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Opción a)"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold"
+                    android:textColor="#F4F1DE"
+                    android:layout_marginBottom="6dp" />
+
+                <com.example.softgames.VennDiagramView
+                    android:id="@+id/vennOpcionA"
+                    android:layout_width="match_parent"
+                    android:layout_height="76dp" />
+            </LinearLayout>
+
+            <!-- Bloque b) -->
+            <LinearLayout
+                android:id="@+id/cardOpcionB"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:background="@drawable/bg_bloque_codigo"
+                android:padding="8dp"
+                android:layout_marginHorizontal="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Opción b)"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold"
+                    android:textColor="#F4F1DE"
+                    android:layout_marginBottom="6dp" />
+
+                <com.example.softgames.VennDiagramView
+                    android:id="@+id/vennOpcionB"
+                    android:layout_width="match_parent"
+                    android:layout_height="76dp" />
+            </LinearLayout>
+
+            <!-- Bloque c) -->
+            <LinearLayout
+                android:id="@+id/cardOpcionC"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:background="@drawable/bg_bloque_codigo"
+                android:padding="8dp"
+                android:layout_marginStart="6dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Opción c)"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold"
+                    android:textColor="#F4F1DE"
+                    android:layout_marginBottom="6dp" />
+
+                <com.example.softgames.VennDiagramView
+                    android:id="@+id/vennOpcionC"
+                    android:layout_width="match_parent"
+                    android:layout_height="76dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Botón Comprobar -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnComprobarLogicaAlg"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="COMPROBAR RESPUESTA"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/bg_btn_continuar" />
+
+</LinearLayout>

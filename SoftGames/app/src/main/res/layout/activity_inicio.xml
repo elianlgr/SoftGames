@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4EEDC"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="32dp"
+        android:paddingTop="44dp"
+        android:paddingBottom="32dp">
+
+        <!-- Logo del perrito con audífonos -->
+        <ImageView
+            android:id="@+id/ivLogoInicio"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/logo_softgames"
+            android:contentDescription="Logo SoftGames"
+            android:scaleType="fitCenter"
+            android:layout_marginBottom="6dp" />
+
+        <!-- Nombre de la App -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SoftGames"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="#142232"
+            android:gravity="center"
+            android:layout_marginBottom="32dp" />
+
+        <!-- Título Seleccionar partida -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar partida"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#142232"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Ranura 1 (Partida 1) -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSlot0"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="PARTIDA 1"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_btn_continuar"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Ranura 2 (Partida 2) -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSlot1"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="PARTIDA 2"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_btn_crear_cuenta"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Ranura 3 (Partida 3) -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSlot2"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="PARTIDA 3"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_btn_crear_cuenta"
+            android:layout_marginBottom="22dp" />
+
+        <!-- Botón Ajustes -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnAjustesInicio"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="AJUSTES"
+            android:textColor="#142232"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_btn_ajustes" />
+
+    </LinearLayout>
+</ScrollView>

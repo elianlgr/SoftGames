@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F1DE"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="32dp"
+        android:paddingTop="32dp"
+        android:paddingBottom="32dp">
+
+        <!-- Fila Superior: Botón Volver -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="start">
+
+            <TextView
+                android:id="@+id/btnVolverRegistro"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:text="←"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#0D1B2A"
+                android:gravity="center"
+                android:background="@drawable/bg_btn_volver"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+
+        <!-- Logo de SoftGames -->
+        <ImageView
+            android:id="@+id/ivLogoRegistro"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:src="@drawable/logo_softgames"
+            android:contentDescription="Logo SoftGames"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="18dp" />
+
+        <!-- Encabezado Crear Cuenta -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crear Cuenta"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#0D1B2A"
+            android:gravity="center"
+            android:layout_marginBottom="6dp" />
+
+        <!-- Subtítulo / Instrucción (Más pequeño por estética y jerarquía visual) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ingresa tu correo electrónico, nombre de usuario y contraseña"
+            android:textSize="11.5sp"
+            android:textColor="#415A77"
+            android:gravity="center"
+            android:lineSpacingExtra="2dp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Campo Correo Electrónico -->
+        <EditText
+            android:id="@+id/etCorreoRegistro"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:hint="Correo electrónico"
+            android:textColorHint="#885C5040"
+            android:textColor="#0D1B2A"
+            android:textSize="13.5sp"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/bg_input_rounded"
+            android:layout_marginBottom="14dp" />
+
+        <!-- Campo Nombre de Usuario -->
+        <EditText
+            android:id="@+id/etUsuarioRegistro"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:hint="Nombre de usuario"
+            android:textColorHint="#885C5040"
+            android:textColor="#0D1B2A"
+            android:textSize="13.5sp"
+            android:inputType="textPersonName"
+            android:background="@drawable/bg_input_rounded"
+            android:layout_marginBottom="14dp" />
+
+        <!-- Campo Contraseña -->
+        <EditText
+            android:id="@+id/etPasswordRegistro"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:hint="Contraseña"
+            android:textColorHint="#885C5040"
+            android:textColor="#0D1B2A"
+            android:textSize="13.5sp"
+            android:inputType="textPassword"
+            android:background="@drawable/bg_input_rounded"
+            android:layout_marginBottom="22dp" />
+
+        <!-- Botón Registrarse (#0D1B2A / Azul Marino Oscuro) -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnRegistrarse"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Registrarse"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:background="@drawable/bg_btn_continuar"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Divisor con "o" -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="20dp">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="#B8A990" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="o"
+                android:textSize="13sp"
+                android:textColor="#415A77"
+                android:paddingHorizontal="14dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="#B8A990" />
+        </LinearLayout>
+
+        <!-- Botón Volver a Iniciar Sesión (Verde Salvia #778D7A) -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnVolverLogin"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Volver a Iniciar Sesión"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:background="@drawable/bg_btn_crear_cuenta"
+            android:layout_marginBottom="12dp" />
+
+    </LinearLayout>
+</ScrollView>

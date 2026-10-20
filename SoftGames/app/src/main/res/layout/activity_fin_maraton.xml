@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F1DE"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="38dp"
+        android:paddingBottom="26dp">
+
+        <!-- 1. Título Principal -->
+        <TextView
+            android:id="@+id/tvTituloFinMaraton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¡Fin del Maratón!"
+            android:textColor="#0D1B2A"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Píldora Subtítulo Errores Acumulados -->
+        <TextView
+            android:id="@+id/tvSubtituloErroresMaraton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3 errores acumulados  •  ✕  ✕  ✕"
+            android:textColor="#0D1B2A"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_pill_crema"
+            android:paddingHorizontal="22dp"
+            android:paddingVertical="8dp"
+            android:layout_marginBottom="20dp" />
+
+        <!-- 2. Contenedor Principal de Puntuación (#D4C4A8) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/bg_card_configurar"
+            android:paddingHorizontal="18dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="16dp"
+            android:layout_marginBottom="22dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp">
+
+                <!-- Tarjeta interior crema (#FAF5EC) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="20dp"
+                    android:paddingTop="30dp"
+                    android:paddingBottom="18dp">
+
+                    <!-- Puntuación Total Acumulada -->
+                    <TextView
+                        android:id="@+id/tvPuntajeTotalMaraton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="74.8 pts"
+                        android:textColor="#0D1B2A"
+                        android:textSize="44sp"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Puntuación Total Acumulada"
+                        android:textColor="#415A77"
+                        android:textSize="15sp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="18dp" />
+
+                    <!-- Divisor 1 -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#E6DEC8" />
+
+                    <!-- Fila 1: Racha de aciertos lograda -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingVertical="12dp">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:src="@drawable/ic_stat_flame"
+                            android:contentDescription="Racha"
+                            android:layout_marginEnd="10dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Racha de aciertos lograda:"
+                            android:textColor="#0D1B2A"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvRachaLogradaMaraton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="9 aciertos"
+                            android:textColor="#0D1B2A"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Divisor 2 -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#E6DEC8" />
+
+                    <!-- Fila 2: Dificultad alcanzada -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingVertical="12dp">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:src="@drawable/ic_stat_gauge"
+                            android:contentDescription="Dificultad alcanzada"
+                            android:layout_marginEnd="10dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Dificultad alcanzada:"
+                            android:textColor="#0D1B2A"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvDificultadAlcanzadaMaraton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Difícil"
+                            android:textColor="#0D1B2A"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Divisor 3 -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#E6DEC8" />
+
+                    <!-- Fila 3: Récord anterior -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingVertical="12dp">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:src="@drawable/ic_stat_trophy"
+                            android:contentDescription="Récord anterior"
+                            android:layout_marginEnd="10dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Récord anterior:"
+                            android:textColor="#0D1B2A"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvRecordAnteriorMaraton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0.0 pts"
+                            android:textColor="#0D1B2A"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Divisor 4: Desglose por categoría seleccionada (Paso 9 del Caso de Uso) -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#E6DEC8"
+                        android:layout_marginBottom="10dp" />
+
+                    <TextView
+                        android:id="@+id/tvTituloDesgloseMaraton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="RESULTADOS POR CATEGORÍA SELECCIONADA"
+                        android:textColor="#415A77"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.05"
+                        android:layout_marginBottom="8dp" />
+
+                    <LinearLayout
+                        android:id="@+id/llDesgloseCategoriasMaraton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+                </LinearLayout>
+
+                <!-- Insignia superior superpuesta -->
+                <TextView
+                    android:id="@+id/tvBadgeRecordMaraton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_gravity="top|center_horizontal"
+                    android:text="★  ¡NUEVO RÉCORD!"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/bg_badge_verde"
+                    android:paddingHorizontal="20dp" />
+
+            </FrameLayout>
+
+            <!-- 3. Banner de Autoguardado -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@drawable/bg_pill_crema"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="10dp">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_check_circle_green"
+                    android:contentDescription="Guardado"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/tvEstadoGuardadoMaraton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Récord guardado automáticamente en PARTIDA 1"
+                    android:textColor="#0D1B2A"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- 4. Botones de Acción -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnJugarDeNuevoMaraton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="JUGAR DE NUEVO"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_btn_crear_cuenta"
+            android:layout_marginBottom="12dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnVolverMenuMaraton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="VOLVER AL MENÚ"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_btn_continuar" />
+
+    </LinearLayout>
+</ScrollView>

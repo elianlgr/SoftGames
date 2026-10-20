@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F1DE"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="38dp"
+        android:paddingBottom="26dp">
+
+        <!-- 1. Título Principal -->
+        <TextView
+            android:id="@+id/tvTituloPartidaCompletada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¡Partida Completada!"
+            android:textColor="#0D1B2A"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Píldora Subtítulo Categoría • Minijuego (Dificultad) -->
+        <TextView
+            android:id="@+id/tvSubtituloResumen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lógica • Lógica 1 (Fácil)"
+            android:textColor="#0D1B2A"
+            android:textSize="14sp"
+            android:background="@drawable/bg_pill_crema"
+            android:paddingHorizontal="22dp"
+            android:paddingVertical="8dp"
+            android:layout_marginBottom="20dp" />
+
+        <!-- 2. Contenedor Principal de Puntuación (#D4C4A8) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/bg_card_configurar"
+            android:paddingHorizontal="18dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="16dp"
+            android:layout_marginBottom="22dp">
+
+            <!-- FrameLayout para superponer la insignia "¡NUEVO RÉCORD!" sobre la tarjeta crema -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp">
+
+                <!-- Tarjeta interior crema (#FAF5EC) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="20dp"
+                    android:paddingTop="30dp"
+                    android:paddingBottom="18dp">
+
+                    <!-- Puntuación Grande -->
+                    <TextView
+                        android:id="@+id/tvPuntajeObtenidoResumen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="8.6 / 10"
+                        android:textColor="#0D1B2A"
+                        android:textSize="46sp"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Puntuación Obtenida"
+                        android:textColor="#0D1B2A"
+                        android:textSize="15sp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="18dp" />
+
+                    <!-- Divisor 1 -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#E6DEC8" />
+
+                    <!-- Fila 1: Respuestas correctas -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingVertical="12dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_stat_check_box"
+                            android:contentDescription="Respuestas correctas"
+                            android:layout_marginEnd="10dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Respuestas correctas:"
+                            android:textColor="#0D1B2A"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvRespuestasCorrectasResumen"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4 / 5"
+                            android:textColor="#0D1B2A"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Divisor 2 -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#E6DEC8" />
+
+                    <!-- Fila 2: Tiempo restante promedio -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingVertical="12dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_stat_clock"
+                            android:contentDescription="Tiempo restante promedio"
+                            android:layout_marginEnd="10dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Tiempo restante promedio:"
+                            android:textColor="#0D1B2A"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvTiempoPromedioResumen"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="11s"
+                            android:textColor="#0D1B2A"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Divisor 3 -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#E6DEC8" />
+
+                    <!-- Fila 3: Puntuación anterior -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="4dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_stat_trophy"
+                            android:contentDescription="Puntuación anterior"
+                            android:layout_marginEnd="10dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Puntuación anterior:"
+                            android:textColor="#0D1B2A"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvPuntuacionAnteriorResumen"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="7.2 pts"
+                            android:textColor="#0D1B2A"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Insignia superior superpuesta: ★ ¡NUEVO RÉCORD! -->
+                <TextView
+                    android:id="@+id/tvBadgeRecordResumen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_gravity="top|center_horizontal"
+                    android:text="★  ¡NUEVO RÉCORD!"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/bg_badge_verde"
+                    android:paddingHorizontal="20dp" />
+
+            </FrameLayout>
+
+            <!-- 3. Banner de Autoguardado -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@drawable/bg_pill_crema"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="10dp">
+
+                <ImageView
+                    android:id="@+id/ivIconoGuardadoResumen"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_check_circle_green"
+                    android:contentDescription="Guardado"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/tvEstadoGuardadoResumen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Progreso guardado automáticamente en PARTIDA 1"
+                    android:textColor="#0D1B2A"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- 4. Botones de Acción -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnVerEstadisticasResumen"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="VER ESTADÍSTICAS"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_btn_crear_cuenta"
+            android:layout_marginBottom="12dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnVolverMenuResumen"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="VOLVER AL MENÚ"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_btn_continuar" />
+
+    </LinearLayout>
+</ScrollView>

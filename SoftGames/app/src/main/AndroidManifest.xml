@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SoftGames">
+
+        <!-- 1. Pantalla principal del login -->
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 1.5 Pantalla de registro (Crear cuenta) -->
+        <activity
+            android:name=".RegistroActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <!-- 2. Pantalla principal de seleccion de partidas -->
+        <activity
+            android:name=".InicioActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false">
+        </activity>
+
+        <!-- 3. Pantalla de ajustes -->
+        <activity
+            android:name=".AjustesActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false">
+        </activity>
+
+        <!-- 4. Pantalla de juego -->
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <activity
+            android:name=".MinijuegoLogica1"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <activity
+            android:name=".MinijuegoBloques"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <activity
+            android:name=".MinijuegoLogicaAlgoritmos"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <activity
+            android:name=".ConfigurarPartidaActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <activity
+            android:name=".SeleccionarCategoriaActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <activity
+            android:name=".ResumenPartidaActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <activity
+            android:name=".EstadisticasActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <activity
+            android:name=".ConfigurarMaratonActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <activity
+            android:name=".ModoMaratonActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <activity
+            android:name=".FinMaratonActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

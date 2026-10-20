@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F4F1DE"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="36dp"
+    android:paddingBottom="20dp">
+
+    <!-- 1. HUD Superior del Modo Maratón -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <LinearLayout
+            android:id="@+id/layoutTemporizador"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_timer_pill"
+            android:paddingStart="12dp"
+            android:paddingEnd="14dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_stopwatch"
+                android:layout_marginEnd="6dp"
+                android:contentDescription="Temporizador" />
+
+            <TextView
+                android:id="@+id/tvTemporizador"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="18s"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="#0D1B2A" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Modo Maratón"
+                android:textColor="#0D1B2A"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvHudEstadoMaraton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="♥ ♥ ♥  •  Racha: 0  •  0.0 pts"
+                android:textColor="#0D1B2A"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:background="@drawable/bg_pill_archivo_activo"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/btnPausa"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/ic_pause"
+            android:padding="10dp"
+            android:background="@drawable/bg_btn_volver"
+            android:contentDescription="Pausa"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:clickable="true"
+            android:focusable="true" />
+    </RelativeLayout>
+
+    <!-- 2. Etiqueta de Categoría y Dificultad Progresiva -->
+    <TextView
+        android:id="@+id/tvBadgeDificultadMaraton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Programación • Dificultad Progresiva: Fácil"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/bg_badge_verde"
+        android:paddingVertical="6dp"
+        android:paddingHorizontal="14dp"
+        android:layout_marginBottom="10dp" />
+
+    <!-- 3. Enunciado del Reto Actual -->
+    <TextView
+        android:id="@+id/tvEnunciadoMaraton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Arrastra el bloque correcto para completar el código:"
+        android:textColor="#0D1B2A"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:lineSpacingExtra="2dp"
+        android:layout_marginBottom="10dp" />
+
+    <!-- 4. Contenedor Central Dinámico (Alterna entre Bloques de Código, Diagramas de Venn y Fórmulas Booleanas) -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="12dp">
+
+        <!-- MODO A: Reto de Bloques de Código (Programación) -->
+        <LinearLayout
+            android:id="@+id/panelRetoBloquesMaraton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp"
+                android:layout_marginBottom="10dp">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:fillViewport="true"
+                    android:padding="14dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/tvCodigoAntesMaraton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:textColor="#0D1B2A"
+                            android:textSize="14sp"
+                            android:lineSpacingExtra="3dp"
+                            android:layout_marginBottom="8dp" />
+
+                        <TextView
+                            android:id="@+id/zonaDropCodigoMaraton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:text="⬇ Arrastra el bloque aquí ⬇"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#415A77"
+                            android:fontFamily="monospace"
+                            android:gravity="center"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="10dp"
+                            android:background="@drawable/bg_drop_zone_empty" />
+
+                        <TextView
+                            android:id="@+id/tvCodigoDespuesMaraton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:textColor="#0D1B2A"
+                            android:textSize="14sp"
+                            android:lineSpacingExtra="3dp"
+                            android:layout_marginTop="8dp" />
+                    </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/bloqueMaraton1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="46dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/bg_bloque_codigo"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="8dp"
+                        android:gravity="center"
+                        android:textColor="#FFFFFF"
+                        android:fontFamily="monospace"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/bloqueMaraton2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="46dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
+                        android:background="@drawable/bg_bloque_codigo"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="8dp"
+                        android:gravity="center"
+                        android:textColor="#FFFFFF"
+                        android:fontFamily="monospace"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/bloqueMaraton3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="46dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/bg_bloque_codigo"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="8dp"
+                        android:gravity="center"
+                        android:textColor="#FFFFFF"
+                        android:fontFamily="monospace"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/bloqueMaraton4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="46dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
+                        android:background="@drawable/bg_bloque_codigo"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="8dp"
+                        android:gravity="center"
+                        android:textColor="#FFFFFF"
+                        android:fontFamily="monospace"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- MODO B: Reto de Diagramas de Venn (Lógica 1: Opciones a, b, c) -->
+        <LinearLayout
+            android:id="@+id/panelRetoVennMaraton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/zonaDropVennMaraton"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_drop_zone_empty"
+                android:padding="10dp"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:id="@+id/tvEstadoDropVennMaraton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⬇ Arrastra aquí la opción correcta (a, b o c) ⬇"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="#415A77"
+                    android:gravity="center" />
+
+                <com.example.softgames.VennDiagramView
+                    android:id="@+id/vennRespuestaMaraton"
+                    android:layout_width="170dp"
+                    android:layout_height="105dp"
+                    android:layout_marginTop="4dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:id="@+id/cardVennMaratonA"
+                    android:layout_width="0dp"
+                    android:layout_height="112dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:padding="6dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Opción a)"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#0D1B2A" />
+
+                    <com.example.softgames.VennDiagramView
+                        android:id="@+id/vennMaratonA"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/cardVennMaratonB"
+                    android:layout_width="0dp"
+                    android:layout_height="112dp"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:padding="6dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Opción b)"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#0D1B2A" />
+
+                    <com.example.softgames.VennDiagramView
+                        android:id="@+id/vennMaratonB"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/cardVennMaratonC"
+                    android:layout_width="0dp"
+                    android:layout_height="112dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:padding="6dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Opción c)"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#0D1B2A" />
+
+                    <com.example.softgames.VennDiagramView
+                        android:id="@+id/vennMaratonC"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- MODO C: Reto de Fórmulas Booleanas (Lógica 2: Seleccionar VERDADERO o FALSO) -->
+        <LinearLayout
+            android:id="@+id/panelRetoFormulaMaraton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="∧ = AND (Y)  •  ∨ = OR (O)  •  ¬ = NOT (NO)"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:textColor="#415A77"
+                        android:layout_marginBottom="10dp" />
+
+                    <TextView
+                        android:id="@+id/tvFormulaMaraton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="( V  ∧  [ ? ] )  ∨  F"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:textColor="#0D1B2A"
+                        android:gravity="center"
+                        android:layout_marginVertical="10dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#E6DEC8"
+                        android:layout_marginVertical="10dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Resultado esperado:"
+                            android:textSize="13sp"
+                            android:textColor="#0D1B2A"
+                            android:layout_marginEnd="8dp" />
+
+                        <TextView
+                            android:id="@+id/tvResultadoEsperadoMaraton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="VERDADERO (V)"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#FFFFFF"
+                            android:background="@drawable/bg_badge_verde"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="4dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_card_configurar"
+                android:padding="10dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnFormulaOpIzqMaraton"
+                    android:layout_width="0dp"
+                    android:layout_height="68dp"
+                    android:layout_weight="1"
+                    android:text="VERDADERO\n(V)"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/bg_bloque_codigo"
+                    android:layout_marginEnd="6dp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnFormulaOpDerMaraton"
+                    android:layout_width="0dp"
+                    android:layout_height="68dp"
+                    android:layout_weight="1"
+                    android:text="FALSO\n(F)"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/bg_bloque_codigo"
+                    android:layout_marginStart="6dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <!-- 5. Botón Principal COMPROBAR RESPUESTA -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnComprobarMaraton"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="COMPROBAR RESPUESTA"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:background="@drawable/bg_btn_continuar" />
+
+</LinearLayout>
