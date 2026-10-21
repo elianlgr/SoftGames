@@ -35,6 +35,12 @@ public class AdministradorMinijuego {
             categorias.get(i).setDificultadMinijuegos(dificultad);
         }
     }
+    public Minijuego getMinijuegoActual(){
+        return minijuegoActual;
+    }
+    public void aumentarPuntuacion(double puntos){
+        puntosAcumulados += puntos;
+    }
     public void setMinijuegoFinalizado(MinijuegoFinalizado mf){
         this.mf = mf;
     }

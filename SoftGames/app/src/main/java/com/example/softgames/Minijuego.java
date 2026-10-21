@@ -134,8 +134,6 @@ public abstract class Minijuego extends AppCompatActivity {
     }
     public void crearEvento(Boolean esCorrecto){
         EventoMinijuego evento = new EventoMinijuego(esCorrecto, maxTime, frameTimer);
-        evento.setDificultad(dificultad);
-        evento.setNombre(nombre);
         if (enrutador != null) {
             enrutador.manejar(evento);
         } else {
@@ -143,7 +141,10 @@ public abstract class Minijuego extends AppCompatActivity {
             finish();
         }
     }
-    public void dibujar(){
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init();
         dibujarMinijuego();
     }
     public abstract void dibujarMinijuego();

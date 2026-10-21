@@ -27,13 +27,19 @@ public class Enrutador{
     public void setModoJuego(ModoJuego mj){
         modoJuego = mj;
     }
+    public AdministradorMinijuego getAdminstradorMin(){
+        return am;
+    }
+    public void setAdministradorMin(AdministradorMinijuego am){
+        this.am = am;
+    }
     public void manejar(IEvento evento){
         if(evento instanceof EventoMinijuego){
             EventoMinijuego em = (EventoMinijuego)evento;
             am.recibirDatos(em.esCorrecto(), em.obtenerPuntos());
         }
         else if(evento instanceof EventoModoFinalizado){
-
+            EventoModoFinalizado emf = (EventoModoFinalizado)evento;
         }
     }
 
