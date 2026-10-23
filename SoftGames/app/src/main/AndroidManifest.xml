@@ -99,6 +99,11 @@
             android:theme="@style/Theme.SoftGames.NoActionBar"
             android:exported="false" />
 
+        <activity
+            android:name=".RondaAleatoriaActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
     </application>
 
 </manifest>

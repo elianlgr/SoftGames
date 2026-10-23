@@ -108,4 +108,31 @@ public class ArchivoGuardado {
             return false;
         }
     }
+
+    // Crea una copia del archivo de guardado asignada a otra ranura y con un nuevo nombre
+    public ArchivoGuardado clonarParaRanura(int nuevaRanura, String nuevoNombre) {
+        ArchivoGuardado copia = new ArchivoGuardado(nuevaRanura, nuevoNombre, this.usuario);
+        if (this.puntuaciones != null) {
+            copia.puntuaciones.putAll(this.puntuaciones);
+        }
+        return copia;
+    }
+
+    // Elimina el archivo .json físico del almacenamiento interno del dispositivo
+    public boolean eliminarArchivoFisico(Context context) {
+        if (context == null) {
+            return true;
+        }
+        try {
+            String filename = obtenerNombreArchivo(this.usuario, this.numero);
+            File file = new File(context.getFilesDir(), filename);
+            if (file.exists()) {
+                return file.delete();
+            }
+            return true;
+        } catch (Exception e) {
+            Log.e("ArchivoGuardado", "Error al eliminar el archivo físico", e);
+            return false;
+        }
+    }
 }
