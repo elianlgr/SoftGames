@@ -124,6 +124,7 @@ public class ModoMaratonActivity extends Minijuego {
     private boolean respuestaCorrectaFormula = true;
     private Boolean seleccionFormula = null;
     private boolean botonesFormulaInvertidos = false;
+    private boolean validandoRespuesta = false;
 
     public ModoMaratonActivity() {
         super(1200, null);
@@ -199,8 +200,7 @@ public class ModoMaratonActivity extends Minijuego {
         puntosAcumuladosPorCat.clear();
 
         if (modoGeneral || categoriasSeleccionadas == null || categoriasSeleccionadas.isEmpty()) {
-            String[] todas = {"Lógica", "Programación", "Análisis y diseño de algoritmos"};
-            for (String cat : todas) {
+            for (String cat : BancoPreguntasCategorias.CATEGORIAS_OFICIALES) {
                 problemasResueltosPorCat.put(cat, 0);
                 puntosAcumuladosPorCat.put(cat, 0.0);
             }
@@ -224,43 +224,23 @@ public class ModoMaratonActivity extends Minijuego {
 
     private void cargarNivelEnCola(int nivel, List<RetoMaraton> destino) {
         boolean incluirTodo = modoGeneral || categoriasSeleccionadas == null || categoriasSeleccionadas.isEmpty();
-        boolean incProgramacion = incluirTodo || categoriasSeleccionadas.contains("Programación");
-        boolean incLogica = incluirTodo || categoriasSeleccionadas.contains("Lógica");
-        boolean incAlgoritmos = incluirTodo || categoriasSeleccionadas.contains("Análisis y diseño de algoritmos");
+        List<String> activas = incluirTodo ? BancoPreguntasCategorias.CATEGORIAS_OFICIALES : categoriasSeleccionadas;
 
-        if (incProgramacion || incAlgoritmos) {
-            List<MinijuegoBloques.PreguntaBloque> bancoBloques = MinijuegoBloques.obtenerBancoPorDificultad(nivel);
-            for (int i = 0; i < bancoBloques.size(); i++) {
-                String catAsignada;
-                if (incProgramacion && incAlgoritmos) {
-                    catAsignada = (i < 6) ? "Programación" : "Análisis y diseño de algoritmos";
-                } else if (incProgramacion) {
-                    catAsignada = "Programación";
-                } else {
-                    catAsignada = "Análisis y diseño de algoritmos";
-                }
-                destino.add(new RetoMaraton(nivel, catAsignada, bancoBloques.get(i)));
+        for (String cat : activas) {
+            for (MinijuegoBloques.PreguntaBloque pb : BancoPreguntasCategorias.obtenerBanco(cat, nivel)) {
+                destino.add(new RetoMaraton(nivel, cat, pb));
             }
-        }
-
-        if (incLogica || incAlgoritmos) {
-            List<MinijuegoLogicaAlgoritmos.PreguntaVenn> bancoVenn = MinijuegoLogicaAlgoritmos.obtenerBancoPorDificultad(nivel);
-            for (int i = 0; i < bancoVenn.size(); i++) {
-                String catAsignada;
-                if (incLogica && incAlgoritmos) {
-                    catAsignada = (i < 4) ? "Lógica" : "Análisis y diseño de algoritmos";
-                } else if (incLogica) {
-                    catAsignada = "Lógica";
-                } else {
-                    catAsignada = "Análisis y diseño de algoritmos";
+            if ("Lógica".equalsIgnoreCase(cat)
+                    || "Matemáticas discretas".equalsIgnoreCase(cat)
+                    || "Análisis y diseño de algoritmos".equalsIgnoreCase(cat)) {
+                for (MinijuegoLogicaAlgoritmos.PreguntaVenn pv : MinijuegoLogicaAlgoritmos.obtenerBancoPorDificultad(nivel)) {
+                    destino.add(new RetoMaraton(nivel, cat, pv));
                 }
-                destino.add(new RetoMaraton(nivel, catAsignada, bancoVenn.get(i)));
             }
-        }
-
-        if (incLogica) {
-            for (MinijuegoLogica1.ReactivoFormula pf : MinijuegoLogica1.obtenerBancoPorDificultad(nivel)) {
-                destino.add(new RetoMaraton(nivel, "Lógica", pf));
+            if ("Lógica".equalsIgnoreCase(cat) || "Matemáticas discretas".equalsIgnoreCase(cat)) {
+                for (MinijuegoLogica1.ReactivoFormula pf : MinijuegoLogica1.obtenerBancoPorDificultad(nivel)) {
+                    destino.add(new RetoMaraton(nivel, cat, pf));
+                }
             }
         }
 
@@ -268,12 +248,6 @@ public class ModoMaratonActivity extends Minijuego {
         if (destino.isEmpty()) {
             for (MinijuegoBloques.PreguntaBloque pb : MinijuegoBloques.obtenerBancoPorDificultad(nivel)) {
                 destino.add(new RetoMaraton(nivel, "Programación", pb));
-            }
-            for (MinijuegoLogicaAlgoritmos.PreguntaVenn pv : MinijuegoLogicaAlgoritmos.obtenerBancoPorDificultad(nivel)) {
-                destino.add(new RetoMaraton(nivel, "Análisis y diseño de algoritmos", pv));
-            }
-            for (MinijuegoLogica1.ReactivoFormula pf : MinijuegoLogica1.obtenerBancoPorDificultad(nivel)) {
-                destino.add(new RetoMaraton(nivel, "Lógica", pf));
             }
         }
 
@@ -330,6 +304,7 @@ public class ModoMaratonActivity extends Minijuego {
     }
 
     private void cargarSiguienteRetoMaraton() {
+        validandoRespuesta = false;
         this.dificultad = calcularDificultadActual();
         if (this.dificultad > dificultadMaximaAlcanzada) {
             dificultadMaximaAlcanzada = this.dificultad;
@@ -588,6 +563,9 @@ public class ModoMaratonActivity extends Minijuego {
         btnFormulaOpDerMaraton.setAlpha(0.9f);
 
         tvFormulaMaraton.setText(pf.plantillaFormula);
+        tvFormulaMaraton.setTextColor(0xFF0D1B2A);
+        tvFormulaMaraton.setBackgroundColor(0x00000000);
+        tvFormulaMaraton.setPadding(0, 0, 0, 0);
         if (resultadoEsperadoFormula) {
             tvResultadoEsperadoMaraton.setText("VERDADERO (V)");
             tvResultadoEsperadoMaraton.setBackgroundResource(R.drawable.bg_badge_verde);
@@ -624,33 +602,49 @@ public class ModoMaratonActivity extends Minijuego {
 
     // ==================== VALIDACIÓN Y FLUJO DEL MARATÓN ====================
     private void comprobarRetoActual() {
+        if (validandoRespuesta) return;
         boolean esCorrecto;
 
         if (retoActual.tipo == TIPO_BLOQUES_CODIGO) {
             if (indiceCodigoEnganchado == -1) {
-                Toast.makeText(this, "Arrastra o selecciona un bloque de código primero", Toast.LENGTH_SHORT).show();
                 return;
             }
             String elegida = opcionesCodigoMezcladas.get(indiceCodigoEnganchado);
             esCorrecto = elegida.equals(retoActual.preguntaBloque.respuestaCorrecta);
+            zonaDropCodigoMaraton.setBackgroundResource(esCorrecto ? R.drawable.bg_drop_zone_correct : R.drawable.bg_drop_zone_error);
+            zonaDropCodigoMaraton.setTextColor(0xFFFFFFFF);
+            zonaDropCodigoMaraton.setText((esCorrecto ? "✓  " : "✕  ") + elegida);
 
         } else if (retoActual.tipo == TIPO_DIAGRAMA_VENN) {
             if (indiceVennEnganchado == -1) {
-                Toast.makeText(this, "Arrastra o selecciona una opción de diagrama de Venn", Toast.LENGTH_SHORT).show();
                 return;
             }
             int tipoElegido = opcionesVennMezcladas.get(indiceVennEnganchado);
             esCorrecto = (tipoElegido == retoActual.preguntaVenn.tipoCorrecto);
+            zonaDropVennMaraton.setBackgroundResource(esCorrecto ? R.drawable.bg_drop_zone_correct : R.drawable.bg_drop_zone_error);
+            tvEstadoDropVennMaraton.setTextColor(0xFFFFFFFF);
+            tvEstadoDropVennMaraton.setText((esCorrecto ? "✓  " : "✕  ") + etiquetasVenn[indiceVennEnganchado]);
 
         } else {
             if (seleccionFormula == null) {
-                Toast.makeText(this, "Selecciona VERDADERO (V) o FALSO (F) primero", Toast.LENGTH_SHORT).show();
                 return;
             }
             esCorrecto = (seleccionFormula == respuestaCorrectaFormula);
+            String simb = seleccionFormula ? "[ V ]" : "[ F ]";
+            String formulaConValor = retoActual.preguntaFormula.plantillaFormula.replace("[ ? ]", simb);
+            tvFormulaMaraton.setBackgroundResource(esCorrecto ? R.drawable.bg_drop_zone_correct : R.drawable.bg_drop_zone_error);
+            tvFormulaMaraton.setTextColor(0xFFFFFFFF);
+            int pad = Math.round(12 * getResources().getDisplayMetrics().density);
+            tvFormulaMaraton.setPadding(pad, pad / 2, pad, pad / 2);
+            tvFormulaMaraton.setText((esCorrecto ? "✓  " : "✕  ") + formulaConValor);
         }
 
-        procesarResultadoTurno(esCorrecto);
+        validandoRespuesta = true;
+        if (temporizadorReal != null) {
+            temporizadorReal.cancel();
+        }
+        final boolean resultadoFinal = esCorrecto;
+        btnComprobarMaraton.postDelayed(() -> procesarResultadoTurno(resultadoFinal), 550);
     }
 
     @Override
@@ -660,6 +654,7 @@ public class ModoMaratonActivity extends Minijuego {
 
     private void procesarResultadoTurno(boolean fueCorrecta) {
         preguntasJugadas++;
+        AjustesActivity.reproducirRetroalimentacion(this, btnComprobarMaraton, fueCorrecta);
 
         if (fueCorrecta) {
             EventoMinijuego evento = new EventoMinijuego(true, maxTime, frameTimer);
@@ -678,19 +673,10 @@ public class ModoMaratonActivity extends Minijuego {
                 problemasResueltosPorCat.put(cat, prevResueltos + 1);
                 puntosAcumuladosPorCat.put(cat, prevPuntos + puntosGanados);
             }
-
-            String ptsStr = String.format(Locale.US, "%.1f", puntosGanados);
-            Toast.makeText(this, "¡Correcto! +" + ptsStr + " pts (Racha: " + rachaActual + ")", Toast.LENGTH_SHORT).show();
         } else {
-            // Flujo alternativo 5.1: Incrementar errores y mostrar intentos restantes
+            // Flujo alternativo 5.1: Incrementar errores
             erroresAcumulados++;
             rachaActual = 0;
-            int intentosRestantes = Math.max(0, 3 - erroresAcumulados);
-            if (intentosRestantes > 0) {
-                Toast.makeText(this,
-                        "Respuesta incorrecta. Intentos restantes: " + intentosRestantes,
-                        Toast.LENGTH_SHORT).show();
-            }
         }
 
         actualizarHudMaraton();

@@ -155,7 +155,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="monospace"
                             android:textColor="#0D1B2A"
-                            android:textSize="14sp"
+                            android:textSize="15.5sp"
+                            android:textStyle="bold"
                             android:lineSpacingExtra="3dp"
                             android:layout_marginBottom="8dp" />
 
@@ -163,15 +164,15 @@
                             android:id="@+id/zonaDropCodigoRonda"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:minHeight="48dp"
+                            android:minHeight="60dp"
                             android:text="⬇ Arrastra el bloque aquí ⬇"
-                            android:textSize="13sp"
+                            android:textSize="14.5sp"
                             android:textStyle="bold"
                             android:textColor="#415A77"
                             android:fontFamily="monospace"
                             android:gravity="center"
-                            android:paddingHorizontal="12dp"
-                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="14dp"
+                            android:paddingVertical="12dp"
                             android:background="@drawable/bg_drop_zone_empty" />
 
                         <TextView
@@ -180,7 +181,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="monospace"
                             android:textColor="#0D1B2A"
-                            android:textSize="14sp"
+                            android:textSize="15.5sp"
+                            android:textStyle="bold"
                             android:lineSpacingExtra="3dp"
                             android:layout_marginTop="8dp" />
                     </LinearLayout>
@@ -204,32 +206,34 @@
                         android:id="@+id/bloqueRonda1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:minHeight="46dp"
+                        android:minHeight="78dp"
                         android:layout_weight="1"
                         android:layout_marginEnd="6dp"
                         android:background="@drawable/bg_bloque_codigo"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="8dp"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="12dp"
                         android:gravity="center"
                         android:textColor="#FFFFFF"
                         android:fontFamily="monospace"
-                        android:textSize="12sp"
+                        android:textSize="13.5sp"
+                        android:lineSpacingExtra="2dp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/bloqueRonda2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:minHeight="46dp"
+                        android:minHeight="78dp"
                         android:layout_weight="1"
                         android:layout_marginStart="6dp"
                         android:background="@drawable/bg_bloque_codigo"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="8dp"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="12dp"
                         android:gravity="center"
                         android:textColor="#FFFFFF"
                         android:fontFamily="monospace"
-                        android:textSize="12sp"
+                        android:textSize="13.5sp"
+                        android:lineSpacingExtra="2dp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -242,32 +246,34 @@
                         android:id="@+id/bloqueRonda3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:minHeight="46dp"
+                        android:minHeight="78dp"
                         android:layout_weight="1"
                         android:layout_marginEnd="6dp"
                         android:background="@drawable/bg_bloque_codigo"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="8dp"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="12dp"
                         android:gravity="center"
                         android:textColor="#FFFFFF"
                         android:fontFamily="monospace"
-                        android:textSize="12sp"
+                        android:textSize="13.5sp"
+                        android:lineSpacingExtra="2dp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/bloqueRonda4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:minHeight="46dp"
+                        android:minHeight="78dp"
                         android:layout_weight="1"
                         android:layout_marginStart="6dp"
                         android:background="@drawable/bg_bloque_codigo"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="8dp"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="12dp"
                         android:gravity="center"
                         android:textColor="#FFFFFF"
                         android:fontFamily="monospace"
-                        android:textSize="12sp"
+                        android:textSize="13.5sp"
+                        android:lineSpacingExtra="2dp"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
@@ -320,18 +326,18 @@
                 <LinearLayout
                     android:id="@+id/cardVennRondaA"
                     android:layout_width="0dp"
-                    android:layout_height="112dp"
+                    android:layout_height="126dp"
                     android:layout_weight="1"
                     android:layout_marginEnd="5dp"
                     android:orientation="vertical"
                     android:background="@drawable/bg_categoria_pill"
-                    android:padding="6dp">
+                    android:padding="8dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Opción a)"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
                         android:textStyle="bold"
                         android:textColor="#0D1B2A" />
 
@@ -345,18 +351,18 @@
                 <LinearLayout
                     android:id="@+id/cardVennRondaB"
                     android:layout_width="0dp"
-                    android:layout_height="112dp"
+                    android:layout_height="126dp"
                     android:layout_weight="1"
                     android:layout_marginHorizontal="5dp"
                     android:orientation="vertical"
                     android:background="@drawable/bg_categoria_pill"
-                    android:padding="6dp">
+                    android:padding="8dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Opción b)"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
                         android:textStyle="bold"
                         android:textColor="#0D1B2A" />
 
@@ -370,18 +376,18 @@
                 <LinearLayout
                     android:id="@+id/cardVennRondaC"
                     android:layout_width="0dp"
-                    android:layout_height="112dp"
+                    android:layout_height="126dp"
                     android:layout_weight="1"
                     android:layout_marginStart="5dp"
                     android:orientation="vertical"
                     android:background="@drawable/bg_categoria_pill"
-                    android:padding="6dp">
+                    android:padding="8dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Opción c)"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
                         android:textStyle="bold"
                         android:textColor="#0D1B2A" />
 
@@ -483,10 +489,10 @@
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnFormulaOpIzqRonda"
                     android:layout_width="0dp"
-                    android:layout_height="68dp"
+                    android:layout_height="78dp"
                     android:layout_weight="1"
                     android:text="VERDADERO\n(V)"
-                    android:textSize="14sp"
+                    android:textSize="15.5sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:background="@drawable/bg_bloque_codigo"
@@ -495,10 +501,10 @@
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnFormulaOpDerRonda"
                     android:layout_width="0dp"
-                    android:layout_height="68dp"
+                    android:layout_height="78dp"
                     android:layout_weight="1"
                     android:text="FALSO\n(F)"
-                    android:textSize="14sp"
+                    android:textSize="15.5sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:background="@drawable/bg_bloque_codigo"

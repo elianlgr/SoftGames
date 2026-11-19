@@ -29,6 +29,12 @@ public class EventoMinijuego implements IEvento{
         return respuestaCorrecta;
     }
     protected double convertirTiempo(){
-        return (9.0/tiempoMaximo)*tiempoRestante;
+        if (tiempoMaximo <= 0 || tiempoRestante <= 0) {
+            return 0.0;
+        }
+        // Si responde correctamente dentro del tiempo, asegura una base de 9.0 pts (1.0 + 8.0)
+        // más hasta 1.0 pt adicional por velocidad (10.0 pts al responder con >= 35% del tiempo restante).
+        double proporcionRestante = Math.min(1.0, (double) tiempoRestante / (tiempoMaximo * 0.35));
+        return 8.0 + proporcionRestante;
     }
 }

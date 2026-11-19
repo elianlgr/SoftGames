@@ -104,6 +104,21 @@
             android:theme="@style/Theme.SoftGames.NoActionBar"
             android:exported="false" />
 
+        <activity
+            android:name=".ConfigurarQuizActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <activity
+            android:name=".ModoQuizActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
+        <activity
+            android:name=".FinQuizActivity"
+            android:theme="@style/Theme.SoftGames.NoActionBar"
+            android:exported="false" />
+
     </application>
 
 </manifest>

@@ -46,6 +46,7 @@ public class MinijuegoLogicaAlgoritmos extends Minijuego {
     private final String[] etiquetasOpciones = {"Opción a)", "Opción b)", "Opción c)"};
 
     private int indiceBloqueEnganchado = -1;
+    private boolean validandoRespuesta = false;
 
     private TextView tvProgresoLogicaAlg;
     private TextView tvSubtituloVenn;
@@ -223,6 +224,7 @@ public class MinijuegoLogicaAlgoritmos extends Minijuego {
     }
 
     private void limpiarZonaDrop() {
+        validandoRespuesta = false;
         indiceBloqueEnganchado = -1;
         zonaDropVenn.setBackgroundResource(R.drawable.bg_drop_zone_empty);
         tvEstadoDropVenn.setText("⬇ Arrastra aquí la opción correcta (a, b o c) ⬇");
@@ -259,9 +261,13 @@ public class MinijuegoLogicaAlgoritmos extends Minijuego {
     }
 
     private void validarRespuesta() {
+        if (validandoRespuesta) return;
         if (indiceBloqueEnganchado == -1) {
-            Toast.makeText(this, "Arrastra una de las opciones a), b) o c) al área de respuesta", Toast.LENGTH_SHORT).show();
             return;
+        }
+        validandoRespuesta = true;
+        if (temporizadorReal != null) {
+            temporizadorReal.cancel();
         }
 
         int tipoSeleccionado = tiposMezclados.get(indiceBloqueEnganchado);
@@ -272,15 +278,20 @@ public class MinijuegoLogicaAlgoritmos extends Minijuego {
         int segsRestantes = Math.max(0, (int) ((frameTimer * 16L) / 1000L));
         sumaSegundosRestantes += segsRestantes;
 
+        AjustesActivity.reproducirRetroalimentacion(this, btnComprobarLogicaAlg, esCorrecto);
+
         if (esCorrecto) {
             puntosTotales += puntosPregunta;
-            String ptsFormateados = String.format(java.util.Locale.US, "%.1f", puntosPregunta);
-            Toast.makeText(this, "¡Respuesta correcta! +" + ptsFormateados + " pts", Toast.LENGTH_SHORT).show();
+            zonaDropVenn.setBackgroundResource(R.drawable.bg_drop_zone_correct);
+            tvEstadoDropVenn.setTextColor(0xFFFFFFFF);
+            tvEstadoDropVenn.setText("✓  " + etiquetasOpciones[indiceBloqueEnganchado]);
         } else {
-            Toast.makeText(this, "Respuesta incorrecta. Puntos: 0", Toast.LENGTH_SHORT).show();
+            zonaDropVenn.setBackgroundResource(R.drawable.bg_drop_zone_error);
+            tvEstadoDropVenn.setTextColor(0xFFFFFFFF);
+            tvEstadoDropVenn.setText("✕  " + etiquetasOpciones[indiceBloqueEnganchado]);
         }
 
-        avanzarSiguiente(esCorrecto);
+        zonaDropVenn.postDelayed(() -> avanzarSiguiente(esCorrecto), 550);
     }
 
     @Override
@@ -382,6 +393,55 @@ public class MinijuegoLogicaAlgoritmos extends Minijuego {
                     VennDiagramView.A_UNION_B,
                     VennDiagramView.ONLY_B
             ));
+            lista.add(new PreguntaVenn(
+                    "CONJUNTOS • EXCLUSIÓN DE A",
+                    "Usuarios registrados en el curso B que aún NO se han inscrito en el curso A:",
+                    VennDiagramView.ONLY_B,
+                    VennDiagramView.ONLY_A,
+                    VennDiagramView.A_INTERSECT_B
+            ));
+            lista.add(new PreguntaVenn(
+                    "CONJUNTOS • TOTALIDAD DE A",
+                    "Región que abarca todos los elementos de A, incluyendo los que comparte con B:",
+                    VennDiagramView.SET_A,
+                    VennDiagramView.ONLY_A,
+                    VennDiagramView.ONLY_B
+            ));
+            lista.add(new PreguntaVenn(
+                    "CONJUNTOS • ELEMENTOS COMUNES",
+                    "Valores numéricos que son múltiplos de 2 (A) y también múltiplos de 3 (B):",
+                    VennDiagramView.A_INTERSECT_B,
+                    VennDiagramView.ONLY_A,
+                    VennDiagramView.A_UNION_B
+            ));
+            lista.add(new PreguntaVenn(
+                    "CONJUNTOS • REUNIÓN DE ELEMENTOS",
+                    "Alumnos que aprobaron el examen teórico (A) o el examen práctico (B):",
+                    VennDiagramView.A_UNION_B,
+                    VennDiagramView.A_INTERSECT_B,
+                    VennDiagramView.ONLY_A
+            ));
+            lista.add(new PreguntaVenn(
+                    "CONJUNTOS • SOLO PRIMER CONJUNTO",
+                    "Archivos almacenados localmente en A que no han sido respaldados en B:",
+                    VennDiagramView.ONLY_A,
+                    VennDiagramView.SET_A,
+                    VennDiagramView.A_INTERSECT_B
+            ));
+            lista.add(new PreguntaVenn(
+                    "CONJUNTOS • SOLO SEGUNDO CONJUNTO",
+                    "Clientes que compraron el paquete B pero no adquirieron el paquete A:",
+                    VennDiagramView.ONLY_B,
+                    VennDiagramView.A_UNION_B,
+                    VennDiagramView.ONLY_A
+            ));
+            lista.add(new PreguntaVenn(
+                    "CONJUNTOS • COINCIDENCIA SIMULTÁNEA",
+                    "Requisitos que son tanto prioritarios (A) como verificables (B):",
+                    VennDiagramView.A_INTERSECT_B,
+                    VennDiagramView.SYM_DIFF_AB,
+                    VennDiagramView.ONLY_A
+            ));
         } else if (dificultadNivel == 2) {
             lista.add(new PreguntaVenn(
                     "DIFERENCIA SIMÉTRICA (A Δ B)",
@@ -439,6 +499,55 @@ public class MinijuegoLogicaAlgoritmos extends Minijuego {
                     VennDiagramView.COMPLEMENT_A,
                     VennDiagramView.ONLY_A
             ));
+            lista.add(new PreguntaVenn(
+                    "COMPLEMENTO DE A EN EL UNIVERSO",
+                    "Todos los casos de prueba del sistema (U) excepto los que pertenecen al módulo A:",
+                    VennDiagramView.COMPLEMENT_A,
+                    VennDiagramView.ONLY_B,
+                    VennDiagramView.COMPLEMENT_UNION_AB
+            ));
+            lista.add(new PreguntaVenn(
+                    "DIFERENCIA EXCLUSIVA • (A ∪ B) - (A ∩ B)",
+                    "Elementos que están en la unión de A y B quitando la intersección:",
+                    VennDiagramView.SYM_DIFF_AB,
+                    VennDiagramView.A_INTERSECT_B,
+                    VennDiagramView.ONLY_A
+            ));
+            lista.add(new PreguntaVenn(
+                    "NEGACIÓN CONJUNTA • ¬A ∧ ¬B",
+                    "Servidores que NO usan Linux (A) y tampoco usan Windows (B):",
+                    VennDiagramView.COMPLEMENT_UNION_AB,
+                    VennDiagramView.SYM_DIFF_AB,
+                    VennDiagramView.ONLY_B
+            ));
+            lista.add(new PreguntaVenn(
+                    "RESTRICCIÓN DE DOMINIO • A - (A ∩ B)",
+                    "Elementos del conjunto A después de retirar los que también pertenecen a B:",
+                    VennDiagramView.ONLY_A,
+                    VennDiagramView.SET_A,
+                    VennDiagramView.A_UNION_B
+            ));
+            lista.add(new PreguntaVenn(
+                    "RESTRICCIÓN DE DOMINIO • B - (A ∩ B)",
+                    "Elementos del conjunto B después de retirar los que también pertenecen a A:",
+                    VennDiagramView.ONLY_B,
+                    VennDiagramView.ONLY_A,
+                    VennDiagramView.A_INTERSECT_B
+            ));
+            lista.add(new PreguntaVenn(
+                    "UNIVERSO FUERA DE A",
+                    "Región sombreada que incluye tanto a (B - A) como al exterior de ambos conjuntos:",
+                    VennDiagramView.COMPLEMENT_A,
+                    VennDiagramView.COMPLEMENT_UNION_AB,
+                    VennDiagramView.ONLY_B
+            ));
+            lista.add(new PreguntaVenn(
+                    "OPERADOR XOR EN CONJUNTOS",
+                    "Transacciones procesadas por la pasarela A o por la B, pero nunca duplicadas en ambas:",
+                    VennDiagramView.SYM_DIFF_AB,
+                    VennDiagramView.A_UNION_B,
+                    VennDiagramView.A_INTERSECT_B
+            ));
         } else {
             lista.add(new PreguntaVenn(
                     "TRES CONJUNTOS • (A ∩ B ∩ C)",
@@ -495,6 +604,55 @@ public class MinijuegoLogicaAlgoritmos extends Minijuego {
                     VennDiagramView.A_INTERSECT_B_INTERSECT_C,
                     VennDiagramView.A_UNION_B_UNION_C,
                     VennDiagramView.ONLY_C_3SET
+            ));
+            lista.add(new PreguntaVenn(
+                    "COBERTURA TOTAL DE TRES CONJUNTOS",
+                    "Desarrolladores que conocen Java (A), Kotlin (B) o Python (C):",
+                    VennDiagramView.A_UNION_B_UNION_C,
+                    VennDiagramView.A_INTERSECT_B_MINUS_C,
+                    VennDiagramView.A_INTERSECT_B_INTERSECT_C
+            ));
+            lista.add(new PreguntaVenn(
+                    "EXCLUSIVIDAD EN EL TERCER CONJUNTO",
+                    "Módulos que solo dependen de la librería C y no usan ni A ni B:",
+                    VennDiagramView.ONLY_C_3SET,
+                    VennDiagramView.A_UNION_B_UNION_C,
+                    VennDiagramView.A_INTERSECT_B_MINUS_C
+            ));
+            lista.add(new PreguntaVenn(
+                    "DOBLE CONDICIÓN SIN LA TERCERA",
+                    "Paquetes validados por QA (A) y Seguridad (B), pero aún no liberados en Producción (C):",
+                    VennDiagramView.A_INTERSECT_B_MINUS_C,
+                    VennDiagramView.A_INTERSECT_B_INTERSECT_C,
+                    VennDiagramView.A_UNION_B_UNION_C
+            ));
+            lista.add(new PreguntaVenn(
+                    "NÚCLEO COMÚN DE TRES SISTEMAS",
+                    "Datos replicados simultáneamente en los nodos A, B y C del clúster:",
+                    VennDiagramView.A_INTERSECT_B_INTERSECT_C,
+                    VennDiagramView.ONLY_C_3SET,
+                    VennDiagramView.A_INTERSECT_B_MINUS_C
+            ));
+            lista.add(new PreguntaVenn(
+                    "UNIÓN GENERAL • A ∨ B ∨ C",
+                    "Región que se activa cuando cualquiera de las tres entradas A, B o C es verdadera:",
+                    VennDiagramView.A_UNION_B_UNION_C,
+                    VennDiagramView.ONLY_C_3SET,
+                    VennDiagramView.A_INTERSECT_B_INTERSECT_C
+            ));
+            lista.add(new PreguntaVenn(
+                    "INTERSECCIÓN PARCIAL • (A ∩ B) ∩ ¬C",
+                    "Estudiantes inscritos en Cálculo (A) y Álgebra (B) que no llevan Física (C):",
+                    VennDiagramView.A_INTERSECT_B_MINUS_C,
+                    VennDiagramView.A_UNION_B_UNION_C,
+                    VennDiagramView.ONLY_C_3SET
+            ));
+            lista.add(new PreguntaVenn(
+                    "DIFERENCIA TRIPLE • C - (A ∪ B)",
+                    "Incidentes reportados únicamente en la versión C y ausentes en A y B:",
+                    VennDiagramView.ONLY_C_3SET,
+                    VennDiagramView.A_INTERSECT_B_INTERSECT_C,
+                    VennDiagramView.A_INTERSECT_B_MINUS_C
             ));
         }
 

@@ -31,6 +31,7 @@ public class MinijuegoLogica1 extends Minijuego {
     private boolean resultadoEsperadoActual = true; // Lo que se pide en "Resultado esperado"
     private boolean respuestaCorrectaActual = true; // Qué valor de ? produce ese resultado
     private Boolean opcionSeleccionada = null;      // null si aún no selecciona V o F
+    private boolean validandoRespuesta = false;
     private boolean ordenBotonesInvertido = false;  // Para aleatorizar posición de opciones
 
     private int preguntasRespondidas = 0;
@@ -121,6 +122,13 @@ public class MinijuegoLogica1 extends Minijuego {
             lista.add(new ReactivoFormula("¬[ ? ]  ∧  V", false, true));
             lista.add(new ReactivoFormula("F  ∨  [ ? ]", true, false));
             lista.add(new ReactivoFormula("¬( [ ? ]  ∧  V )", false, true));
+            lista.add(new ReactivoFormula("V  ∧  [ ? ]", true, false));
+            lista.add(new ReactivoFormula("¬[ ? ]  ∨  F", false, true));
+            lista.add(new ReactivoFormula("¬( V  ∧  [ ? ] )", false, true));
+            lista.add(new ReactivoFormula("( [ ? ]  ∨  F )  ∧  V", true, false));
+            lista.add(new ReactivoFormula("F  ∨  ¬[ ? ]", false, true));
+            lista.add(new ReactivoFormula("¬F  ∧  [ ? ]", true, false));
+            lista.add(new ReactivoFormula("¬V  ∨  [ ? ]", true, false));
         } else if (dificultadNivel == 2) {
             lista.add(new ReactivoFormula("¬( ¬V  ∨  [ ? ] )", false, true));
             lista.add(new ReactivoFormula("( [ ? ]  ∧  V )  ∧  V", true, false));
@@ -130,6 +138,13 @@ public class MinijuegoLogica1 extends Minijuego {
             lista.add(new ReactivoFormula("( F  ∨  ¬[ ? ] )  ∧  V", false, true));
             lista.add(new ReactivoFormula("¬( F  ∧  V )  ∧  [ ? ]", true, false));
             lista.add(new ReactivoFormula("( ¬F  ∧  [ ? ] )  ∨  F", true, false));
+            lista.add(new ReactivoFormula("( V  ∨  F )  ∧  ¬[ ? ]", false, true));
+            lista.add(new ReactivoFormula("¬( [ ? ]  ∨  F )  ∧  V", false, true));
+            lista.add(new ReactivoFormula("( ¬V  ∧  F )  ∨  [ ? ]", true, false));
+            lista.add(new ReactivoFormula("( [ ? ]  ∧  ¬F )  ∨  ¬V", true, false));
+            lista.add(new ReactivoFormula("¬( V  ∧  ¬[ ? ] )", true, false));
+            lista.add(new ReactivoFormula("( F  ∨  V )  ∧  [ ? ]", true, false));
+            lista.add(new ReactivoFormula("¬( ¬F  ∧  [ ? ] )", false, true));
         } else {
             lista.add(new ReactivoFormula("( [ ? ]  ∧  F )  ∨  ( ¬[ ? ]  ∧  V )", false, true));
             lista.add(new ReactivoFormula("( [ ? ]  ∨  ¬[ ? ] )  ∧  ( V  ∧  ¬[ ? ] )", false, true));
@@ -139,6 +154,13 @@ public class MinijuegoLogica1 extends Minijuego {
             lista.add(new ReactivoFormula("¬( ¬[ ? ]  ∨  F )  ∧  V", true, false));
             lista.add(new ReactivoFormula("( ( V  ∨  F )  ∧  ¬[ ? ] )  ∨  F", false, true));
             lista.add(new ReactivoFormula("( ¬F  ∧  [ ? ] )  ∧  ( V  ∨  ¬[ ? ] )", true, false));
+            lista.add(new ReactivoFormula("¬( ( V  ∧  F )  ∨  ¬[ ? ] )", true, false));
+            lista.add(new ReactivoFormula("( ( [ ? ]  ∨  F )  ∧  V )  ∧  ¬F", true, false));
+            lista.add(new ReactivoFormula("( ¬V  ∨  ¬[ ? ] )  ∧  ( V  ∨  F )", false, true));
+            lista.add(new ReactivoFormula("¬( ( [ ? ]  ∨  F )  ∧  ( V  ∧  ¬F ) )", false, true));
+            lista.add(new ReactivoFormula("( ( ¬F  ∧  V )  ∧  [ ? ] )  ∨  ( F  ∧  V )", true, false));
+            lista.add(new ReactivoFormula("( [ ? ]  ∧  ¬F )  ∨  ( ¬V  ∧  [ ? ] )", true, false));
+            lista.add(new ReactivoFormula("¬( ¬[ ? ]  ∧  ¬F )  ∨  ( F  ∧  V )", true, false));
         }
 
         Collections.shuffle(lista);
@@ -146,6 +168,7 @@ public class MinijuegoLogica1 extends Minijuego {
     }
 
     private void cargarSiguienteReactivo() {
+        validandoRespuesta = false;
         opcionSeleccionada = null;
 
         if (bancoFormulas.isEmpty()) {
@@ -230,9 +253,13 @@ public class MinijuegoLogica1 extends Minijuego {
     }
 
     private void comprobarRespuestaSeleccionada() {
+        if (validandoRespuesta) return;
         if (opcionSeleccionada == null) {
-            Toast.makeText(this, "Selecciona primero una opción antes de comprobar", Toast.LENGTH_SHORT).show();
             return;
+        }
+        validandoRespuesta = true;
+        if (temporizadorReal != null) {
+            temporizadorReal.cancel();
         }
 
         boolean esCorrecto = (opcionSeleccionada == respuestaCorrectaActual);
@@ -241,14 +268,21 @@ public class MinijuegoLogica1 extends Minijuego {
         int segsRestantes = Math.max(0, (int) ((frameTimer * 16L) / 1000L));
         sumaSegundosRestantes += segsRestantes;
 
+        AjustesActivity.reproducirRetroalimentacion(this, btnComprobarFormula, esCorrecto);
+
+        String etiquetaElegida = opcionSeleccionada ? "VERDADERO (V)" : "FALSO (F)";
         if (esCorrecto) {
             puntosTotales += puntosPregunta;
-            String ptsStr = String.format(Locale.US, "%.1f", puntosPregunta);
-            Toast.makeText(this, "¡Respuesta correcta! +" + ptsStr + " pts", Toast.LENGTH_SHORT).show();
+            tvSeleccionActualFormula.setBackgroundResource(R.drawable.bg_drop_zone_correct);
+            tvSeleccionActualFormula.setTextColor(0xFFFFFFFF);
+            tvSeleccionActualFormula.setText("✓  " + etiquetaElegida);
         } else {
-            Toast.makeText(this, "Respuesta incorrecta. Puntos: 0", Toast.LENGTH_SHORT).show();
+            tvSeleccionActualFormula.setBackgroundResource(R.drawable.bg_drop_zone_error);
+            tvSeleccionActualFormula.setTextColor(0xFFFFFFFF);
+            tvSeleccionActualFormula.setText("✕  " + etiquetaElegida);
         }
-        avanzarSiguientePregunta(esCorrecto);
+
+        tvSeleccionActualFormula.postDelayed(() -> avanzarSiguientePregunta(esCorrecto), 550);
     }
 
     @Override

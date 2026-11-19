@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4EEDC"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingTop="40dp"
+        android:paddingBottom="32dp">
+
+        <!-- Fila de Navegación y Título -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="18dp">
+
+            <TextView
+                android:id="@+id/btnVolverConfigQuiz"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="←"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#142232"
+                android:gravity="center"
+                android:background="@drawable/bg_btn_volver"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Modo Quiz"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="#142232"
+                android:gravity="center"
+                android:layout_marginEnd="40dp" />
+
+        </LinearLayout>
+
+        <!-- Descripción del Modo Quiz -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Evalúa tu dominio respondiendo una serie de preguntas por cada categoría en orden aleatorio para obtener tu calificación final."
+            android:textColor="#415A77"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_marginBottom="22dp" />
+
+        <!-- SECCIÓN 1: Dificultad (Paso 2 y 3 del Flujo Normal) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card_configurar"
+            android:padding="18dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dificultad del Quiz"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#142232"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="14dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <!-- Fácil -->
+                <TextView
+                    android:id="@+id/chipQuizFacil"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:text="Fácil"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center"
+                    android:background="@drawable/bg_chip_selected"
+                    android:layout_marginEnd="8dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <!-- Normal -->
+                <TextView
+                    android:id="@+id/chipQuizNormal"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:text="Normal"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#142232"
+                    android:gravity="center"
+                    android:background="@drawable/bg_chip_unselected"
+                    android:layout_marginEnd="8dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <!-- Difícil -->
+                <TextView
+                    android:id="@+id/chipQuizDificil"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:text="Difícil"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#142232"
+                    android:gravity="center"
+                    android:background="@drawable/bg_chip_unselected"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- SECCIÓN 2: Número de preguntas por categoría (10 a 20, por defecto 10) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card_configurar"
+            android:padding="18dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Preguntas por Categoría (10 a 20)"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="#142232"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="6dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Por defecto se aplican 10 preguntas en cada categoría"
+                android:textSize="12.5sp"
+                android:textColor="#415A77"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="14dp" />
+
+            <EditText
+                android:id="@+id/etPreguntasPorCategoriaQuiz"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:text="10"
+                android:textColor="#142232"
+                android:textSize="16sp"
+                android:inputType="number"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_input_preguntas"
+                android:paddingHorizontal="16dp"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Botones rápidos: 10, 15, 20 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/chipCantQuiz10"
+                    android:layout_width="0dp"
+                    android:layout_height="38dp"
+                    android:layout_weight="1"
+                    android:text="10 (Default)"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center"
+                    android:background="@drawable/bg_chip_selected"
+                    android:layout_marginEnd="8dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <TextView
+                    android:id="@+id/chipCantQuiz15"
+                    android:layout_width="0dp"
+                    android:layout_height="38dp"
+                    android:layout_weight="1"
+                    android:text="15 preguntas"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="#142232"
+                    android:gravity="center"
+                    android:background="@drawable/bg_chip_unselected"
+                    android:layout_marginEnd="8dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <TextView
+                    android:id="@+id/chipCantQuiz20"
+                    android:layout_width="0dp"
+                    android:layout_height="38dp"
+                    android:layout_weight="1"
+                    android:text="20 preguntas"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="#142232"
+                    android:gravity="center"
+                    android:background="@drawable/bg_chip_unselected"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- SECCIÓN 3: Resumen de Categorías Incluidas -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card_configurar"
+            android:padding="16dp"
+            android:layout_marginBottom="28dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Categorías a Evaluar (Orden Aleatorio)"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#142232"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tvResumenCategoriasQuiz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Lógica (Diagramas de Venn y Fórmulas Booleanas)\n• Programación (Bloques de Código)\n• Análisis y diseño de algoritmos (Secuencias y Conjuntos)"
+                android:textSize="13sp"
+                android:textColor="#0D1B2A"
+                android:lineSpacingExtra="4dp"
+                android:background="@drawable/bg_categoria_pill"
+                android:padding="12dp" />
+
+        </LinearLayout>
+
+        <!-- Botón CONTINUAR / EMPEZAR QUIZ -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnContinuarQuiz"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="CONTINUAR"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_btn_continuar" />
+
+    </LinearLayout>
+</ScrollView>

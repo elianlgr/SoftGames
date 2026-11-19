@@ -48,15 +48,15 @@
         android:textSize="13sp"
         android:textColor="#415A77"
         android:gravity="center"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="14dp" />
 
-    <!-- 2. Opción Destacada: MODO GENERAL (Todas las categorías y minijuegos) -->
+    <!-- 2. Opción Destacada: MODO GENERAL (Las 8 categorías y todos los minijuegos) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_card_configurar"
         android:padding="10dp"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="14dp">
 
         <LinearLayout
             android:id="@+id/cardModoGeneralMaraton"
@@ -66,7 +66,7 @@
             android:gravity="center_vertical"
             android:background="@drawable/bg_chip_selected"
             android:paddingHorizontal="18dp"
-            android:paddingVertical="14dp"
+            android:paddingVertical="12dp"
             android:clickable="true"
             android:focusable="true">
 
@@ -87,8 +87,8 @@
                     android:id="@+id/tvTituloModoGeneral"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Modo General (Todas)"
-                    android:textSize="16sp"
+                    android:text="Modo General (Las 8 Categorías)"
+                    android:textSize="15.5sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF" />
 
@@ -96,8 +96,8 @@
                     android:id="@+id/tvSubtituloModoGeneral"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Incluye preguntas de todas las categorías y minijuegos"
-                    android:textSize="12sp"
+                    android:text="Incluye preguntas de las 8 categorías y todos los minijuegos"
+                    android:textSize="11.5sp"
                     android:textColor="#FAF5EC"
                     android:layout_marginTop="2dp" />
             </LinearLayout>
@@ -124,9 +124,9 @@
         android:textSize="13sp"
         android:textStyle="bold"
         android:textColor="#0D1B2A"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="8dp" />
 
-    <!-- 3. Lista de Categorías Seleccionables -->
+    <!-- 3. Lista de las 8 Categorías Seleccionables -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -136,78 +136,25 @@
         android:layout_marginBottom="14dp">
 
         <LinearLayout
+            android:id="@+id/contenedorCategoriasMaraton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/bg_card_configurar"
             android:padding="12dp">
 
-            <!-- Categoría 1: Lógica -->
-            <LinearLayout
-                android:id="@+id/itemCatMaratonLogica"
-                android:layout_width="match_parent"
-                android:layout_height="66dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@drawable/bg_categoria_pill"
-                android:paddingHorizontal="16dp"
-                android:layout_marginBottom="10dp"
-                android:clickable="true"
-                android:focusable="true">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_cat_puzzle"
-                    android:contentDescription="Lógica"
-                    android:layout_marginEnd="14dp" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tvTituloCatLogica"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Lógica"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#0D1B2A" />
-
-                    <TextView
-                        android:id="@+id/tvSubCatLogica"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Diagramas de Venn y Fórmulas Booleanas"
-                        android:textSize="11sp"
-                        android:textColor="#415A77" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tvCheckCatLogica"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
-                    android:text=""
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:textColor="#0D1B2A"
-                    android:gravity="center"
-                    android:background="@drawable/bg_pill_crema" />
-            </LinearLayout>
-
-            <!-- Categoría 2: Programación -->
+            <!-- 1: Programación -->
             <LinearLayout
                 android:id="@+id/itemCatMaratonProgramacion"
                 android:layout_width="match_parent"
-                android:layout_height="66dp"
+                android:layout_height="wrap_content"
+                android:minHeight="64dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:background="@drawable/bg_categoria_pill"
-                android:paddingHorizontal="16dp"
-                android:layout_marginBottom="10dp"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="10dp"
+                android:layout_marginBottom="8dp"
                 android:clickable="true"
                 android:focusable="true">
 
@@ -216,7 +163,7 @@
                     android:layout_height="30dp"
                     android:src="@drawable/ic_cat_code"
                     android:contentDescription="Programación"
-                    android:layout_marginEnd="14dp" />
+                    android:layout_marginEnd="12dp" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -229,7 +176,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Programación"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
                         android:textStyle="bold"
                         android:textColor="#0D1B2A" />
 
@@ -254,15 +201,365 @@
                     android:background="@drawable/bg_pill_crema" />
             </LinearLayout>
 
-            <!-- Categoría 3: Análisis y diseño de algoritmos -->
+            <!-- 2: Introducción a la ingeniería -->
             <LinearLayout
-                android:id="@+id/itemCatMaratonAlgoritmos"
+                android:id="@+id/itemCatMaratonIngenieria"
                 android:layout_width="match_parent"
-                android:layout_height="66dp"
+                android:layout_height="wrap_content"
+                android:minHeight="64dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:background="@drawable/bg_categoria_pill"
-                android:paddingHorizontal="16dp"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="10dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_cat_gears"
+                    android:contentDescription="Introducción a la ingeniería"
+                    android:layout_marginEnd="12dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvTituloCatIngenieria"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Introducción a la ingeniería"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#0D1B2A" />
+
+                    <TextView
+                        android:id="@+id/tvSubCatIngenieria"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ciclo de vida, calidad, normas ISO y TSP"
+                        android:textSize="11sp"
+                        android:textColor="#415A77" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvCheckCatIngenieria"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:text=""
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#0D1B2A"
+                    android:gravity="center"
+                    android:background="@drawable/bg_pill_crema" />
+            </LinearLayout>
+
+            <!-- 3: Lógica -->
+            <LinearLayout
+                android:id="@+id/itemCatMaratonLogica"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="64dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_categoria_pill"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="10dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_cat_puzzle"
+                    android:contentDescription="Lógica"
+                    android:layout_marginEnd="12dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvTituloCatLogica"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lógica"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#0D1B2A" />
+
+                    <TextView
+                        android:id="@+id/tvSubCatLogica"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Diagramas de Venn, fórmulas y proposiciones"
+                        android:textSize="11sp"
+                        android:textColor="#415A77" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvCheckCatLogica"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:text=""
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#0D1B2A"
+                    android:gravity="center"
+                    android:background="@drawable/bg_pill_crema" />
+            </LinearLayout>
+
+            <!-- 4: Matemáticas discretas -->
+            <LinearLayout
+                android:id="@+id/itemCatMaratonMatematicas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="64dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_categoria_pill"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="10dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_cat_math"
+                    android:contentDescription="Matemáticas discretas"
+                    android:layout_marginEnd="12dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvTituloCatMatematicas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Matemáticas discretas"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#0D1B2A" />
+
+                    <TextView
+                        android:id="@+id/tvSubCatMatematicas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Conjuntos, combinatoria, grafos y relaciones"
+                        android:textSize="11sp"
+                        android:textColor="#415A77" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvCheckCatMatematicas"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:text=""
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#0D1B2A"
+                    android:gravity="center"
+                    android:background="@drawable/bg_pill_crema" />
+            </LinearLayout>
+
+            <!-- 5: Ingeniería de requerimientos -->
+            <LinearLayout
+                android:id="@+id/itemCatMaratonRequerimientos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="64dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_categoria_pill"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="10dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_cat_req"
+                    android:contentDescription="Ingeniería de requerimientos"
+                    android:layout_marginEnd="12dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvTituloCatRequerimientos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ingeniería de requerimientos"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#0D1B2A" />
+
+                    <TextView
+                        android:id="@+id/tvSubCatRequerimientos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SRS, casos de uso, historias y validación"
+                        android:textSize="11sp"
+                        android:textColor="#415A77" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvCheckCatRequerimientos"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:text=""
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#0D1B2A"
+                    android:gravity="center"
+                    android:background="@drawable/bg_pill_crema" />
+            </LinearLayout>
+
+            <!-- 6: Análisis y diseño orientado a objetos -->
+            <LinearLayout
+                android:id="@+id/itemCatMaratonAnalisisOO"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="64dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_categoria_pill"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="10dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_cat_diagram"
+                    android:contentDescription="Análisis y diseño orientado a objetos"
+                    android:layout_marginEnd="12dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvTituloCatAnalisisOO"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Análisis y diseño orientado a objetos"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#0D1B2A" />
+
+                    <TextView
+                        android:id="@+id/tvSubCatAnalisisOO"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Modelado UML, arquitectura y principios SOLID"
+                        android:textSize="11sp"
+                        android:textColor="#415A77" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvCheckCatAnalisisOO"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:text=""
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#0D1B2A"
+                    android:gravity="center"
+                    android:background="@drawable/bg_pill_crema" />
+            </LinearLayout>
+
+            <!-- 7: Programación orientada a objetos -->
+            <LinearLayout
+                android:id="@+id/itemCatMaratonPOO"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="64dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_categoria_pill"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="10dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_cat_cube"
+                    android:contentDescription="Programación orientada a objetos"
+                    android:layout_marginEnd="12dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvTituloCatPOO"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Programación orientada a objetos"
+                        android:textSize="14.5sp"
+                        android:textStyle="bold"
+                        android:textColor="#0D1B2A" />
+
+                    <TextView
+                        android:id="@+id/tvSubCatPOO"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Clases, herencia, polimorfismo y encapsulamiento"
+                        android:textSize="11sp"
+                        android:textColor="#415A77" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvCheckCatPOO"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:text=""
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#0D1B2A"
+                    android:gravity="center"
+                    android:background="@drawable/bg_pill_crema" />
+            </LinearLayout>
+
+            <!-- 8: Análisis y diseño de algoritmos -->
+            <LinearLayout
+                android:id="@+id/itemCatMaratonAlgoritmos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="64dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_categoria_pill"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="10dp"
                 android:clickable="true"
                 android:focusable="true">
 
@@ -271,7 +568,7 @@
                     android:layout_height="30dp"
                     android:src="@drawable/ic_cat_flowchart"
                     android:contentDescription="Análisis y diseño de algoritmos"
-                    android:layout_marginEnd="14dp" />
+                    android:layout_marginEnd="12dp" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -284,7 +581,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Análisis y diseño de algoritmos"
-                        android:textSize="14sp"
+                        android:textSize="14.5sp"
                         android:textStyle="bold"
                         android:textColor="#0D1B2A" />
 
@@ -292,7 +589,7 @@
                         android:id="@+id/tvSubCatAlgoritmos"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Búsquedas, arreglos, recursión y lógica"
+                        android:text="Complejidad Big-O, búsquedas y estructuras"
                         android:textSize="11sp"
                         android:textColor="#415A77" />
                 </LinearLayout>

@@ -81,8 +81,9 @@ public class RondaAleatoriaActivity extends Minijuego {
     private double puntosTotales = 0.0;
     private int sumaSegundosRestantes = 0;
 
-    // Registro por categoría para actualizar estadísticas individuales al concluir la ronda
-    private final Map<String, Double> mejorPuntajePorCategoria = new LinkedHashMap<>();
+    // Registro por categoría para calcular el promedio individual por categoría al concluir la ronda
+    private final Map<String, Double> sumaPuntosPorCategoria = new LinkedHashMap<>();
+    private final Map<String, Integer> preguntasPorCategoriaRonda = new LinkedHashMap<>();
 
     private final List<RetoAleatorio> listaRetosRonda = new ArrayList<>();
     private RetoAleatorio retoActual;
@@ -126,6 +127,7 @@ public class RondaAleatoriaActivity extends Minijuego {
     private boolean respuestaCorrectaFormula = true;
     private Boolean seleccionFormula = null;
     private boolean botonesFormulaInvertidos = false;
+    private boolean validandoRespuesta = false;
 
     public RondaAleatoriaActivity() {
         super(1200, null);
@@ -204,21 +206,23 @@ public class RondaAleatoriaActivity extends Minijuego {
         List<RetoAleatorio> bancoCompleto = new ArrayList<>();
 
         for (int nivel = 1; nivel <= 3; nivel++) {
-            List<MinijuegoBloques.PreguntaBloque> bloques = MinijuegoBloques.obtenerBancoPorDificultad(nivel);
-            for (int i = 0; i < bloques.size(); i++) {
-                String cat = (i % 2 == 0) ? "Programación" : "Análisis y diseño de algoritmos";
-                bancoCompleto.add(new RetoAleatorio(nivel, cat, "Bloques de Código", bloques.get(i)));
+            for (String cat : BancoPreguntasCategorias.CATEGORIAS_OFICIALES) {
+                List<MinijuegoBloques.PreguntaBloque> bloques = BancoPreguntasCategorias.obtenerBanco(cat, nivel);
+                for (MinijuegoBloques.PreguntaBloque pb : bloques) {
+                    bancoCompleto.add(new RetoAleatorio(nivel, cat, "Bloques de Código", pb));
+                }
             }
 
             List<MinijuegoLogicaAlgoritmos.PreguntaVenn> venns = MinijuegoLogicaAlgoritmos.obtenerBancoPorDificultad(nivel);
             for (int i = 0; i < venns.size(); i++) {
-                String cat = (i % 2 == 0) ? "Lógica" : "Análisis y diseño de algoritmos";
+                String cat = (i % 2 == 0) ? "Lógica" : "Matemáticas discretas";
                 bancoCompleto.add(new RetoAleatorio(nivel, cat, "Diagramas de Venn", venns.get(i)));
             }
 
             List<MinijuegoLogica1.ReactivoFormula> formulas = MinijuegoLogica1.obtenerBancoPorDificultad(nivel);
-            for (MinijuegoLogica1.ReactivoFormula pf : formulas) {
-                bancoCompleto.add(new RetoAleatorio(nivel, "Lógica", "Fórmulas Booleanas", pf));
+            for (int i = 0; i < formulas.size(); i++) {
+                String cat = (i % 2 == 0) ? "Lógica" : "Matemáticas discretas";
+                bancoCompleto.add(new RetoAleatorio(nivel, cat, "Fórmulas Booleanas", formulas.get(i)));
             }
         }
 
@@ -242,6 +246,7 @@ public class RondaAleatoriaActivity extends Minijuego {
     }
 
     private void cargarSiguienteReto() {
+        validandoRespuesta = false;
         if (listaRetosRonda.isEmpty()) {
             listaRetosRonda.addAll(generarPartidaAleatoria(totalPreguntas, random));
         }
@@ -504,6 +509,9 @@ public class RondaAleatoriaActivity extends Minijuego {
         btnFormulaOpDerRonda.setAlpha(0.9f);
 
         tvFormulaRonda.setText(pf.plantillaFormula);
+        tvFormulaRonda.setTextColor(0xFF0D1B2A);
+        tvFormulaRonda.setBackgroundColor(0x00000000);
+        tvFormulaRonda.setPadding(0, 0, 0, 0);
         if (resultadoEsperadoFormula) {
             tvResultadoEsperadoRonda.setText("VERDADERO (V)");
             tvResultadoEsperadoRonda.setBackgroundResource(R.drawable.bg_badge_verde);
@@ -540,33 +548,49 @@ public class RondaAleatoriaActivity extends Minijuego {
 
     // ==================== VALIDACIÓN Y FLUJO DE LA RONDA ALEATORIA ====================
     private void comprobarRetoActual() {
+        if (validandoRespuesta) return;
         boolean esCorrecto;
 
         if (retoActual.tipo == TIPO_BLOQUES_CODIGO) {
             if (indiceCodigoEnganchado == -1) {
-                Toast.makeText(this, "Arrastra o selecciona un bloque de código primero", Toast.LENGTH_SHORT).show();
                 return;
             }
             String elegida = opcionesCodigoMezcladas.get(indiceCodigoEnganchado);
             esCorrecto = elegida.equals(retoActual.preguntaBloque.respuestaCorrecta);
+            zonaDropCodigoRonda.setBackgroundResource(esCorrecto ? R.drawable.bg_drop_zone_correct : R.drawable.bg_drop_zone_error);
+            zonaDropCodigoRonda.setTextColor(0xFFFFFFFF);
+            zonaDropCodigoRonda.setText((esCorrecto ? "✓  " : "✕  ") + elegida);
 
         } else if (retoActual.tipo == TIPO_DIAGRAMA_VENN) {
             if (indiceVennEnganchado == -1) {
-                Toast.makeText(this, "Arrastra o selecciona una opción de diagrama de Venn", Toast.LENGTH_SHORT).show();
                 return;
             }
             int tipoElegido = opcionesVennMezcladas.get(indiceVennEnganchado);
             esCorrecto = (tipoElegido == retoActual.preguntaVenn.tipoCorrecto);
+            zonaDropVennRonda.setBackgroundResource(esCorrecto ? R.drawable.bg_drop_zone_correct : R.drawable.bg_drop_zone_error);
+            tvEstadoDropVennRonda.setTextColor(0xFFFFFFFF);
+            tvEstadoDropVennRonda.setText((esCorrecto ? "✓  " : "✕  ") + etiquetasVenn[indiceVennEnganchado]);
 
         } else {
             if (seleccionFormula == null) {
-                Toast.makeText(this, "Selecciona VERDADERO (V) o FALSO (F) primero", Toast.LENGTH_SHORT).show();
                 return;
             }
             esCorrecto = (seleccionFormula == respuestaCorrectaFormula);
+            String simb = seleccionFormula ? "[ V ]" : "[ F ]";
+            String formulaConValor = retoActual.preguntaFormula.plantillaFormula.replace("[ ? ]", simb);
+            tvFormulaRonda.setBackgroundResource(esCorrecto ? R.drawable.bg_drop_zone_correct : R.drawable.bg_drop_zone_error);
+            tvFormulaRonda.setTextColor(0xFFFFFFFF);
+            int pad = Math.round(12 * getResources().getDisplayMetrics().density);
+            tvFormulaRonda.setPadding(pad, pad / 2, pad, pad / 2);
+            tvFormulaRonda.setText((esCorrecto ? "✓  " : "✕  ") + formulaConValor);
         }
 
-        procesarResultadoTurno(esCorrecto);
+        validandoRespuesta = true;
+        if (temporizadorReal != null) {
+            temporizadorReal.cancel();
+        }
+        final boolean resultadoFinal = esCorrecto;
+        btnComprobarRonda.postDelayed(() -> procesarResultadoTurno(resultadoFinal), 550);
     }
 
     @Override
@@ -581,22 +605,19 @@ public class RondaAleatoriaActivity extends Minijuego {
         int segsRestantes = Math.max(0, (int) ((frameTimer * 16L) / 1000L));
         sumaSegundosRestantes += segsRestantes;
 
+        if (retoActual != null && retoActual.categoria != null) {
+            String cat = retoActual.categoria;
+            int prevPreg = preguntasPorCategoriaRonda.containsKey(cat) ? preguntasPorCategoriaRonda.get(cat) : 0;
+            preguntasPorCategoriaRonda.put(cat, prevPreg + 1);
+            double prevSuma = sumaPuntosPorCategoria.containsKey(cat) ? sumaPuntosPorCategoria.get(cat) : 0.0;
+            sumaPuntosPorCategoria.put(cat, prevSuma + (fueCorrecta ? puntosGanados : 0.0));
+        }
+
+        AjustesActivity.reproducirRetroalimentacion(this, btnComprobarRonda, fueCorrecta);
+
         if (fueCorrecta) {
             respuestasCorrectas++;
             puntosTotales += puntosGanados;
-
-            if (retoActual != null && retoActual.categoria != null) {
-                Double prevMejor = mejorPuntajePorCategoria.get(retoActual.categoria);
-                if (prevMejor == null || puntosGanados > prevMejor) {
-                    mejorPuntajePorCategoria.put(retoActual.categoria, puntosGanados);
-                }
-            }
-
-            String ptsStr = String.format(Locale.US, "%.1f", puntosGanados);
-            Toast.makeText(this, "¡Respuesta correcta! +" + ptsStr + " pts", Toast.LENGTH_SHORT).show();
-        } else {
-            // Flujo alternativo 4.1: Asignar 0.0 puntos a esa pregunta y avanzar al siguiente problema
-            Toast.makeText(this, "Respuesta incorrecta. Puntos: 0.0", Toast.LENGTH_SHORT).show();
         }
 
         preguntasRespondidas++;
@@ -635,11 +656,15 @@ public class RondaAleatoriaActivity extends Minijuego {
         }
         if (archivoActivo != null) {
             Estadisticas stats = new Estadisticas(archivoActivo);
-            for (Map.Entry<String, Double> entry : mejorPuntajePorCategoria.entrySet()) {
-                String claveCat = entry.getKey() + " - Ronda Aleatoria";
+            for (Map.Entry<String, Integer> entry : preguntasPorCategoriaRonda.entrySet()) {
+                String cat = entry.getKey();
+                int totalCat = entry.getValue();
+                double sumaCat = sumaPuntosPorCategoria.containsKey(cat) ? sumaPuntosPorCategoria.get(cat) : 0.0;
+                double promCat = totalCat > 0 ? (sumaCat / totalCat) : 0.0;
+                String claveCat = cat + " - Ronda Aleatoria";
                 double prev = stats.obtenerPuntuacion(claveCat);
-                if (entry.getValue() > prev) {
-                    stats.registrarPuntuacion(claveCat, entry.getValue());
+                if (promCat > prev) {
+                    stats.registrarPuntuacion(claveCat, promCat);
                 }
             }
             stats.guardar(this);
