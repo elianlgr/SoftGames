@@ -103,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="LÓGICA DE CONJUNTOS"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="#778D7A"
                 android:layout_marginBottom="4dp" />
@@ -113,7 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Elementos que pertenecen al conjunto A y al conjunto B simultáneamente (A ∩ B)"
-                android:textSize="14.5sp"
+                android:textSize="15.5sp"
                 android:textStyle="bold"
                 android:textColor="#0D1B2A"
                 android:gravity="center"
@@ -138,15 +138,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="⬇ Arrastra aquí la opción correcta (a, b o c) ⬇"
-            android:textSize="13.5sp"
+            android:textSize="14.5sp"
             android:textStyle="bold"
             android:textColor="#415A77"
             android:gravity="center" />
 
         <com.example.softgames.VennDiagramView
             android:id="@+id/vennRespuestaEnganchada"
-            android:layout_width="175dp"
-            android:layout_height="115dp"
+            android:layout_width="185dp"
+            android:layout_height="120dp"
             android:layout_marginTop="8dp"
             android:visibility="gone" />
     </LinearLayout>
@@ -164,7 +164,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mantén presionado y arrastra el bloque con el diagrama correcto:"
-            android:textSize="11.5sp"
+            android:textSize="12.5sp"
             android:textStyle="bold"
             android:textColor="#1B263B"
             android:layout_gravity="center_horizontal"
@@ -185,14 +185,14 @@
                 android:orientation="vertical"
                 android:gravity="center_horizontal"
                 android:background="@drawable/bg_bloque_codigo"
-                android:padding="8dp"
+                android:padding="10dp"
                 android:layout_marginEnd="6dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Opción a)"
-                    android:textSize="12.5sp"
+                    android:textSize="13.5sp"
                     android:textStyle="bold"
                     android:textColor="#F4F1DE"
                     android:layout_marginBottom="6dp" />
@@ -200,7 +200,7 @@
                 <com.example.softgames.VennDiagramView
                     android:id="@+id/vennOpcionA"
                     android:layout_width="match_parent"
-                    android:layout_height="76dp" />
+                    android:layout_height="92dp" />
             </LinearLayout>
 
             <!-- Bloque b) -->
@@ -212,14 +212,14 @@
                 android:orientation="vertical"
                 android:gravity="center_horizontal"
                 android:background="@drawable/bg_bloque_codigo"
-                android:padding="8dp"
+                android:padding="10dp"
                 android:layout_marginHorizontal="3dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Opción b)"
-                    android:textSize="12.5sp"
+                    android:textSize="13.5sp"
                     android:textStyle="bold"
                     android:textColor="#F4F1DE"
                     android:layout_marginBottom="6dp" />
@@ -227,7 +227,7 @@
                 <com.example.softgames.VennDiagramView
                     android:id="@+id/vennOpcionB"
                     android:layout_width="match_parent"
-                    android:layout_height="76dp" />
+                    android:layout_height="92dp" />
             </LinearLayout>
 
             <!-- Bloque c) -->
@@ -239,14 +239,14 @@
                 android:orientation="vertical"
                 android:gravity="center_horizontal"
                 android:background="@drawable/bg_bloque_codigo"
-                android:padding="8dp"
+                android:padding="10dp"
                 android:layout_marginStart="6dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Opción c)"
-                    android:textSize="12.5sp"
+                    android:textSize="13.5sp"
                     android:textStyle="bold"
                     android:textColor="#F4F1DE"
                     android:layout_marginBottom="6dp" />
@@ -254,7 +254,7 @@
                 <com.example.softgames.VennDiagramView
                     android:id="@+id/vennOpcionC"
                     android:layout_width="match_parent"
-                    android:layout_height="76dp" />
+                    android:layout_height="92dp" />
             </LinearLayout>
 
         </LinearLayout>

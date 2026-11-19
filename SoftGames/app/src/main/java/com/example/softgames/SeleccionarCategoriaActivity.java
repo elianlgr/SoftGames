@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Selector de las 8 categorías curriculares de Ingeniería de Software (CU-S1-03, CU-S3-03 y CU-S3-04).
+ * Todas las categorías se encuentran habilitadas y redirigen a ConfigurarPartidaActivity.
+ */
 public class SeleccionarCategoriaActivity extends AppCompatActivity {
 
     @Override
@@ -24,7 +28,7 @@ public class SeleccionarCategoriaActivity extends AppCompatActivity {
             btnCancelar.setOnClickListener(v -> finish());
         }
 
-        // Conectar cada tarjeta de categoría
+        // Conectar las 8 tarjetas de categoría curricular
         conectarCategoria(R.id.cardProgramacion, "Programación");
         conectarCategoria(R.id.cardIngenieria, "Introducción a la ingeniería");
         conectarCategoria(R.id.cardLogica, "Lógica");
@@ -39,16 +43,9 @@ public class SeleccionarCategoriaActivity extends AppCompatActivity {
         View card = findViewById(viewId);
         if (card != null) {
             card.setOnClickListener(v -> {
-                if ("Lógica".equalsIgnoreCase(nombreCategoria)
-                        || "Programación".equalsIgnoreCase(nombreCategoria)
-                        || "Análisis y diseño de algoritmos".equalsIgnoreCase(nombreCategoria)) {
-                    Intent intent = new Intent(SeleccionarCategoriaActivity.this, ConfigurarPartidaActivity.class);
-                    intent.putExtra("categoria", nombreCategoria);
-                    startActivity(intent);
-                } else {
-                    // Muestra el mensaje de aviso tipo "[Categoría] en construcción"
-                    Toast.makeText(SeleccionarCategoriaActivity.this, nombreCategoria + " en construcción", Toast.LENGTH_SHORT).show();
-                }
+                Intent intent = new Intent(SeleccionarCategoriaActivity.this, ConfigurarPartidaActivity.class);
+                intent.putExtra("categoria", nombreCategoria);
+                startActivity(intent);
             });
         }
     }

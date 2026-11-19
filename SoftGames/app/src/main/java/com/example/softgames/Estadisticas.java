@@ -33,6 +33,21 @@ public class Estadisticas {
         return user + "_" + archivoGuardado.numero;
     }
 
+    public static void limpiarMemoriaSesion(String usuario, int numero) {
+        String user = (usuario != null && !usuario.trim().isEmpty()) ? usuario.trim() : "default";
+        respaldoMemoriaSesion.remove(user + "_" + numero);
+    }
+
+    public static void copiarMemoriaSesion(String usuario, int origen, int destino) {
+        String user = (usuario != null && !usuario.trim().isEmpty()) ? usuario.trim() : "default";
+        Map<String, Double> memOrigen = respaldoMemoriaSesion.get(user + "_" + origen);
+        if (memOrigen != null) {
+            respaldoMemoriaSesion.put(user + "_" + destino, new HashMap<>(memOrigen));
+        } else {
+            respaldoMemoriaSesion.remove(user + "_" + destino);
+        }
+    }
+
     private void sincronizarDesdeMemoriaSesion() {
         if (archivoGuardado == null) return;
         Map<String, Double> mem = respaldoMemoriaSesion.get(obtenerClaveSesion());

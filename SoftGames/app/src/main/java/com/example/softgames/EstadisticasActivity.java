@@ -136,13 +136,18 @@ public class EstadisticasActivity extends AppCompatActivity {
     }
 
     private double calcularPuntajeRepresentativo(Map<String, Double> minijuegosCat) {
-        double max = 0.0;
+        if (minijuegosCat == null || minijuegosCat.isEmpty()) {
+            return 0.0;
+        }
+        double suma = 0.0;
+        int conteo = 0;
         for (Double val : minijuegosCat.values()) {
-            if (val != null && val > max) {
-                max = val;
+            if (val != null && val > 0.0) {
+                suma += val;
+                conteo++;
             }
         }
-        return max;
+        return conteo > 0 ? (suma / conteo) : 0.0;
     }
 
     private View crearTarjetaCategoria(InfoCategoria cat, Map<String, Double> minijuegosCat, boolean esUltima) {

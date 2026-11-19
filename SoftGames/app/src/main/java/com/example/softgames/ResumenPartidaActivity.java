@@ -43,7 +43,9 @@ public class ResumenPartidaActivity extends AppCompatActivity {
         }
 
         String textoDificultad;
-        if (dificultad == 1) {
+        if (dificultad == 0) {
+            textoDificultad = "Aleatoria";
+        } else if (dificultad == 1) {
             textoDificultad = "Fácil";
         } else if (dificultad == 2) {
             textoDificultad = "Medio";

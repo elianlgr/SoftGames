@@ -28,6 +28,7 @@ public abstract class Minijuego extends AppCompatActivity {
     public void init(){
         pausa = false;
         inicializado = true;
+        frameTimer = maxTime;
         iniciarTemporizadorReal();
         View btnPausa = findViewById(R.id.btnPausa);
         if (btnPausa != null) {
@@ -46,6 +47,9 @@ public abstract class Minijuego extends AppCompatActivity {
     }
 
     protected void iniciarTemporizadorReal() {
+        if (temporizadorReal != null) {
+            temporizadorReal.cancel();
+        }
         tvTemporizador = findViewById(R.id.tvTemporizador);
         // Por si el layout no lo tiene
         if (tvTemporizador == null) return;
@@ -68,7 +72,6 @@ public abstract class Minijuego extends AppCompatActivity {
                 if (tvTemporizador != null) {
                     tvTemporizador.setText("0s");
                 }
-                android.widget.Toast.makeText(Minijuego.this, "¡Se acabó el tiempo!", android.widget.Toast.LENGTH_SHORT).show();
                 tiempoAgotado();
             }
         };
@@ -83,6 +86,7 @@ public abstract class Minijuego extends AppCompatActivity {
         ArrayList<View.OnClickListener> acciones = new ArrayList<>();
         acciones.add(v -> {
             pausa = false;
+            establecerVisibilidadContenidoJuego(true);
             iniciarTemporizadorReal();
         });
         acciones.add(v -> {
@@ -96,10 +100,18 @@ public abstract class Minijuego extends AppCompatActivity {
         menuPausa = new MenuPausa(this, acciones);
     }
 
+    protected void establecerVisibilidadContenidoJuego(boolean visible) {
+        View raizContenido = findViewById(android.R.id.content);
+        if (raizContenido != null) {
+            raizContenido.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+        }
+    }
+
     public void pausarJuego() {
         if (!pausa) {
             pausa = true;
-            if (temporizadorReal != null) temporizadorReal.cancel(); // Pausar
+            if (temporizadorReal != null) temporizadorReal.cancel(); // Pausar conservando frameTimer
+            establecerVisibilidadContenidoJuego(false); // Ocultar problema activo durante la pausa (REQ-F-13)
             if (menuPausa == null) {
                 inicializarMenu();
             }

@@ -36,7 +36,10 @@ public class MainActivity extends AppCompatActivity {
         View cardRondaAleatoria = findViewById(R.id.cardRondaAleatoria);
 
         if (cardModoQuiz != null) {
-            cardModoQuiz.setOnClickListener(v -> mostrarMensaje("Modo Quiz en construcción"));
+            cardModoQuiz.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, ConfigurarQuizActivity.class);
+                startActivity(intent);
+            });
         }
 
         if (cardFreePlay != null) {
@@ -54,7 +57,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (cardRondaAleatoria != null) {
-            cardRondaAleatoria.setOnClickListener(v -> mostrarMensaje("Ronda Aleatoria en construcción"));
+            cardRondaAleatoria.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, RondaAleatoriaActivity.class);
+                startActivity(intent);
+            });
         }
 
         View btnVerEstadisticasMain = findViewById(R.id.btnVerEstadisticasMain);

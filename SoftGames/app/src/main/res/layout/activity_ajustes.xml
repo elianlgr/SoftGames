@@ -4,9 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#F4EEDC"
-    android:paddingHorizontal="28dp"
-    android:paddingTop="48dp"
-    android:paddingBottom="36dp">
+    android:paddingHorizontal="24dp"
+    android:paddingTop="44dp"
+    android:paddingBottom="28dp">
 
     <!-- Encabezado con Botón de Regresar y Título -->
     <LinearLayout
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginBottom="36dp">
+        android:layout_marginBottom="20dp">
 
         <!-- Botón Volver (Atrás) -->
         <TextView
@@ -35,53 +35,272 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ajustes"
-            android:textSize="28sp"
+            android:textSize="26sp"
             android:textStyle="bold"
             android:textColor="#142232"
             android:layout_marginStart="16dp" />
 
     </LinearLayout>
 
-    <!-- Contenedor central con tarjeta estilizada -->
-    <LinearLayout
+    <!-- Contenedor central desplazable con tarjeta estilizada -->
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:overScrollMode="never">
 
-        <!-- Tarjeta de configuración -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/bg_card_ajustes">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Tarjeta de configuración de audio y preferencias -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Opciones"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#142232"
-                android:layout_marginBottom="8dp" />
+                android:orientation="vertical"
+                android:background="@drawable/bg_card_ajustes">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Más ajustes de audio, controles y personalización próximamente..."
-                android:textSize="14sp"
-                android:textColor="#6E5F4C"
-                android:lineSpacingExtra="4dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Audio y Preferencias"
+                    android:textSize="19sp"
+                    android:textStyle="bold"
+                    android:textColor="#142232"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/tvEstadoAudioAjustes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Configura el volumen y la respuesta táctil de tus partidas"
+                    android:textSize="13sp"
+                    android:textColor="#415A77"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- 1. Interruptor de Sonido General -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="10dp"
+                    android:layout_marginBottom="14dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sonido General"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="#142232" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Activar o silenciar todo el audio"
+                            android:textSize="12sp"
+                            android:textColor="#415A77" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/btnToggleSonidoGeneral"
+                        android:layout_width="118dp"
+                        android:layout_height="38dp"
+                        android:gravity="center"
+                        android:text="✓ ACTIVADO"
+                        android:textSize="12.5sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/bg_chip_selected"
+                        android:clickable="true"
+                        android:focusable="true" />
+                </LinearLayout>
+
+                <!-- 2. Deslizador de Volumen de Música -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="12dp"
+                    android:layout_marginBottom="14dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="6dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Volumen de música"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="#142232" />
+
+                        <TextView
+                            android:id="@+id/tvValorVolumenMusica"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="80%"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#708274" />
+                    </LinearLayout>
+
+                    <SeekBar
+                        android:id="@+id/sbVolumenMusica"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="80"
+                        android:progressTint="#708274"
+                        android:thumbTint="#142232" />
+                </LinearLayout>
+
+                <!-- 3. Deslizador de Efectos de Sonido -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="12dp"
+                    android:layout_marginBottom="14dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="6dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Efectos de sonido"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="#142232" />
+
+                        <TextView
+                            android:id="@+id/tvValorVolumenEfectos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="80%"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#708274" />
+                    </LinearLayout>
+
+                    <SeekBar
+                        android:id="@+id/sbVolumenEfectos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="80"
+                        android:progressTint="#708274"
+                        android:thumbTint="#142232" />
+                </LinearLayout>
+
+                <!-- 4. Interruptor de Vibración al Responder -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_categoria_pill"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="10dp"
+                    android:layout_marginBottom="16dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Vibración al responder"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="#142232" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Respuesta táctil en aciertos y errores"
+                            android:textSize="12sp"
+                            android:textColor="#415A77" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/btnToggleVibracion"
+                        android:layout_width="118dp"
+                        android:layout_height="38dp"
+                        android:gravity="center"
+                        android:text="✓ ACTIVADA"
+                        android:textSize="12.5sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/bg_chip_selected"
+                        android:clickable="true"
+                        android:focusable="true" />
+                </LinearLayout>
+
+                <!-- Botón Restablecer Ajustes Predeterminados (Flujo alternativo 3.2) -->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnRestablecerAjustes"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="RESTABLECER VALORES POR DEFECTO"
+                    android:textColor="#142232"
+                    android:textSize="13.5sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/bg_btn_ajustes" />
+
+                <!-- Botón Cambiar Contraseña de la Cuenta -->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnCambiarPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="CAMBIAR CONTRASEÑA"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/bg_btn_continuar" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
     <!-- Botón Cerrar Sesión (Terracota / Rojo elegante redondeado) -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnCerrarSesion"
         android:layout_width="match_parent"
         android:layout_height="52dp"
+        android:layout_marginTop="14dp"
         android:text="CERRAR SESIÓN"
         android:textColor="#FFFFFF"
         android:textSize="16sp"

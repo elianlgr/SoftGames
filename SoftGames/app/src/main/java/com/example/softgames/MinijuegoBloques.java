@@ -7,7 +7,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,6 +47,7 @@ public class MinijuegoBloques extends Minijuego {
     private List<String> opcionesMezcladas = new ArrayList<>();
 
     private int indiceBloqueEnganchado = -1;
+    private boolean validandoRespuesta = false;
 
     private TextView tvProgresoBloques;
     private TextView tvEnunciadoBloques;
@@ -59,7 +59,7 @@ public class MinijuegoBloques extends Minijuego {
     private Button btnComprobarBloque;
 
     public MinijuegoBloques() {
-        super(1200, null); // ~19 segundos por pregunta
+        super(1200, null);
         this.dificultad = 1;
     }
 
@@ -106,7 +106,6 @@ public class MinijuegoBloques extends Minijuego {
 
         btnComprobarBloque.setOnClickListener(v -> verificarRespuestaEnganchada());
 
-        // Inicializar temporizador y menú de pausa de la clase padre Minijuego
         init();
     }
 
@@ -130,7 +129,6 @@ public class MinijuegoBloques extends Minijuego {
             });
         }
 
-        // Permitir tocar la zona de respuesta para desenganchar el bloque y devolverlo al menú
         zonaRespuestaBloque.setOnClickListener(v -> {
             if (indiceBloqueEnganchado != -1) {
                 devolverBloqueAlMenu(indiceBloqueEnganchado);
@@ -138,7 +136,6 @@ public class MinijuegoBloques extends Minijuego {
             }
         });
 
-        // Listener de Drag & Drop en el área de respuesta (Flujo normal y Flujo alternativo 3.1)
         zonaRespuestaBloque.setOnDragListener((v, event) -> {
             View vistaArrastrada = (View) event.getLocalState();
 
@@ -165,18 +162,15 @@ public class MinijuegoBloques extends Minijuego {
                     ClipData.Item item = event.getClipData().getItemAt(0);
                     int nuevoIndice = Integer.parseInt(item.getText().toString());
 
-                    // Si ya había un bloque enganchado antes, devolverlo al menú de opciones
                     if (indiceBloqueEnganchado != -1 && indiceBloqueEnganchado != nuevoIndice) {
                         devolverBloqueAlMenu(indiceBloqueEnganchado);
                     }
 
-                    // Paso 4 del Flujo Normal: Enganchar gráficamente el bloque dentro del área de respuesta
                     engancharBloqueEnArea(nuevoIndice);
                     return true;
 
                 case DragEvent.ACTION_DRAG_ENDED:
                     zonaRespuestaBloque.animate().scaleX(1.0f).scaleY(1.0f).setDuration(120).start();
-                    // Flujo Alternativo 3.1: Soltar el bloque fuera del área permitida
                     if (!event.getResult() && vistaArrastrada != null) {
                         vistaArrastrada.setVisibility(View.VISIBLE);
                         vistaArrastrada.setAlpha(0.0f);
@@ -218,6 +212,7 @@ public class MinijuegoBloques extends Minijuego {
     }
 
     private void limpiarZonaRespuesta() {
+        validandoRespuesta = false;
         indiceBloqueEnganchado = -1;
         zonaRespuestaBloque.setText("⬇ Arrastra el bloque aquí ⬇");
         zonaRespuestaBloque.setTextColor(0xFF415A77);
@@ -260,9 +255,13 @@ public class MinijuegoBloques extends Minijuego {
     }
 
     private void verificarRespuestaEnganchada() {
+        if (validandoRespuesta) return;
         if (indiceBloqueEnganchado == -1) {
-            Toast.makeText(this, "Arrastra un bloque al área de respuesta primero", Toast.LENGTH_SHORT).show();
             return;
+        }
+        validandoRespuesta = true;
+        if (temporizadorReal != null) {
+            temporizadorReal.cancel();
         }
 
         String seleccion = opcionesMezcladas.get(indiceBloqueEnganchado);
@@ -273,15 +272,20 @@ public class MinijuegoBloques extends Minijuego {
         int segsRestantes = Math.max(0, (int) ((frameTimer * 16L) / 1000L));
         sumaSegundosRestantes += segsRestantes;
 
+        AjustesActivity.reproducirRetroalimentacion(this, btnComprobarBloque, esCorrecto);
+
         if (esCorrecto) {
             puntosTotales += puntosPregunta;
-            String ptsFormateados = String.format(java.util.Locale.US, "%.1f", puntosPregunta);
-            Toast.makeText(this, "¡Respuesta correcta! +" + ptsFormateados + " pts", Toast.LENGTH_SHORT).show();
+            zonaRespuestaBloque.setBackgroundResource(R.drawable.bg_drop_zone_correct);
+            zonaRespuestaBloque.setTextColor(0xFFFFFFFF);
+            zonaRespuestaBloque.setText("✓  " + seleccion);
         } else {
-            Toast.makeText(this, "Respuesta incorrecta. Puntos: 0", Toast.LENGTH_SHORT).show();
+            zonaRespuestaBloque.setBackgroundResource(R.drawable.bg_drop_zone_error);
+            zonaRespuestaBloque.setTextColor(0xFFFFFFFF);
+            zonaRespuestaBloque.setText("✕  " + seleccion);
         }
 
-        avanzarTurno(esCorrecto);
+        zonaRespuestaBloque.postDelayed(() -> avanzarTurno(esCorrecto), 550);
     }
 
     @Override
@@ -320,319 +324,15 @@ public class MinijuegoBloques extends Minijuego {
 
     private void inicializarBancoPreguntas() {
         bancoActual.clear();
-        bancoActual.addAll(obtenerBancoPorDificultad(dificultad));
+        bancoActual.addAll(obtenerBancoPorCategoriaYDificultad(categoria, dificultad));
+    }
+
+    public static List<PreguntaBloque> obtenerBancoPorCategoriaYDificultad(String categoriaNombre, int dificultadNivel) {
+        return BancoPreguntasCategorias.obtenerBanco(categoriaNombre, dificultadNivel);
     }
 
     public static List<PreguntaBloque> obtenerBancoPorDificultad(int dificultadNivel) {
-        List<PreguntaBloque> lista = new ArrayList<>();
-
-        if (dificultadNivel == 1) {
-            lista.add(new PreguntaBloque(
-                    "Identificación de Código",
-                    "¿A qué opción pertenece este fragmento de código?",
-                    "int edad = 19;\ndouble promedio = 9.5;\nString curso = \"SoftGames\";",
-                    "",
-                    "Declaración de variables",
-                    "Ciclo repetitivo (Bucle)",
-                    "Estructura condicional",
-                    "Función recursiva"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Completar Algoritmo Básico",
-                    "Coloca el bloque correcto para completar el fragmento de código:",
-                    "int num1 = 8;\nint num2 = 12;",
-                    "System.out.println(resultado);",
-                    "int resultado = num1 + num2;",
-                    "num1 + num2 = resultado;",
-                    "String resultado = \"num1+num2\";",
-                    "return num1 == num2;"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Cálculo de Área",
-                    "Coloca el bloque correcto para calcular el área del triángulo:",
-                    "double base = 10.0;\ndouble altura = 5.0;",
-                    "System.out.println(\"Área: \" + area);",
-                    "double area = (base * altura) / 2;",
-                    "boolean area = (base == altura);",
-                    "int area = base + altura;",
-                    "String area = \"base * altura\";"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Salida de Datos en Consola",
-                    "Arrastra el bloque que muestra el saludo en pantalla:",
-                    "String nombre = \"Estudiante\";",
-                    "// Fin del programa",
-                    "System.out.println(\"Hola \" + nombre);",
-                    "Scanner.leer(nombre);",
-                    "int nombre = 0;",
-                    "while (nombre != null)"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Tipos de Datos",
-                    "Coloca el bloque que declara correctamente un valor Verdadero/Falso:",
-                    "// Variable que indica si el juego terminó:",
-                    "if (!juegoTerminado) {\n    continuarPartida();\n}",
-                    "boolean juegoTerminado = false;",
-                    "int juegoTerminado = \"false\";",
-                    "char juegoTerminado = 0;",
-                    "double juegoTerminado = true;"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Constantes en Programación",
-                    "Coloca el bloque que declara una constante numérica que no puede cambiar:",
-                    "// Límite máximo de intentos en Maratón:",
-                    "System.out.println(MAX_ERRORES);",
-                    "final int MAX_ERRORES = 3;",
-                    "int MAX_ERRORES == 3;",
-                    "boolean MAX_ERRORES = 3;",
-                    "return MAX_ERRORES;"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Concatenación de Cadenas",
-                    "Arrastra el bloque que une el nombre y el apellido con un espacio:",
-                    "String nombre = \"Ana\";\nString apellido = \"López\";",
-                    "System.out.println(nombreCompleto);",
-                    "String nombreCompleto = nombre + \" \" + apellido;",
-                    "int nombreCompleto = nombre + apellido;",
-                    "nombreCompleto == nombre - apellido;",
-                    "char nombreCompleto = ' ';"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Incremento Unitario",
-                    "Coloca el bloque que suma 1 al puntaje actual del jugador:",
-                    "int puntos = 10;",
-                    "System.out.println(puntos); // Imprime 11",
-                    "puntos++;",
-                    "puntos--;",
-                    "puntos == 1;",
-                    "int puntos = 0;"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Cálculo de Promedio Simple",
-                    "Coloca el bloque que calcula el promedio de dos calificaciones:",
-                    "double parcial1 = 8.0;\ndouble parcial2 = 10.0;",
-                    "System.out.println(promedio);",
-                    "double promedio = (parcial1 + parcial2) / 2.0;",
-                    "double promedio = parcial1 + parcial2 * 2;",
-                    "boolean promedio = parcial1 > parcial2;",
-                    "String promedio = \"9.0\";"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Comparación de Igualdad",
-                    "Arrastra el bloque que verifica si las vidas llegaron exactamente a cero:",
-                    "int vidas = 0;",
-                    "    mostrarFinDeJuego();\n}",
-                    "if (vidas == 0) {",
-                    "if (vidas = 0) {",
-                    "while (vidas != 0) {",
-                    "int vidas = 0;"
-            ));
-        } else if (dificultadNivel == 2) {
-            lista.add(new PreguntaBloque(
-                    "Estructura Condicional",
-                    "Arrastra el bloque que completa la estructura condicional:",
-                    "if (calificacion >= 70) {\n    mostrar(\"Aprobado\");",
-                    "    mostrar(\"Reprobado\");\n}",
-                    "} else {",
-                    "} while {",
-                    "} for (int i = 0) {",
-                    "} case 70:"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Verificación de Número Par",
-                    "Coloca el bloque con la condición correcta para saber si 'numero' es par:",
-                    "int numero = 14;",
-                    "    System.out.println(\"Es Par\");\n}",
-                    "if (numero % 2 == 0) {",
-                    "if (numero / 2 == 0) {",
-                    "while (numero > 2) {",
-                    "int par = numero % 2;"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Identificación de Estructura",
-                    "¿A qué opción pertenece este fragmento de código?",
-                    "switch (opcionMenu) {\n  case 1: iniciarPartida(); break;\n  case 2: abrirAjustes(); break;\n  default: salir();\n}",
-                    "",
-                    "Condicional múltiple (switch)",
-                    "Bucle infinito (while)",
-                    "Arreglo unidimensional",
-                    "Declaración de constantes"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Completar Función",
-                    "Coloca el bloque que finaliza la función devolviendo el número mayor:",
-                    "int obtenerMayor(int a, int b) {\n    if (a > b) {\n        return a;\n    }",
-                    "}",
-                    "return b;",
-                    "return 0;",
-                    "int b = a;",
-                    "break;"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Acumulador en Bucle",
-                    "Arrastra el bloque que incrementa el contador en 1 en cada repetición:",
-                    "int i = 1;\nwhile (i <= 10) {\n    imprimir(i);",
-                    "}",
-                    "i = i + 1;",
-                    "i = 1;",
-                    "if (i == 10)",
-                    "return i;"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Condición de Modo Maratón",
-                    "Arrastra el bloque que mantiene activo el ciclo mientras los errores sean menores a 3:",
-                    "int errores = 0;",
-                    "    jugarSiguientePregunta();\n}",
-                    "while (errores < 3) {",
-                    "while (errores == 3) {",
-                    "if (errores > 3) {",
-                    "for (int errores = 3) {"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Acceso a Primer Elemento",
-                    "Coloca el bloque que obtiene el primer elemento almacenado en el arreglo:",
-                    "String[] categorias = {\"Lógica\", \"Programación\", \"POO\"};",
-                    "System.out.println(primera);",
-                    "String primera = categorias[0];",
-                    "String primera = categorias[1];",
-                    "int primera = categorias.length;",
-                    "String primera = categorias[3];"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Comparación de Textos en Java",
-                    "Coloca el bloque correcto para comparar el contenido de dos objetos String:",
-                    "String claveIngresada = \"admin123\";",
-                    "    permitirAcceso();\n}",
-                    "if (claveIngresada.equals(\"admin123\")) {",
-                    "if (claveIngresada == 123) {",
-                    "while (claveIngresada = \"admin123\") {",
-                    "boolean claveIngresada = true;"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Validación de Rango con AND",
-                    "Arrastra el bloque que comprueba si 'edad' está entre 18 y 65 inclusive:",
-                    "int edad = 25;",
-                    "    registrarCandidato();\n}",
-                    "if (edad >= 18 && edad <= 65) {",
-                    "if (edad < 18 && edad > 65) {",
-                    "if (edad == 18 || edad == 65) {",
-                    "while (edad != 18) {"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Encabezado de Función Booleana",
-                    "Coloca el encabezado correcto para una función que devuelve true o false:",
-                    "// Verifica si el puntaje supera el récord:",
-                    "    return nuevoPuntaje > recordActual;\n}",
-                    "boolean esNuevoRecord(double nuevoPuntaje, double recordActual) {",
-                    "void esNuevoRecord(double nuevoPuntaje) {",
-                    "int esNuevoRecord(String recordActual) {",
-                    "return boolean(nuevoPuntaje);"
-            ));
-        } else {
-            lista.add(new PreguntaBloque(
-                    "Recorrido de Arreglos",
-                    "Coloca el encabezado correcto para recorrer todos los elementos del arreglo:",
-                    "int suma = 0;",
-                    "    suma += puntos[i];\n}",
-                    "for (int i = 0; i < puntos.length; i++) {",
-                    "for (int i = 1; i > puntos.length; i--) {",
-                    "while (puntos.length == 0) {",
-                    "if (i < puntos.length) {"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Acumulador con Ciclo For",
-                    "Coloca el bloque que acumula la suma de los números del 1 al N:",
-                    "int suma = 0;\nfor (int i = 1; i <= n; i++) {",
-                    "}\nreturn suma;",
-                    "suma = suma + i;",
-                    "i = 0; suma = 0;",
-                    "if (suma == 0) break;",
-                    "return i;"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Función Recursiva",
-                    "Arrastra el bloque que define el caso base para evitar recursión infinita:",
-                    "int factorial(int n) {",
-                    "    return n * factorial(n - 1);\n}",
-                    "if (n <= 1) return 1;",
-                    "while (n > 0) return n;",
-                    "factorial(n + 1);",
-                    "int n = 1;"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Identificación de Algoritmo",
-                    "¿A qué opción pertenece este fragmento de código?",
-                    "for (int i = 0; i < lista.length; i++) {\n    if (lista[i] == objetivo) {\n        return i;\n    }\n}",
-                    "",
-                    "Búsqueda secuencial (lineal)",
-                    "Ordenamiento burbuja",
-                    "Árbol binario de búsqueda",
-                    "Pila LIFO"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Intercambio de Variables (Swap)",
-                    "Coloca el bloque que completa el intercambio de valores entre 'a' y 'b':",
-                    "int temp = a;\na = b;",
-                    "// Ahora 'a' y 'b' intercambiaron sus valores",
-                    "b = temp;",
-                    "temp = b;",
-                    "a = temp;",
-                    "b = a;"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Búsqueda del Valor Máximo",
-                    "Arrastra el bloque que actualiza el máximo al recorrer el arreglo:",
-                    "double max = puntajes[0];\nfor (int i = 1; i < puntajes.length; i++) {",
-                    "}\nreturn max;",
-                    "if (puntajes[i] > max) max = puntajes[i];",
-                    "if (puntajes[i] < max) max = 0;",
-                    "max = max + puntajes[i];",
-                    "return puntajes[0];"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Búsqueda Binaria • Punto Medio",
-                    "Coloca el bloque que calcula el índice central del subarreglo actual:",
-                    "while (inicio <= fin) {",
-                    "    if (arr[medio] == objetivo) return medio;\n}",
-                    "int medio = (inicio + fin) / 2;",
-                    "int medio = fin - inicio;",
-                    "int medio = arr.length;",
-                    "boolean medio = (inicio == fin);"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Manejo de Excepciones",
-                    "Coloca el bloque que captura un error al serializar un archivo JSON:",
-                    "try {\n    guardarArchivoJson();",
-                    "    mostrarAvisoError(e);\n}",
-                    "} catch (Exception e) {",
-                    "} finally (Exception e) {",
-                    "} if (Exception e) {",
-                    "} throw new Exception() {"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Conteo de Elementos Pares",
-                    "Arrastra el bloque que incrementa el contador solo cuando el elemento es par:",
-                    "int pares = 0;\nfor (int num : datos) {",
-                    "}",
-                    "if (num % 2 == 0) pares++;",
-                    "if (num / 2 == 1) pares = num;",
-                    "pares = pares + num;",
-                    "while (num % 2 == 0) break;"
-            ));
-            lista.add(new PreguntaBloque(
-                    "Inversión de Arreglo",
-                    "Coloca el bloque que asigna el elemento simétrico desde el final del arreglo:",
-                    "for (int i = 0; i < n / 2; i++) {\n    int temp = arr[i];",
-                    "    arr[n - 1 - i] = temp;\n}",
-                    "arr[i] = arr[n - 1 - i];",
-                    "arr[i] = arr[i + 1];",
-                    "temp = arr[0];",
-                    "arr[n] = temp;"
-            ));
-        }
-
-        Collections.shuffle(lista);
-        return lista;
+        return BancoPreguntasCategorias.obtenerBanco("Programación", dificultadNivel);
     }
 
     @Override

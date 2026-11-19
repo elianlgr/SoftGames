@@ -7,12 +7,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Configuración de partida para cualquiera de las 8 categorías y sus 3 subtemas (CU-S1-03, CU-S3-03 y CU-S3-04).
+ */
 public class ConfigurarPartidaActivity extends AppCompatActivity {
 
     private String categoria = "Lógica";
     private String minijuegoSeleccionado = "Lógica 1";
+    private int indiceSubtemaSeleccionado = 1; // 1, 2 o 3
     private int dificultadSeleccionada = 1; // 1: Fácil, 2: Medio, 3: Difícil
 
     private TextView chipMinijuego1;
@@ -53,13 +58,10 @@ public class ConfigurarPartidaActivity extends AppCompatActivity {
         configurarChipsMinijuegos();
         configurarChipsDificultad();
 
-        btnEmpezar.setOnClickListener(v -> {
-            iniciarPartida();
-        });
+        btnEmpezar.setOnClickListener(v -> iniciarPartida());
     }
 
     private void configurarChipsMinijuegos() {
-        // Adaptar nombres según la categoría seleccionada
         if ("Programación".equalsIgnoreCase(categoria)) {
             chipMinijuego1.setText("Variables 1");
             chipMinijuego2.setText("Condicionales 1");
@@ -72,6 +74,22 @@ public class ConfigurarPartidaActivity extends AppCompatActivity {
             chipMinijuego1.setText("Algoritmos 1");
             chipMinijuego2.setText("Diagramas 1");
             chipMinijuego3.setText("Secuencias 1");
+        } else if ("Matemáticas discretas".equalsIgnoreCase(categoria)) {
+            chipMinijuego1.setText("Conjuntos 1");
+            chipMinijuego2.setText("Proposiciones 1");
+            chipMinijuego3.setText("Relaciones 1");
+        } else if ("Ingeniería de requerimientos".equalsIgnoreCase(categoria)) {
+            chipMinijuego1.setText("Requisitos 1");
+            chipMinijuego2.setText("Casos de Uso 1");
+            chipMinijuego3.setText("Historias 1");
+        } else if ("Análisis y diseño orientado a objetos".equalsIgnoreCase(categoria)) {
+            chipMinijuego1.setText("Modelado 1");
+            chipMinijuego2.setText("Diagramas UML 1");
+            chipMinijuego3.setText("Relaciones OO 1");
+        } else if ("Programación orientada a objetos".equalsIgnoreCase(categoria)) {
+            chipMinijuego1.setText("Clases y Objetos 1");
+            chipMinijuego2.setText("Herencia 1");
+            chipMinijuego3.setText("Polimorfismo 1");
         } else {
             chipMinijuego1.setText("Lógica 1");
             chipMinijuego2.setText("Lógica 2");
@@ -79,14 +97,16 @@ public class ConfigurarPartidaActivity extends AppCompatActivity {
         }
 
         minijuegoSeleccionado = chipMinijuego1.getText().toString();
+        indiceSubtemaSeleccionado = 1;
 
-        chipMinijuego1.setOnClickListener(v -> seleccionarChipMinijuego(chipMinijuego1));
-        chipMinijuego2.setOnClickListener(v -> seleccionarChipMinijuego(chipMinijuego2));
-        chipMinijuego3.setOnClickListener(v -> seleccionarChipMinijuego(chipMinijuego3));
+        chipMinijuego1.setOnClickListener(v -> seleccionarChipMinijuego(chipMinijuego1, 1));
+        chipMinijuego2.setOnClickListener(v -> seleccionarChipMinijuego(chipMinijuego2, 2));
+        chipMinijuego3.setOnClickListener(v -> seleccionarChipMinijuego(chipMinijuego3, 3));
     }
 
-    private void seleccionarChipMinijuego(TextView chipSeleccionado) {
+    private void seleccionarChipMinijuego(TextView chipSeleccionado, int indice) {
         minijuegoSeleccionado = chipSeleccionado.getText().toString();
+        indiceSubtemaSeleccionado = indice;
 
         actualizarEstiloChip(chipMinijuego1, chipMinijuego1 == chipSeleccionado);
         actualizarEstiloChip(chipMinijuego2, chipMinijuego2 == chipSeleccionado);
@@ -139,37 +159,56 @@ public class ConfigurarPartidaActivity extends AppCompatActivity {
             }
         }
 
+        // Flujo alternativo 9.1 / 2.1: Número de preguntas fuera de rango (1 a 20)
         if (cantidad < 1 || cantidad > 20) {
             Toast.makeText(this, "Por favor ingresa un número de preguntas entre 1 y 20", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if ("Variables 1".equals(minijuegoSeleccionado)) {
-            Intent intent = new Intent(this, MinijuegoBloques.class);
-            intent.putExtra("categoria", categoria);
-            intent.putExtra("minijuego", minijuegoSeleccionado);
-            intent.putExtra("dificultad", dificultadSeleccionada);
-            intent.putExtra("totalPreguntas", cantidad);
-            startActivity(intent);
-            finish();
-        } else if ("Lógica 1".equals(minijuegoSeleccionado) || "Algoritmos 1".equals(minijuegoSeleccionado)) {
-            Intent intent = new Intent(this, MinijuegoLogicaAlgoritmos.class);
-            intent.putExtra("categoria", categoria);
-            intent.putExtra("minijuego", minijuegoSeleccionado);
-            intent.putExtra("dificultad", dificultadSeleccionada);
-            intent.putExtra("totalPreguntas", cantidad);
-            startActivity(intent);
-            finish();
-        } else if ("Lógica 2".equals(minijuegoSeleccionado)) {
-            Intent intent = new Intent(this, MinijuegoLogica1.class);
-            intent.putExtra("categoria", categoria);
-            intent.putExtra("minijuego", minijuegoSeleccionado);
-            intent.putExtra("dificultad", dificultadSeleccionada);
-            intent.putExtra("totalPreguntas", cantidad);
-            startActivity(intent);
-            finish();
-        } else {
-            Toast.makeText(this, "El minijuego " + minijuegoSeleccionado + " estará disponible próximamente", Toast.LENGTH_SHORT).show();
+        Class<?> actividadDestino = determinarActividadMinijuego(categoria, minijuegoSeleccionado, indiceSubtemaSeleccionado);
+        Intent intent = new Intent(this, actividadDestino);
+        intent.putExtra("categoria", categoria);
+        intent.putExtra("minijuego", minijuegoSeleccionado);
+        intent.putExtra("dificultad", dificultadSeleccionada);
+        intent.putExtra("totalPreguntas", cantidad);
+        startActivity(intent);
+        finish();
+    }
+
+    public static Class<?> determinarActividadMinijuego(String categoria, String subtema, int indiceSubtema) {
+        if ("Programación".equalsIgnoreCase(categoria)
+                || "Programación orientada a objetos".equalsIgnoreCase(categoria)
+                || "Ingeniería de requerimientos".equalsIgnoreCase(categoria)
+                || "Introducción a la ingeniería".equalsIgnoreCase(categoria)) {
+            return MinijuegoBloques.class;
         }
+        if ("Lógica".equalsIgnoreCase(categoria)) {
+            if ("Lógica 2".equalsIgnoreCase(subtema) || indiceSubtema == 2) {
+                return MinijuegoLogica1.class;
+            }
+            if ("Lógica 3".equalsIgnoreCase(subtema) || indiceSubtema == 3) {
+                return MinijuegoBloques.class;
+            }
+            return MinijuegoLogicaAlgoritmos.class;
+        }
+        if ("Matemáticas discretas".equalsIgnoreCase(categoria)) {
+            if (indiceSubtema == 2) {
+                return MinijuegoLogica1.class;
+            }
+            return MinijuegoLogicaAlgoritmos.class;
+        }
+        if ("Análisis y diseño orientado a objetos".equalsIgnoreCase(categoria)) {
+            if (indiceSubtema == 2) {
+                return MinijuegoLogicaAlgoritmos.class;
+            }
+            return MinijuegoBloques.class;
+        }
+        if ("Análisis y diseño de algoritmos".equalsIgnoreCase(categoria)) {
+            if (indiceSubtema == 3 || "Secuencias 1".equalsIgnoreCase(subtema)) {
+                return MinijuegoBloques.class;
+            }
+            return MinijuegoLogicaAlgoritmos.class;
+        }
+        return MinijuegoBloques.class;
     }
 }
